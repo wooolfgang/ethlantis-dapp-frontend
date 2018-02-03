@@ -4,14 +4,15 @@ import "./Ownable.sol";
 
 contract MatchFactory is Ownable {
 
-  event NewMatch(uint id, bytes8 teamA, bytes8 teamB, uint startTime);
-  event CancelMatch(uint matchId, bool withdrawable, bool canceled, bool bettable);
+  event NewMatch(uint64 startTime, uint32 id, bytes8 teamA, bytes8 teamB);
+  event CancelMatch(uint32 matchId, bool withdrawable, bool canceled, bool bettable);
 
   struct Match {
-    uint matchId;
-    uint startTime;
-    uint teamATotalBets;
-    uint teamBTotalBets;
+    uint64 startTime;
+    uint32 matchId;
+    uint32 id;
+    uint32 teamATotalBets;
+    uint32 teamBTotalBets;
     bytes8 teamA;
     bytes8 teamB;
     bytes8 gameType;
@@ -19,48 +20,55 @@ contract MatchFactory is Ownable {
     bool withdrawable;
     bool canceled;
     bool bettable;
-    mapping (address => uint) teamABets;
-    mapping (address => uint) teamBBets;
+    mapping (address => uint16) teamABets;
+    mapping (address => uint16) teamBBets;
   }
 
-  modifier afterTime(uint _timestamp) {
+  modifier afterTime(uint256 _timestamp) {
     require(now >= _timestamp);
     _;
   }
 
   Match[] public matches;
-  mapping(bytes32 => uint) public uniqueIdToMatchesArrayId;
+  mapping(bytes32 => uint32) public uniqueIdToMatchesArrayId;
 
   function addMatch(
-    uint _matchId, 
-    uint _startTime, 
-    bytes8 _teamA, 
-    bytes8 _teamB, 
-    bytes8 _gameType
+    uint256 _startTime, 
+    uint256 _matchId, 
+    bytes32 _teamA, 
+    bytes32 _teamB, 
+    bytes32 _gameType
   ) 
     external 
     onlyOwner 
     afterTime(_startTime) 
   {
+    require(_startTime == uint256(uint64(_startTime)));
+    require(_matchId == uint256(uint32(_matchId)));
+    require(_teamA == bytes32(bytes8(_teamA)));
+    require(_teamB == bytes32(bytes8(_teamB)));
+    require(_gameType == bytes32(bytes8(_gameType)));
+
     uint id = matches.push(Match({
-      matchId: _matchId,
-      startTime: _startTime,
+      startTime: uint64(_startTime),
+      matchId: uint32(_matchId),
+      id: uint32(matches.length),
       teamATotalBets: 0,
       teamBTotalBets: 0,
-      teamA: _teamA,
-      teamB: _teamB,
-      gameType: _gameType,
+      teamA: bytes8(_teamA),
+      teamB: bytes8(_teamB),
+      gameType: bytes8(_gameType),
       winner: "",
       withdrawable: false,
       canceled: false,
       bettable: true
     })) - 1;
     bytes32 uniqueId = keccak256(_matchId, _gameType);
-    uniqueIdToMatchesArrayId[uniqueId] = id;
-    NewMatch(id, _teamA, _teamB, _startTime);
+    uniqueIdToMatchesArrayId[uniqueId] = uint32(id);
+    NewMatch(uint64(_startTime), uint32(id), bytes8(_teamA), bytes8(_teamB));
   }
 
-  function cancelMatch(uint _matchId, bytes8 _gameType) external onlyOwner {
+  function cancelMatch(uint256 _matchId, bytes32 _gameType) external onlyOwner {
     Match storage m = matches[getMatchId(_matchId, _gameType)];
     m.canceled = true;
     m.withdrawable = true;
@@ -72,27 +80,54 @@ contract MatchFactory is Ownable {
     return matches.length;
   }
 
-  function getMatchInfo(uint _matchId, bytes8 _gameType) 
+  function getMatchId(uint256 _matchId, bytes32 _gameType) public view returns (uint32) {
+    bytes32 uniqueId = keccak256(_matchId, _gameType);
+    return uniqueIdToMatchesArrayId[uniqueId];    
+  }
+
+  function getMatchInfo(uint256 _matchId, bytes8 _gameType) 
     public 
     view 
-    returns (uint, uint, bytes8, bytes8, bytes8, bytes8, bool, bool, bool) 
-  {
+    returns (
+      uint32, 
+      uint64, 
+      uint32, 
+      bytes8,
+      bytes8, 
+      bytes8, 
+      bool, 
+      bool, 
+      bool
+    ) {
     Match memory m = matches[getMatchId(_matchId, _gameType)];
     return (
-      m.matchId,
+      m.id,      
       m.startTime,
+      m.matchId,
       m.teamA, 
       m.teamB, 
       m.gameType, 
-      m.winner, 
       m.withdrawable, 
       m.canceled, 
       m.bettable
     );
   }
 
-  function getMatchId(uint _matchId, bytes8 _gameType) internal view returns (uint) {
-    bytes32 uniqueId = keccak256(_matchId, _gameType);
-    return uniqueIdToMatchesArrayId[uniqueId];    
+  function getMatchResults(uint256 _matchId, bytes8 _gameType) 
+    public 
+    view 
+    returns (
+      uint32,
+      bytes8,
+      uint32,
+      uint32
+    ) {
+    Match memory m = matches[getMatchId(_matchId, _gameType)];
+    return (
+      m.id,
+      m.winner,
+      m.teamATotalBets,
+      m.teamBTotalBets
+    );   
   }
 }
