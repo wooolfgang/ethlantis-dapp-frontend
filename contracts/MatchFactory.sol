@@ -52,7 +52,7 @@ contract MatchFactory is Ownable {
     uint id = matches.push(Match({
       startTime: uint64(_startTime),
       matchId: uint32(_matchId),
-      id: uint32(matches.length),
+      id: uint32(matches.length - 1),
       teamATotalBets: 0,
       teamBTotalBets: 0,
       teamA: bytes8(_teamA),
@@ -85,7 +85,7 @@ contract MatchFactory is Ownable {
     return uniqueIdToMatchesArrayId[uniqueId];    
   }
 
-  function getMatchInfo(uint256 _matchId, bytes8 _gameType) 
+  function getMatchInfo(uint256 _matchId, bytes32 _gameType) 
     public 
     view 
     returns (
@@ -113,7 +113,7 @@ contract MatchFactory is Ownable {
     );
   }
 
-  function getMatchResults(uint256 _matchId, bytes8 _gameType) 
+  function getMatchResults(uint256 _matchId, bytes32 _gameType) 
     public 
     view 
     returns (
