@@ -1,7 +1,7 @@
 const MatchFactory = artifacts.require('MatchFactory');
 const Web3 = require('web3');
 
-/* eslint-disable no-undef */
+/* eslint-disable no-undef ,no-plusplus */
 
 const web3 = new Web3();
 
@@ -112,6 +112,52 @@ contract('MatchFactory', (accounts) => {
       };
 
       assert.deepEqual(actual, expected, 'It should return the correct match results');
+    });
+  });
+
+  describe('getMatchesInfo', () => {
+    it('Returns an array of matches with Match info fields', async () => {
+      matchFactory = await MatchFactory.deployed();
+      await matchFactory.addMatch(1517462168, 8888, 'Awesome', 'League of Awesome', 'LoL', { from: owner });
+      await matchFactory.addMatch(1517462168, 9999, 'Yeah', 'Yo', 'LoL', { from: owner });
+      const matchCount = await matchFactory.getMatchesCount();
+      const lastTwoMatches = [matchCount - 2, matchCount - 1];
+      const res = await matchFactory.getMatchesInfo(lastTwoMatches);
+
+      const matchesActual = [];
+
+      for (let i = 0; i < lastTwoMatches.length; i++) {
+        const match = {
+          id: res[0][i].toNumber(),
+          startTime: res[1][i].toNumber(),
+          matchId: res[2][i].toNumber(),
+          teamA: web3.utils.hexToUtf8(res[3][i]),
+          teamB: web3.utils.hexToUtf8(res[4][i]),
+          gameType: web3.utils.hexToUtf8(res[5][i]),
+        };
+        matchesActual.push(match);
+      }
+
+      matchesExpected = [
+        {
+          id: matchCount - 2,
+          matchId: 8888,
+          startTime: 1517462168,
+          teamA: 'Awesome',
+          teamB: 'League of Awesome',
+          gameType: 'LoL',
+        },
+        {
+          id: matchCount - 1,
+          matchId: 9999,
+          startTime: 1517462168,
+          teamA: 'Yeah',
+          teamB: 'Yo',
+          gameType: 'LoL',
+        },
+      ];
+
+      assert.deepEqual(matchesActual, matchesExpected, 'Function should return the correct matches');
     });
   });
 });
