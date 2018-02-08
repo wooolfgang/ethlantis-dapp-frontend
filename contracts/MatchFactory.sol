@@ -24,8 +24,8 @@ contract MatchFactory is Ownable {
     mapping (address => uint16) teamBBets;
   }
 
-  modifier afterTime(uint256 _timestamp) {
-    require(now >= _timestamp);
+  modifier beforeStart(uint256 _timestamp) {
+    require(now < _timestamp);
     _;
   }
 
@@ -41,7 +41,7 @@ contract MatchFactory is Ownable {
   ) 
     external 
     onlyOwner 
-    afterTime(_startTime) 
+    beforeStart(_startTime) 
   {
     require(_startTime == uint256(uint64(_startTime)));
     require(_matchId == uint256(uint32(_matchId)));

@@ -1,7 +1,7 @@
+/* eslint-disable no-undef ,no-plusplus */
+
 const MatchFactory = artifacts.require('MatchFactory');
 const Web3 = require('web3');
-
-/* eslint-disable no-undef ,no-plusplus */
 
 const web3 = new Web3();
 
@@ -21,8 +21,9 @@ contract('MatchFactory', (accounts) => {
 
   describe('addMatch', () => {
     it('Should add a new match', async () => {
+      const time = Date.now() + 360000;
       matchFactory = await MatchFactory.deployed();
-      await matchFactory.addMatch(1517462168, 1, 'Dignitas', 'Potato', 'Dota2', { from: owner });
+      await matchFactory.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', { from: owner });
       const matchInfo = await matchFactory.getMatchInfo(1, 'Dota2');
       const matchCount = await matchFactory.getMatchesCount.call();
 
@@ -31,18 +32,21 @@ contract('MatchFactory', (accounts) => {
     });
 
     it('Should return error on addMatch when not called by contract owner', async () => {
+      const time = Date.now() + 360000;
       matchFactory = await MatchFactory.deployed();
-      const res = await matchFactory.addMatch(1517462168, 2, 'Dignitas', 'Potato', 'Dota2', { from: accounts[1] });
+      const res = await matchFactory.addMatch(time, 2, 'Dignitas', 'Potato', 'Dota2', { from: accounts[1] });
       assert.isUndefined(res.receipt.event, 'No NewMatch event on receipt');
     });
   });
 
   describe('cancelMatch', () => {
-    const matchId = 3;
-    const gameType = 'Dota2';
     it('Should cancel the match', async () => {
+      const matchId = 3;
+      const gameType = 'Dota2';
+      const time = Date.now() + 360000;
+
       matchFactory = await MatchFactory.deployed();
-      await matchFactory.addMatch(1517462168, matchId, 'Dignitas', 'Potato', 'Dota2', { from: owner });
+      await matchFactory.addMatch(time, matchId, 'Dignitas', 'Potato', 'Dota2', { from: owner });
       await matchFactory.cancelMatch(matchId, gameType);
       const match = await matchFactory.getMatchInfo(matchId, gameType);
       const withdrawable = match[FIELD_WITHDRAWABLE];
@@ -56,9 +60,11 @@ contract('MatchFactory', (accounts) => {
 
   describe('getMatchInfo', () => {
     it('Returns the match info', async () => {
+      const time = Date.now() + 360000;
+
       matchFactory = await MatchFactory.deployed();
-      await matchFactory.addMatch(1517462168, 123, 'Dignitas', 'Potato', 'Dota2', { from: owner });
-      await matchFactory.addMatch(1517462169, 221, 'Navi', 'Alliance', 'Dota2', { from: owner });
+      await matchFactory.addMatch(time, 123, 'Dignitas', 'Potato', 'Dota2', { from: owner });
+      await matchFactory.addMatch(time, 221, 'Navi', 'Alliance', 'Dota2', { from: owner });
       const id = await matchFactory.getMatchId(123, 'Dota2');
       const match = await matchFactory.getMatchInfo(123, 'Dota2');
 
@@ -76,7 +82,7 @@ contract('MatchFactory', (accounts) => {
 
       const expected = {
         id: id.toNumber(),
-        startTime: 1517462168,
+        startTime: time,
         matchId: 123,
         teamA: 'Dignitas',
         teamB: 'Potato',
@@ -92,8 +98,10 @@ contract('MatchFactory', (accounts) => {
 
   describe('getMatchResults', () => {
     it('Returns the match results', async () => {
+      const time = Date.now() + 360000;
+
       matchFactory = await MatchFactory.deployed();
-      await matchFactory.addMatch(1517462168, 12, 'Dignitas', 'Potato', 'LoL', { from: owner });
+      await matchFactory.addMatch(time, 12, 'Dignitas', 'Potato', 'LoL', { from: owner });
       const matchResults = await matchFactory.getMatchResults(12, 'LoL');
       const id = await matchFactory.getMatchId(12, 'LoL');
 
@@ -117,9 +125,11 @@ contract('MatchFactory', (accounts) => {
 
   describe('getMatchesInfo', () => {
     it('Returns an array of matches with Match info fields', async () => {
+      const time = Date.now() + 360000;
+
       matchFactory = await MatchFactory.deployed();
-      await matchFactory.addMatch(1517462168, 8888, 'Awesome', 'League of Awesome', 'LoL', { from: owner });
-      await matchFactory.addMatch(1517462168, 9999, 'Yeah', 'Yo', 'LoL', { from: owner });
+      await matchFactory.addMatch(time, 8888, 'Awesome', 'League of Awesome', 'LoL', { from: owner });
+      await matchFactory.addMatch(time, 9999, 'Yeah', 'Yo', 'LoL', { from: owner });
       const matchCount = await matchFactory.getMatchesCount();
       const lastTwoMatches = [matchCount - 2, matchCount - 1];
       const res = await matchFactory.getMatchesInfo(lastTwoMatches);
@@ -142,7 +152,7 @@ contract('MatchFactory', (accounts) => {
         {
           id: matchCount - 2,
           matchId: 8888,
-          startTime: 1517462168,
+          startTime: time,
           teamA: 'Awesome',
           teamB: 'League of Awesome',
           gameType: 'LoL',
@@ -150,7 +160,7 @@ contract('MatchFactory', (accounts) => {
         {
           id: matchCount - 1,
           matchId: 9999,
-          startTime: 1517462168,
+          startTime: time,
           teamA: 'Yeah',
           teamB: 'Yo',
           gameType: 'LoL',
