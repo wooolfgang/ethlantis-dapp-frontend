@@ -1,9 +1,6 @@
 /* eslint-disable no-undef ,no-plusplus */
 
 const MatchFactory = artifacts.require('MatchFactory');
-const Web3 = require('web3');
-
-const web3 = new Web3();
 
 contract('MatchFactory', (accounts) => {
   let matchFactory;
@@ -72,9 +69,9 @@ contract('MatchFactory', (accounts) => {
         id: match[FIELD_ID].toNumber(),
         startTime: match[FIELD_STARTTIME].toNumber(),
         matchId: match[FIELD_MATCHID].toNumber(),
-        teamA: web3.utils.hexToUtf8(match[FIELD_TEAMA]),
-        teamB: web3.utils.hexToUtf8(match[FIELD_TEAMB]),
-        gameType: web3.utils.hexToUtf8(match[FIELD_GAMETYPE]),
+        teamA: web3.toUtf8(match[FIELD_TEAMA]),
+        teamB: web3.toUtf8(match[FIELD_TEAMB]),
+        gameType: web3.toUtf8(match[FIELD_GAMETYPE]),
         withdrawable: match[FIELD_WITHDRAWABLE],
         canceled: match[FIELD_CANCELED],
         bettable: match[FIELD_BETTABLE],
@@ -107,7 +104,7 @@ contract('MatchFactory', (accounts) => {
 
       const actual = {
         id: matchResults[0].toNumber(),
-        winner: web3.utils.hexToUtf8(matchResults[1]),
+        winner: web3.toUtf8(matchResults[1]),
         teamATotalBets: matchResults[2].toNumber(),
         teamBTotalBets: matchResults[3].toNumber(),
       };
@@ -141,9 +138,9 @@ contract('MatchFactory', (accounts) => {
           id: res[0][i].toNumber(),
           startTime: res[1][i].toNumber(),
           matchId: res[2][i].toNumber(),
-          teamA: web3.utils.hexToUtf8(res[3][i]),
-          teamB: web3.utils.hexToUtf8(res[4][i]),
-          gameType: web3.utils.hexToUtf8(res[5][i]),
+          teamA: web3.toUtf8(res[3][i]),
+          teamB: web3.toUtf8(res[4][i]),
+          gameType: web3.toUtf8(res[5][i]),
         };
         matchesActual.push(match);
       }
