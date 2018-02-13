@@ -33,6 +33,11 @@ contract('MatchBetting', (accounts) => {
 
     it('Should update the balance of the user in the match', async () => {
       matchBetting = await MatchBetting.deployed();
+      const prev = await matchBetting.getUserBet(1, 'Dota2', 'Dignitas');
+      await matchBetting.bet(1, 'Dota2', 'Dignitas', { from: owner, value: web3.toWei('0.005') });
+      const after = await matchBetting.getUserBet(1, 'Dota2', 'Dignitas');
+      const expected = prev.toNumber() + (0.005 * weiFactor);
+      assert.equal(expected, after.toNumber(), 'Should add bet balance of user');
     });
   });
 });

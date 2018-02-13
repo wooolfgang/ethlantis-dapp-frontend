@@ -59,4 +59,23 @@ contract MatchBetting is MatchFactory {
 
     TeamChange(msg.sender, amount, _teamChoice, m.teamATotalBets, m.teamBTotalBets);
   }
+
+  function getUserBet(uint256 _matchId, bytes32 _gameType, bytes32 _teamChoice)
+    public 
+    view 
+    returns (
+      uint amount
+  ) {
+    Match storage m = matches[getMatchId(_matchId, _gameType)];
+    
+    require(m.teamA == _teamChoice || m.teamB == _teamChoice);
+    
+    if (_teamChoice == m.teamA) {
+      amount = m.teamABets[msg.sender];
+    } else if (_teamChoice == m.teamB) {
+      amount = m.teamBBets[msg.sender];
+    }
+
+    return amount;
+  }
 }
