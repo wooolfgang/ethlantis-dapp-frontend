@@ -8,11 +8,11 @@ contract MatchFactory is Ownable {
   event CancelMatch(uint32 matchId, bool withdrawable, bool canceled, bool bettable);
 
   struct Match {
+    uint teamATotalBets;
+    uint teamBTotalBets;
     uint64 startTime;
     uint32 matchId;
     uint32 id;
-    uint32 teamATotalBets;
-    uint32 teamBTotalBets;
     bytes32 teamA;
     bytes32 teamB;
     bytes32 gameType;
@@ -20,8 +20,8 @@ contract MatchFactory is Ownable {
     bool withdrawable;
     bool canceled;
     bool bettable;
-    mapping (address => uint16) teamABets;
-    mapping (address => uint16) teamBBets;
+    mapping (address => uint) teamABets;
+    mapping (address => uint) teamBBets;
   }
 
   modifier beforeStart(uint256 _timestamp) {
@@ -119,8 +119,8 @@ contract MatchFactory is Ownable {
     returns (
       uint32,
       bytes32,
-      uint32,
-      uint32
+      uint,
+      uint
     ) {
     Match memory m = matches[getMatchId(_matchId, _gameType)];
     return (
@@ -189,13 +189,13 @@ contract MatchFactory is Ownable {
     view 
     returns (
       bytes32[],
-      uint32[],
-      uint32[]
+      uint[],
+      uint[]
     ) {
 
       bytes32[] memory winners = new bytes32[](indexes.length);
-      uint32[] memory teamATotalBets = new uint32[](indexes.length);
-      uint32[] memory teamBTotalBets = new uint32[](indexes.length);
+      uint[] memory teamATotalBets = new uint[](indexes.length);
+      uint[] memory teamBTotalBets = new uint[](indexes.length);
 
       for (uint i = 0; i < indexes.length; i++) {
         winners[i] = matches[indexes[i]].winner;
