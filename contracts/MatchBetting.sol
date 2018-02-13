@@ -18,12 +18,15 @@ contract MatchBetting is MatchFactory {
     require(now < m.startTime);
     require(m.bettable);
     require(m.teamA == _teamChoice || m.teamB == _teamChoice);
-    require(amount >= minBet && amount <= maxBet);
 
     if (m.teamA == _teamChoice && m.teamBBets[msg.sender] == 0) {
+      require(m.teamABets[msg.sender] + amount <= maxBet);
+      require(m.teamABets[msg.sender] + amount >= minBet);  
       m.teamABets[msg.sender] += amount;
       m.teamATotalBets += amount;
     } else if (m.teamB == _teamChoice && m.teamABets[msg.sender] == 0) {
+      require(m.teamBBets[msg.sender] + amount <= maxBet);
+      require(m.teamABets[msg.sender] + amount >= minBet);
       m.teamBBets[msg.sender] += amount;
       m.teamBTotalBets += amount;
     } else {
