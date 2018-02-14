@@ -3,8 +3,8 @@
 const MatchFactory = artifacts.require('MatchFactory');
 
 contract('MatchFactory', async (accounts) => {
-  const matchFactory = await MatchFactory.deployed();
   const owner = accounts[0];
+  let matchFactory;
 
   const FIELD_ID = 0;
   const FIELD_STARTTIME = 1;
@@ -15,6 +15,10 @@ contract('MatchFactory', async (accounts) => {
   const FIELD_WITHDRAWABLE = 7;
   const FIELD_CANCELED = 7;
   const FIELD_BETTABLE = 8;
+
+  beforeEach('Setup new contract before each test', async () => {
+    matchFactory = await MatchFactory.new(owner);
+  });
 
   describe('addMatch', () => {
     it('Should add a new match', async () => {
@@ -29,7 +33,7 @@ contract('MatchFactory', async (accounts) => {
     it('Should return error on addMatch when not called by contract owner', async () => {
       const time = Date.now() + 360000;
       const res = await matchFactory.addMatch(time, 2, 'Dignitas', 'Potato', 'Dota2', { from: accounts[1] });
-      assert.isUndefined(res.receipt.event, 'No NewMatch event on receipt');
+      assert.equal(web3.toDecimal(res.receipt.status), 0, 'No NewMatch event on receipt');
     });
   });
 
