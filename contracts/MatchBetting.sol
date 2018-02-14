@@ -6,10 +6,13 @@ contract MatchBetting is MatchFactory {
 
   event NewBet(address user, uint amount, bytes32 teamChoice, uint teamATotalBets, uint teamBTotalBets);
   event TeamChange(address user, uint amount, bytes32 newTeam, uint teamATotalBets, uint teamBTotalBets);
+  event NewFee(uint8 newFee);
 
-  uint feePercentage = 3;
-  uint minBet = 5000000000000000 wei;
-  uint maxBet = 30000000000000000000 wei;
+  uint public minBet = 5000000000000000 wei;
+  uint public maxBet = 30000000000000000000 wei;
+  
+  uint8 public constant MAX_FEE_PERCENTAGE = 6;
+  uint8 public feePercentage = 3;
 
   function bet(uint256 _matchId, bytes32 _gameType, bytes32 _teamChoice) external payable {
     Match storage m = matches[getMatchId(_matchId, _gameType)];
@@ -42,7 +45,6 @@ contract MatchBetting is MatchFactory {
 
     require(now < m.startTime);
     require(m.bettable);
-    require(m.teamA == _teamChoice || m.teamB == _teamChoice);
 
     if (_teamChoice == m.teamA && m.teamABets[msg.sender] == 0 && m.teamBBets[msg.sender] != 0) {
       m.teamABets[msg.sender] = m.teamBBets[msg.sender];
@@ -61,6 +63,13 @@ contract MatchBetting is MatchFactory {
     }
 
     TeamChange(msg.sender, amount, _teamChoice, m.teamATotalBets, m.teamBTotalBets);
+  }
+
+  function setFee(uint256 _newFeePercentage) external onlyOwner {
+    require(_newFeePercentage == uint8(_newFeePercentage));
+    require(_newFeePercentage <= MAX_FEE_PERCENTAGE);
+    feePercentage = uint8(_newFeePercentage);
+    NewFee(uint8(_newFeePercentage));
   }
 
   function getUserBet(uint256 _matchId, bytes32 _gameType, bytes32 _teamChoice)

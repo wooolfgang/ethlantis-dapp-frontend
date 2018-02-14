@@ -104,4 +104,24 @@ contract('MatchBetting', async (accounts) => {
       assert.equal(web3.toDecimal(res.receipt.status), 0);
     });
   });
+
+  describe('setFee', () => {
+    it('Should set the new fee percentage', async () => {
+      await matchBetting.setFee(2);
+      const res = await matchBetting.feePercentage.call();
+      assert.equal(res.toNumber(), 2);
+    });
+
+    it('Should not exceed maximum fee percentage allowed', async () => {
+      const res = await matchBetting.setFee('7');
+      const fee = await matchBetting.feePercentage.call();
+      assert.equal(web3.toDecimal(res.receipt.status), 0);
+      assert.equal(fee, 3);
+    });
+
+    it('Should not transact if not called by owner', async () => {
+      const res = await matchBetting.setFee(2, { from: accounts[1] });
+      assert.equal(web3.toDecimal(res.receipt.status), 0);
+    });
+  });
 });
