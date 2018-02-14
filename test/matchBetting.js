@@ -59,4 +59,49 @@ contract('MatchBetting', async (accounts) => {
       assert.equal(web3.toDecimal(res.receipt.staus), 0, 'Transaction should not go through');
     });
   });
+
+  describe('changeTeam', () => {
+    it('Should change the teamTotalBet value based on the team changed', async () => {
+      const time = Date.now() + 120000;
+      await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', { from: owner });
+      await matchBetting.bet(1, 'Dota2', 'Dignitas', { from: owner, value: web3.toWei('.12') });
+      const beforeSwap = await matchBetting.getMatchResults(1, 'Dota2');
+      await matchBetting.changeTeam(1, 'Dota2', 'Potato');
+      const afterSwap = await matchBetting.getMatchResults(1, 'Dota2');
+
+      beforeSwapTeamA = beforeSwap[2].toNumber();
+      beforeSwapTeamB = beforeSwap[3].toNumber();
+      afterSwapTeamA = afterSwap[2].toNumber();
+      afterSwapTeamB = afterSwap[3].toNumber();
+
+      assert.equal(beforeSwapTeamA, 0.12 * weiFactor);
+      assert.equal(beforeSwapTeamB, 0);
+      assert.equal(afterSwapTeamA, 0);
+      assert.equal(afterSwapTeamB, 0.12 * weiFactor);
+    });
+
+    it('Should change the user bet value based on the team changed', async () => {
+      const time = Date.now() + 120000;
+      await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', { from: owner });
+      await matchBetting.bet(1, 'Dota2', 'Potato', { from: owner, value: web3.toWei('.12') });
+      const beforeSwapTeamA = await matchBetting.getUserBet(1, 'Dota2', 'Dignitas');
+      const beforeSwapTeamB = await matchBetting.getUserBet(1, 'Dota2', 'Potato');
+      await matchBetting.changeTeam(1, 'Dota2', 'Dignitas');
+      const afterSwapTeamA = await matchBetting.getUserBet(1, 'Dota2', 'Dignitas');
+      const afterSwapTeamB = await matchBetting.getUserBet(1, 'Dota2', 'Potato');
+
+      assert.equal(beforeSwapTeamA.toNumber(), 0);
+      assert.equal(beforeSwapTeamB.toNumber(), 0.12 * weiFactor);
+      assert.equal(afterSwapTeamA.toNumber(), 0.12 * weiFactor);
+      assert.equal(afterSwapTeamB.toNumber(), 0);
+    });
+
+    it('Should not transact when team "changed" is the same as previous', async () => {
+      const time = Date.now() + 120000;
+      await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', { from: owner });
+      await matchBetting.bet(1, 'Dota2', 'Potato', { from: owner, value: web3.toWei('.12') });
+      const res = await matchBetting.changeTeam(1, 'Dota2', 'Potato');
+      assert.equal(web3.toDecimal(res.receipt.status), 0);
+    });
+  });
 });
