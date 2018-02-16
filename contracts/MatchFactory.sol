@@ -30,14 +30,15 @@ contract MatchFactory is Ownable {
   }
 
   Match[] public matches;
-  mapping(bytes32 => uint32) public uniqueIdToMatchesArrayId;
+  mapping(bytes32 => uint32) public hashToMatchId;
 
   function addMatch(
     uint256 _startTime, 
     uint256 _matchId, 
     bytes32 _teamA, 
     bytes32 _teamB, 
-    bytes32 _gameType
+    bytes32 _gameType,
+    bytes32 _matchHash
   ) 
     external 
     onlyOwner 
@@ -60,13 +61,12 @@ contract MatchFactory is Ownable {
       canceled: false,
       bettable: true
     })) - 1;
-    bytes32 uniqueId = keccak256(_matchId, _gameType);
-    uniqueIdToMatchesArrayId[uniqueId] = uint32(id);
+    hashToMatchId[_matchHash] = uint32(id);
     NewMatch(uint64(_startTime), uint32(id), _teamA, _teamB);
   }
 
-  function cancelMatch(uint256 _matchId, bytes32 _gameType) external onlyOwner {
-    Match storage m = matches[getMatchId(_matchId, _gameType)];
+  function cancelMatch(bytes32 _matchHash) external onlyOwner {
+    Match storage m = matches[hashToMatchId[_matchHash]];
     m.canceled = true;
     m.withdrawable = true;
     m.bettable = false;
@@ -77,60 +77,8 @@ contract MatchFactory is Ownable {
     return matches.length;
   }
 
-  function getMatchId(uint256 _matchId, bytes32 _gameType) public view returns (uint32) {
-    bytes32 uniqueId = keccak256(_matchId, _gameType);
-    return uniqueIdToMatchesArrayId[uniqueId];    
-  }
-
   // The getters for the for the Matches struct has been separated into different 
   // functions because of solidity's 16 local variable limitation
-
-  function getMatchInfo(uint256 _matchId, bytes32 _gameType) 
-    public 
-    view 
-    returns (
-      uint32, 
-      uint64, 
-      uint32, 
-      bytes32,
-      bytes32, 
-      bytes32, 
-      bool, 
-      bool, 
-      bool
-    ) {
-    Match memory m = matches[getMatchId(_matchId, _gameType)];
-    return (
-      m.id,      
-      m.startTime,
-      m.matchId,
-      m.teamA, 
-      m.teamB, 
-      m.gameType, 
-      m.withdrawable, 
-      m.canceled, 
-      m.bettable
-    );
-  }
-
-  function getMatchResults(uint256 _matchId, bytes32 _gameType) 
-    public 
-    view 
-    returns (
-      uint32,
-      bytes32,
-      uint,
-      uint
-    ) {
-    Match memory m = matches[getMatchId(_matchId, _gameType)];
-    return (
-      m.id,
-      m.winner,
-      m.teamATotalBets,
-      m.teamBTotalBets
-    );   
-  }
-
   function getMatchesInfo(uint256[] indexes) 
     external 
     view 

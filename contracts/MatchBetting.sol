@@ -14,8 +14,8 @@ contract MatchBetting is MatchFactory {
   uint8 public constant MAX_FEE_PERCENTAGE = 6;
   uint8 public feePercentage = 3;
 
-  function bet(uint256 _matchId, bytes32 _gameType, bytes32 _teamChoice) external payable {
-    Match storage m = matches[getMatchId(_matchId, _gameType)];
+  function bet(bytes32 _matchHash, bytes32 _teamChoice) external payable {
+    Match storage m = matches[hashToMatchId[_matchHash]];
     uint amount = msg.value * 1 wei;
     
     require(now < m.startTime);
@@ -32,15 +32,15 @@ contract MatchBetting is MatchFactory {
       require(m.teamABets[msg.sender] + amount >= minBet);
       m.teamBBets[msg.sender] += amount;
       m.teamBTotalBets += amount;
-    } else {
+    } else { 
       revert();
     }
 
     NewBet(msg.sender, amount, _teamChoice, m.teamATotalBets, m.teamBTotalBets);
   }
 
-  function changeTeam(uint256 _matchId, bytes32 _gameType, bytes32 _teamChoice) external {
-    Match storage m = matches[getMatchId(_matchId, _gameType)];
+  function changeTeam(bytes32 _matchHash, bytes32 _teamChoice) external {
+    Match storage m = matches[hashToMatchId[_matchHash]];
     uint amount;
 
     require(now < m.startTime);
@@ -72,13 +72,13 @@ contract MatchBetting is MatchFactory {
     NewFee(uint8(_newFeePercentage));
   }
 
-  function getUserBet(uint256 _matchId, bytes32 _gameType, bytes32 _teamChoice)
+  function getUserBet(bytes32 _matchHash, bytes32 _teamChoice)
     public 
     view 
     returns (
       uint amount
   ) {
-    Match storage m = matches[getMatchId(_matchId, _gameType)];
+    Match storage m = matches[hashToMatchId[_matchHash]];
     
     require(m.teamA == _teamChoice || m.teamB == _teamChoice);
     

@@ -1,4 +1,5 @@
-/* eslint-disable no-undef ,no-plusplus */
+/* eslint-disable no-undef ,no-plusplus, no-unused-vars */
+const matchHash = require('../src/utils/utils');
 
 const MatchFactory = artifacts.require('MatchFactory');
 
@@ -6,15 +7,18 @@ contract('MatchFactory', async (accounts) => {
   const owner = accounts[0];
   let matchFactory;
 
-  const FIELD_ID = 0;
-  const FIELD_STARTTIME = 1;
-  const FIELD_MATCHID = 2;
-  const FIELD_TEAMA = 3;
-  const FIELD_TEAMB = 4;
-  const FIELD_GAMETYPE = 5;
-  const FIELD_WITHDRAWABLE = 7;
-  const FIELD_CANCELED = 7;
-  const FIELD_BETTABLE = 8;
+  const FIELD_TEAMA_BETS = 0;
+  const FIELD_TEAMB_BETS = 1;
+  const FIELD_STARTTIME = 2;
+  const FIELD_MATCHID = 3;
+  const FIELD_ID = 4;
+  const FIELD_TEAMA = 5;
+  const FIELD_TEAMB = 6;
+  const FIELD_GAMETYPE = 7;
+  const FIELD_WINNER = 8;
+  const FIELD_WITHDRAWABLE = 9;
+  const FIELD_CANCELED = 10;
+  const FIELD_BETTABLE = 11;
 
   beforeEach('Setup new contract before each test', async () => {
     matchFactory = await MatchFactory.new(owner);
@@ -23,29 +27,34 @@ contract('MatchFactory', async (accounts) => {
   describe('addMatch', () => {
     it('Should add a new match', async () => {
       const time = Date.now() + 360000;
-      await matchFactory.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', { from: owner });
-      const matchInfo = await matchFactory.getMatchInfo(1, 'Dota2');
+      await matchFactory.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
+      const id = await matchFactory.hashToMatchId(matchHash(1, 'Dota2'));
+      const matchInfo = await matchFactory.matches.call(id);
       const matchCount = await matchFactory.getMatchesCount.call();
       assert.equal(matchCount.toNumber(), 1, 'Adds a new match to the matches array');
-      assert.equal(matchInfo[0].toNumber(), 0, 'The id of the first created match should be 0');
+      assert.equal(matchInfo[FIELD_ID].toNumber(), 0, 'The id of the first created match should be 0');
     });
 
     it('Should return error on addMatch when not called by contract owner', async () => {
       const time = Date.now() + 360000;
-      const res = await matchFactory.addMatch(time, 2, 'Dignitas', 'Potato', 'Dota2', { from: accounts[1] });
-      assert.equal(web3.toDecimal(res.receipt.status), 0, 'No NewMatch event on receipt');
+      let res;
+      try {
+        res = await matchFactory.addMatch(time, 2, 'Dignitas', 'Potato', 'Dota2', matchHash(2, 'Dota2'), { from: accounts[1] });
+      } catch (e) {
+        res = e;
+      }
+      assert(res instanceof Error);
     });
   });
 
   describe('cancelMatch', () => {
     it('Should cancel the match', async () => {
       const matchId = 3;
-      const gameType = 'Dota2';
       const time = Date.now() + 360000;
-
-      await matchFactory.addMatch(time, matchId, 'Dignitas', 'Potato', 'Dota2', { from: owner });
-      await matchFactory.cancelMatch(matchId, gameType);
-      const match = await matchFactory.getMatchInfo(matchId, gameType);
+      await matchFactory.addMatch(time, matchId, 'Dignitas', 'Potato', 'Dota2', matchHash(matchId, 'Dota2'), { from: owner });
+      await matchFactory.cancelMatch(matchHash(matchId, 'Dota2'));
+      const id = await matchFactory.hashToMatchId.call(matchHash(matchId, 'Dota2'));
+      const match = await matchFactory.matches.call(id);
       const withdrawable = match[FIELD_WITHDRAWABLE];
       const canceled = match[FIELD_CANCELED];
       const bettable = match[FIELD_BETTABLE];
@@ -55,75 +64,12 @@ contract('MatchFactory', async (accounts) => {
     });
   });
 
-  describe('getMatchInfo', () => {
-    it('Returns the match info', async () => {
-      const time = Date.now() + 360000;
-
-      await matchFactory.addMatch(time, 123, 'Dignitas', 'Potato', 'Dota2', { from: owner });
-      await matchFactory.addMatch(time, 221, 'Navi', 'Alliance', 'Dota2', { from: owner });
-      const id = await matchFactory.getMatchId(123, 'Dota2');
-      const match = await matchFactory.getMatchInfo(123, 'Dota2');
-
-      const actual = {
-        id: match[FIELD_ID].toNumber(),
-        startTime: match[FIELD_STARTTIME].toNumber(),
-        matchId: match[FIELD_MATCHID].toNumber(),
-        teamA: web3.toUtf8(match[FIELD_TEAMA]),
-        teamB: web3.toUtf8(match[FIELD_TEAMB]),
-        gameType: web3.toUtf8(match[FIELD_GAMETYPE]),
-        withdrawable: match[FIELD_WITHDRAWABLE],
-        canceled: match[FIELD_CANCELED],
-        bettable: match[FIELD_BETTABLE],
-      };
-
-      const expected = {
-        id: id.toNumber(),
-        startTime: time,
-        matchId: 123,
-        teamA: 'Dignitas',
-        teamB: 'Potato',
-        gameType: 'Dota2',
-        withdrawable: false,
-        canceled: false,
-        bettable: true,
-      };
-
-      assert.deepEqual(actual, expected, 'It should equal the number 1');
-    });
-  });
-
-  describe('getMatchResults', () => {
-    it('Returns the match results', async () => {
-      const time = Date.now() + 360000;
-
-      await matchFactory.addMatch(time, 12, 'Dignitas', 'Potato', 'LoL', { from: owner });
-      const matchResults = await matchFactory.getMatchResults(12, 'LoL');
-      const id = await matchFactory.getMatchId(12, 'LoL');
-
-      const actual = {
-        id: matchResults[0].toNumber(),
-        winner: web3.toUtf8(matchResults[1]),
-        teamATotalBets: matchResults[2].toNumber(),
-        teamBTotalBets: matchResults[3].toNumber(),
-      };
-
-      const expected = {
-        id: id.toNumber(),
-        winner: '',
-        teamATotalBets: 0,
-        teamBTotalBets: 0,
-      };
-
-      assert.deepEqual(actual, expected, 'It should return the correct match results');
-    });
-  });
-
   describe('getMatchesInfo', () => {
     it('Returns an array of matches with Match info fields', async () => {
       const time = Date.now() + 360000;
 
-      await matchFactory.addMatch(time, 8888, 'Awesome', 'League of Awesome', 'LoL', { from: owner });
-      await matchFactory.addMatch(time, 9999, 'Yeah', 'Yo', 'LoL', { from: owner });
+      await matchFactory.addMatch(time, 8888, 'Awesome', 'League of Awesome', 'LoL', matchHash(8888, 'Lol'), { from: owner });
+      await matchFactory.addMatch(time, 9999, 'Yeah', 'Yo', 'LoL', matchHash(9999, 'Lol'), { from: owner });
       const matchCount = await matchFactory.getMatchesCount();
       const lastTwoMatches = [matchCount - 2, matchCount - 1];
       const res = await matchFactory.getMatchesInfo(lastTwoMatches);
