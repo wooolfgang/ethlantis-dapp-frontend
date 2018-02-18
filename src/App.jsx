@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/HeaderContainer';
 import LandingPage from './layouts/LandingPage/LandingPage';
 
 class App extends Component {
   componentDidMount() {
     // do something
+
   }
 
   render() {
     return (
       <Router>
         <div>
-          <Header />
+          <HeaderContainer />
           <main>
             <Route path="/" component={LandingPage} />
           </main>

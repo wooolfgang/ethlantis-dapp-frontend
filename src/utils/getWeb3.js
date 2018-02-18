@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 import store from '../store';
-import web3Actions from '../actions/web3Actions';
+import { initializeWeb3 } from '../actions/web3Actions';
 
 const getWeb3 = new Promise(((resolve) => {
   // Wait for loading completion to avoid race conditions with web3 injection timing.
@@ -19,7 +19,7 @@ const getWeb3 = new Promise(((resolve) => {
 
       console.log('Injected web3 detected.');
 
-      resolve(store.dispatch(web3Actions(results)));
+      resolve(store.dispatch(initializeWeb3(results)));
     } else {
       // Fallback to localhost if no web3 injection. We've configured this to
       // use the development console's port by default.
@@ -33,7 +33,7 @@ const getWeb3 = new Promise(((resolve) => {
 
       console.log('No web3 instance injected, using Local web3.');
 
-      resolve(store.dispatch(web3Actions(results)));
+      resolve(store.dispatch(initializeWeb3(results)));
     }
   });
 }));
