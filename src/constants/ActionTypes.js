@@ -1,0 +1,2 @@
+export const WEB3_INITIALIZED = 'WEB3_INITIALIZED';
+export const USER_LOGGED_IN = 'USER_LOGGED_IN';

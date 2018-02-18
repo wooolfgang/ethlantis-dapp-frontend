@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Header from './components/header/Header';
-import LandingPage from './layouts/landingpage/LandingPage';
+import Header from './components/Header/Header';
+import LandingPage from './layouts/LandingPage/LandingPage';
 
 class App extends Component {
   componentDidMount() {
