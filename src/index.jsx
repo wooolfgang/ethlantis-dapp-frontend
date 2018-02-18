@@ -18,6 +18,8 @@ getWeb3
     console.log('Error in web3 initialization');
   });
 
+window.store = store;
+
 ReactDOM.render(
   <Provider store={store} >
     <ThemeProvider theme={theme}>
