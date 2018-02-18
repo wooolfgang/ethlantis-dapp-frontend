@@ -6,6 +6,7 @@
         "jest": true
     },
     "rules": {
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "no-class-assign": "off"
     }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LandingPage from './layouts/LandingPage/LandingPage';
+import AdminPageContainer from './layouts/AdminPage/AdminPageContainer';
 
 class App extends Component {
   componentDidMount() {
@@ -15,7 +16,8 @@ class App extends Component {
         <div>
           <HeaderContainer />
           <main>
-            <Route path="/" component={LandingPage} />
+            <Route exact path="/" component={LandingPage} />
+            <Route path="/admin" component={AdminPageContainer} />
           </main>
         </div>
       </Router >
