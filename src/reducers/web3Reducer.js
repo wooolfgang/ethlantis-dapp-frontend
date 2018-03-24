@@ -15,7 +15,7 @@ const web3Reducer = (state = initialState, action) => {
     case types.WEB3_INITIALIZED_ERROR:
       return {
         ...state,
-        web3Error: action.payload.error,
+        web3Error: action.payload,
       };
 
     case types.CONTRACT_INITIALIZED:

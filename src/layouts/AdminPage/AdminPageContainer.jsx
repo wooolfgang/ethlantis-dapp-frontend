@@ -1,5 +1,3 @@
-/* eslint-disable import/no-mutable-exports */
-
 import React from 'react';
 import { connect } from 'react-redux';
 import AdminPage from './AdminPage';

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import matchHash from '../../utils/utils';
 
 const StyledAmin = styled.div`
   display: grid;
@@ -15,17 +16,24 @@ const Center = styled.div`
 `;
 
 class AdminPage extends React.Component {
-  async componentDidMount() {
-    const { web3, matchBetting, loginUser } = this.props;
-    const userId = await web3.eth.getCoinbase();
-    const owner = await matchBetting.owner.call();
-    loginUser(userId, userId === owner);
+  constructor(props) {
+    super(props);
+    this.addMatch = this.addMatch.bind(this);
+  }
+
+  async addMatch() {
+    const { matchBetting, user } = this.props;
+    await matchBetting.addMatch(Date.now() + 360000, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: user.id });
   }
 
   render() {
-    const { user } = this.props;
+    const { user, matchBetting } = this.props;
     if (user.id && !user.isOwner) {
       return <h1> Not authorized </h1>;
+    }
+
+    if (!matchBetting) {
+      return <h1> Contract not found </h1>;
     }
 
     return (
@@ -38,7 +46,7 @@ class AdminPage extends React.Component {
           <span> Match Id: </span><input type="text" /> <br />
           <span> Team A: </span><input type="text" /> <br />
           <span> Team B: </span><input type="text" /> <br />
-          <button> Create Match </button>
+          <button onClick={this.addMatch}> Create Match </button>
         </Center>
       </StyledAmin>
     );

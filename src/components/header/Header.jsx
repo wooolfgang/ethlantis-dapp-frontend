@@ -18,13 +18,16 @@ const Flex = styled.div`
   justify-content: space-between;
 `;
 
-const Header = () => (
+const Header = ({ web3, matchBetting, loginUserFunc }) => (
   <StyledHeader>
     <Flex>
       <Logo />
-      <Nav />
+      <Nav
+        web3={web3}
+        matchBetting={matchBetting}
+        loginUserFunc={loginUserFunc}
+      />
     </Flex>
   </StyledHeader>
 );
-
 export default Header;
