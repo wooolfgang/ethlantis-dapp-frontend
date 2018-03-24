@@ -1,9 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import contract from 'truffle-contract';
-import MatchBettingContract from '../../build/contracts/MatchBetting.json';
 import * as types from '../constants/ActionTypes';
 import store from '../store';
+import getContract from '../utils/getContract';
 
 export const initializeWeb3 = payload => ({
   type: types.WEB3_INITIALIZED,
@@ -25,9 +24,7 @@ export const connectToContract = () => async (dispatch) => {
 
   if (typeof web3 !== 'undefined') {
     try {
-      const matchBetting = contract(MatchBettingContract);
-      matchBetting.setProvider(web3.currentProvider);
-      const matchBettingInstance = await matchBetting.deployed();
+      const matchBettingInstance = getContract(web3);
       dispatch(initializeContract(matchBettingInstance));
     } catch (e) {
       dispatch(initializeWeb3Error(e));
