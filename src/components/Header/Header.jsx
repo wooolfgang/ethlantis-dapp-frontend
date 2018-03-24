@@ -30,4 +30,5 @@ const Header = ({ web3, matchBetting, loginUserFunc }) => (
     </Flex>
   </StyledHeader>
 );
+
 export default Header;
