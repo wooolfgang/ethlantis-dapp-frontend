@@ -8,7 +8,7 @@ const StyledHeader = styled.nav`
   grid-template-areas: '. flex .';
   grid-template-columns: 50px 1fr 50px;
   height: 70px;
-  border-bottom: ${props => props.theme.lightGray};
+  background: ${props => props.theme.colorPrimary};
 `;
 
 const Flex = styled.div`

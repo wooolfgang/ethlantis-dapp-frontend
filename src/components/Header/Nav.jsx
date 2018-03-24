@@ -2,14 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from '../Link';
 
-const StyledNav = styled.div`
-
+const StyledNav = styled.div` 
+  a {
+    color: white !important;
+  }
 `;
 
 class Nav extends React.Component {
   async componentDidMount() {
     const { web3, matchBetting, loginUserFunc } = this.props;
-    console.log(web3);
     const userId = await web3.eth.getCoinbase();
     const owner = await matchBetting.owner.call();
     loginUserFunc(userId, owner === userId);
@@ -20,7 +21,7 @@ class Nav extends React.Component {
     if (!web3 || !matchBetting) {
       return null;
     }
-    console.log(web3, 'WEB3');
+
     return (
       <StyledNav >
         <Link to="/games" href="/" > Games </Link>

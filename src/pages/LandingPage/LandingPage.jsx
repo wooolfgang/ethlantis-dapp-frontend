@@ -1,7 +1,8 @@
 import React from 'react';
+import Hero from '../../components/Hero/Hero';
 
 const LandingPage = () => (
-  <h1> A trustless esports betting platform </h1>
+  <Hero />
 );
 
 export default LandingPage;

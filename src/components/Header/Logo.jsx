@@ -4,12 +4,9 @@ import Link from '../Link';
 
 const StyledLogo = styled.div`
   text-transform: uppercase;
-  cursor: pointer;
-
-  :hover {
-    background: ${props => props.theme.primary};
-    color: white;
-  }
+  cursor: pointer;  
+  color: white;
+  padding: 5px;
 `;
 
 const Logo = () => (
