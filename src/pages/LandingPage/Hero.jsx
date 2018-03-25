@@ -6,6 +6,8 @@ const StyledDiv = styled.div`
   height: 45vh;
   text-align: center;
   background: ${props => props.theme.colorPrimary};
+  z-index: 99999;
+  position: relative;
 `;
 
 const Box = styled.div`
@@ -15,7 +17,7 @@ const Box = styled.div`
 
 const Header = styled.p`
   margin: 0;
-  font-size: 2em;
+  font-size: 2.2em;
   color: white;
   margin-bottom: 22px;
   font-family: ${props => props.theme.fontHeading};  
@@ -24,7 +26,7 @@ const Header = styled.p`
 const SubHeader = styled.p`
   margin: 0;
   margin-bottom: 20px;  
-  font-size: 1.1em;
+  font-size: 1.25em;
   color: white;
 `;
 
@@ -45,7 +47,7 @@ const Hero = () => (
   <StyledDiv>
     <Box>
       <Header> A trustless esports betting platform </Header>
-      <SubHeader> Instant withdrawals. Minimal 3% fee. No sign-up required. </SubHeader>
+      <SubHeader> Instant withdrawals. Minimal 3% rake. No sign-up required. </SubHeader>
       <CallToAction> Get Started </CallToAction>
     </Box>
   </StyledDiv>
