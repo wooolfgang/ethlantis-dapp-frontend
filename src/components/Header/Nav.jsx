@@ -1,36 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from '../Link';
+import LoginStatusContainer from './LoginStatusContainer';
 
-const StyledNav = styled.div` 
+const StyledNav = styled.div`
+  position: relative;
+
   a {
     color: white !important;
   }
 `;
 
-class Nav extends React.Component {
-  async componentDidMount() {
-    const { web3, matchBetting, loginUserFunc } = this.props;
-    const userId = await web3.eth.getCoinbase();
-    const owner = await matchBetting.owner.call();
-    loginUserFunc(userId, owner === userId);
-  }
-
-  render() {
-    const { web3, matchBetting } = this.props;
-    if (!web3 || !matchBetting) {
-      return null;
-    }
-
-    return (
-      <StyledNav >
-        <Link to="/games" href="/" > Games </Link>
-        <Link to="/faq" href="/"> Faq </Link>
-        <Link to="/login" href="/"> Login </Link>
-      </StyledNav >
-    );
-  }
-}
+const Nav = () => (
+  <StyledNav >
+    <Link to="/games" href="/" > Games </Link>
+    <Link to="/faq" href="/"> Faq </Link>
+    <Link to="/login" href="/"> Login </Link>
+    <LoginStatusContainer />
+  </StyledNav >
+);
 
 export default Nav;
 

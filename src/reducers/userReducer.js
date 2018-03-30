@@ -2,7 +2,8 @@ import * as types from '../constants/ActionTypes';
 
 const initialState = {
   id: null,
-  isOwner: null,
+  isOwner: false,
+  balance: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -12,6 +13,12 @@ const userReducer = (state = initialState, action) => {
         ...state,
         id: action.userId,
         isOwner: action.isOwner,
+      };
+
+    case types.USER_GET_BALANCE:
+      return {
+        ...state,
+        balance: action.balance,
       };
 
     default:

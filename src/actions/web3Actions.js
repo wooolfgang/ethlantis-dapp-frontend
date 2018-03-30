@@ -24,7 +24,7 @@ export const connectToContract = () => async (dispatch) => {
 
   if (typeof web3 !== 'undefined') {
     try {
-      const matchBettingInstance = getContract(web3);
+      const matchBettingInstance = await getContract(web3);
       dispatch(initializeContract(matchBettingInstance));
     } catch (e) {
       dispatch(initializeWeb3Error(e));

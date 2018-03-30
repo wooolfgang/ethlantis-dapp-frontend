@@ -2,6 +2,7 @@ import * as types from '../constants/ActionTypes';
 
 const initialState = {
   web3Instance: null,
+  matchBetting: null,
 };
 
 const web3Reducer = (state = initialState, action) => {

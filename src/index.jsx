@@ -22,7 +22,6 @@ getWeb3
 
 window.store = store;
 
-
 ReactDOM.render(
   <Provider store={store} >
     <ThemeProvider theme={theme}>

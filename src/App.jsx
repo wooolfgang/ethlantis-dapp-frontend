@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import HeaderContainer from './components/Header/HeaderContainer';
+import Header from './components/Header/Header';
 import LandingPage from './pages/LandingPage/LandingPage';
 import AdminPageContainer from './pages/AdminPage/AdminPageContainer';
 
@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <HeaderContainer />
+          <Header />
           <main>
             <Route exact path="/" component={LandingPage} />
             <Route path="/admin" component={AdminPageContainer} />

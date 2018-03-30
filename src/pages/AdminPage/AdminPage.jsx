@@ -15,6 +15,12 @@ const Center = styled.div`
   padding: 20px;
 `;
 
+const Message = styled.p`
+  text-align: center;
+  font-size: 1.2em;
+  color: palevioletred;
+`;
+
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
@@ -29,11 +35,15 @@ class AdminPage extends React.Component {
   render() {
     const { user, matchBetting } = this.props;
     if (user.id && !user.isOwner) {
-      return <h1> Not authorized </h1>;
+      return <Message> Not authorized </Message>;
     }
 
     if (!matchBetting) {
-      return <h1> Contract not found </h1>;
+      return <Message> Contract not found </Message>;
+    }
+
+    if (!user.id) {
+      return <Message> No user found. Try loggin in with metamask</Message>;
     }
 
     return (
