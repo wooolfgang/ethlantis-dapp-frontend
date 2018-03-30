@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Illustrations from './Illustrations';
 
 const StyledDiv = styled.div`
   height: 50vh;
@@ -24,11 +25,6 @@ const Text = styled.p`
   line-height: 1.5;
 `;
 
-const Illustration = styled.div`
-  height: 140px;
-  border: 1px solid lightgray;
-`;
-
 const Explainer = () => (
   <StyledDiv>
     <Container>
@@ -38,7 +34,7 @@ const Explainer = () => (
         {' Once deployed on the blockchain, the contract code becomes immutable - unchangeable and uneditable by any entity.'}
         {' Results of a match are only taken from oracles - these are trusted sources of information. In a dota match for example, the oracle would be the Dota 2 Public API.   '}
       </Text>
-      <Illustration />
+      <Illustrations />
     </Container>
   </StyledDiv>
 );
