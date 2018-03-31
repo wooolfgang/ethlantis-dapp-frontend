@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.span`
   color: rgba(0,0,0, 0.8);
-  font-size: .9em;
+  font-size: .90em;
 `;
 
 const Status = ({ message }) => (
