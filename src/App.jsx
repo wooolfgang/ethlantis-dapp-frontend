@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import LandingPage from './pages/LandingPage/LandingPage';
 import AdminPageContainer from './pages/AdminPage/AdminPageContainer';
+import LoginStatus from './components/LoginStatus/LoginStatusContainer';
 
 class App extends Component {
   componentDidMount() {
@@ -15,6 +16,7 @@ class App extends Component {
       <Router>
         <div>
           <Header />
+          <LoginStatus />
           <main>
             <Route exact path="/" component={LandingPage} />
             <Route path="/admin" component={AdminPageContainer} />
