@@ -9,7 +9,7 @@ class StatusContainer extends React.Component {
 
   render() {
     const { user } = this.props;
-    const status = user.id ? 'Conected' : 'Loading';
+    const status = user.id ? 'Connected' : 'Loading...';
     const balance = user.balance ? user.balance : 0;
 
     return (
