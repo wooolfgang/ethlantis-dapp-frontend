@@ -11,10 +11,10 @@ const StyledDiv = styled.div`
   justify-content: space-around;
 `;
 
-const LoginStatus = ({ children }) => (
+const NetworkStatus = ({ children }) => (
   <StyledDiv>
     {children}
   </StyledDiv>
 );
 
-export default LoginStatus;
+export default NetworkStatus;

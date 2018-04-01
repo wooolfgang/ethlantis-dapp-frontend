@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import LoginStatusContainer from '../../components/LoginStatus/LoginStatusContainer';
+import NetworkStatusContainer from '../../components/NetworkStatus/NetworkStatusContainer';
 import BadgeContainer from '../../components/Badge/BadgeContainer';
 
 const StyledDiv = styled.div`
@@ -17,7 +17,7 @@ const StyledDiv = styled.div`
   grid-template-rows: 20px auto 10px auto 20px;
 `;
 
-const LoginStatusWrapper = styled.div`
+const NetworkStatusWrapper = styled.div`
   grid-area: login;
 `;
 
@@ -27,9 +27,9 @@ const BadgeWrapper = styled.div`
 
 const AccountInfoSection = () => (
   <StyledDiv>
-    <LoginStatusWrapper>
-      <LoginStatusContainer />
-    </LoginStatusWrapper>
+    <NetworkStatusWrapper>
+      <NetworkStatusContainer />
+    </NetworkStatusWrapper>
     <BadgeWrapper>
       <BadgeContainer />
     </BadgeWrapper>
