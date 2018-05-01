@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import GameTypeList from '../../components/GameTypeList/GameTypeList';
+import GameTypes from '../../components/GameTypes';
 
 const StyledDiv = styled.div`
   grid-area: left;
@@ -39,7 +39,7 @@ const games = [
   },
   {
     type: 'LoL',
-    image: 'http://res.cloudinary.com/depjh17m6/image/upload/v1522507628/Ethlantis/300e58c8416a68dcfcf1761501348243-min.jpg',
+    image: 'http://res.cloudinary.com/depjh17m6/image/upload/v1521946480/Ethlantis/LOL_LOGO_RGB_SMALL_copy-min.png',
   },
   {
     type: 'CS:GO',
@@ -51,7 +51,7 @@ const GamesListPicker = () => (
   <StyledDiv>
     <Header> Games </Header>
     <GameTypesWrapper>
-      <GameTypeList games={games} />
+      <GameTypes games={games} />
     </GameTypesWrapper>
   </StyledDiv>
 );

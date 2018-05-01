@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Header from './components/Header/Header';
-import LandingPage from './pages/LandingPage/LandingPage';
-import AdminPageContainer from './pages/AdminPage/AdminPageContainer';
-import GamesPage from './pages/GamesPage/GamesPage';
-import FetchNetworkStatus from './components/NetworkStatus/FetchNetworkStatus';
+import Header from './components/Header';
+import LandingPage from './pages/LandingPage';
+import AdminPageContainer from './pages/AdminPage';
+import GamesPage from './pages/GamesPage';
+import FetchNetworkStatus from './components/FetchNetworkStatus/';
 import { getUserData } from './actions/userActions';
 
 let App = ({ web3, matchBetting, getUserDataFunc }) => (

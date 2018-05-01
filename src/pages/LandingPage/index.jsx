@@ -2,7 +2,7 @@ import React from 'react';
 import Hero from './Hero';
 import Banner from './Banner';
 import Explainer from './Explainer';
-import Footer from '../../components/Footer/Footer';
+import Footer from '../../components/Footer';
 
 const LandingPage = () => (
   <div>

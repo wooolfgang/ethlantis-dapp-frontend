@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import MatchBox from '../MatchBox/MatchBox';
+import MatchBox from '../MatchBox';
 
 const MatchList = ({ matches }) => (
   <Fragment>

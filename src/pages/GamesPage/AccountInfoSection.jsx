@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import NetworkStatusContainer from '../../components/NetworkStatus/NetworkStatusContainer';
-import BadgeContainer from '../../components/Badge/BadgeContainer';
+import NetworkStatusContainer from '../../components/NetworkStatus';
+import BadgeContainer from '../../components/Badge';
 
 const StyledDiv = styled.div`
   grid-area: right;
