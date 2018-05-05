@@ -16,10 +16,9 @@ const Illustration = styled.div`
   align-items: center;
 `;
 
-const Graphic = styled.div`
-  height: 80px;
-  width: 80px;
-  border: 1px solid lightgray;
+const Graphic = styled.img`
+  height: 135px;
+  width: 135px;
   border-radius: 50%;
 `;
 
@@ -32,19 +31,19 @@ const Text = styled.span`
 const Illustrations = () => (
   <StyledDiv>
     <Illustration>
-      <Graphic />
+      <Graphic src="http://res.cloudinary.com/depjh17m6/image/upload/v1525500709/Ethlantis/contract_on_the_etheruem_network.svg" />
       <Text> Contract is deployed on the Ethereum network</Text>
     </Illustration>
     <Illustration>
-      <Graphic />
+      <Graphic src="http://res.cloudinary.com/depjh17m6/image/upload/v1525500709/Ethlantis/smart_contract.svg" />
       <Text> Users transact via the Smart Contract</Text>
     </Illustration>
     <Illustration>
-      <Graphic />
+      <Graphic src="http://res.cloudinary.com/depjh17m6/image/upload/v1525500710/Ethlantis/oracle.svg" />
       <Text> Contract verifies winner via Oracle</Text>
     </Illustration>
     <Illustration>
-      <Graphic />
+      <Graphic src="http://res.cloudinary.com/depjh17m6/image/upload/v1525500709/Ethlantis/witdthraw.svg" />
       <Text> Winners withdraw their money from the Contract</Text>
     </Illustration>
   </StyledDiv>
