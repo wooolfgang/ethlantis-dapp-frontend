@@ -18,6 +18,8 @@ const StyledDiv = styled.div`
 
 const MatchListGrid = styled.div`
   grid-area: matches;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 let MatchesSection = ({ matchBetting, web3 }) => (

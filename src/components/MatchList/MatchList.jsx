@@ -4,7 +4,7 @@ import MatchBox from '../MatchBox';
 const MatchList = ({ matches }) => (
   <Fragment>
     {
-      matches.map(match => <MatchBox key={match.matchId} {...match} />)
+      matches.map(match => <MatchBox key={match.matchId} match={match} />)
     }
   </Fragment>
 );

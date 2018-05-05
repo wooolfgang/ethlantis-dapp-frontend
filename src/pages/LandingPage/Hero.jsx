@@ -48,7 +48,7 @@ const Hero = () => (
     <Box>
       <Header> A trustless esports betting platform </Header>
       <SubHeader> Instant withdrawals. Minimal 3% rake. No sign-up required. </SubHeader>
-      <CallToAction> Get Started </CallToAction>
+      <a href="/games"><CallToAction > Get Started </CallToAction></a>
     </Box>
   </StyledDiv>
 );
