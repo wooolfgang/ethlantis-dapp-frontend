@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import Illustrations from './Illustrations';
 
 const StyledDiv = styled.div`
-  height: 50vh;
+  height: 55vh;
   background: #fff;
   display: flex;
 `;
 
 const Container = styled.div`
   height: 85%;
-  width: 700px;
+  width: 800px;
   margin: auto;
   text-align: center;
 `;
@@ -22,7 +22,8 @@ const Header = styled.h2`
 `;
 
 const Text = styled.p`
-  line-height: 1.5;
+  line-height: 1.8;
+  width: 95%;
 `;
 
 const Explainer = () => (

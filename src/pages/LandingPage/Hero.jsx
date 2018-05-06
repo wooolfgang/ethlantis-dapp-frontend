@@ -3,15 +3,15 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.div`
   display: flex;
-  height: 45vh;
+  height: 55vh;
   text-align: center;
-  background: ${props => props.theme.colorPrimary};
   z-index: 99999;
   position: relative;
+  background: ${props => props.theme.colorPrimary};
 `;
 
 const Box = styled.div`
-  height: 70%;
+  height: 50%;
   margin: auto;
 `;
 

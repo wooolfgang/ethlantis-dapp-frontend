@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { CONTRACT_DEPLOYED_SVG, USERS_TRANSACT_SVG, CONTRACT_VERIFIES_SVG, WINNERS_WITHDRAW_SVG } from '../../../assets/images';
 
 const StyledDiv = styled.div`
   height: 180px;
@@ -19,7 +20,6 @@ const Illustration = styled.div`
 const Graphic = styled.img`
   height: 135px;
   width: 135px;
-  border-radius: 50%;
 `;
 
 const Text = styled.span`
@@ -31,19 +31,19 @@ const Text = styled.span`
 const Illustrations = () => (
   <StyledDiv>
     <Illustration>
-      <Graphic src="http://res.cloudinary.com/depjh17m6/image/upload/v1525500709/Ethlantis/contract_on_the_etheruem_network.svg" />
+      <Graphic src={CONTRACT_DEPLOYED_SVG} />
       <Text> Contract is deployed on the Ethereum network</Text>
     </Illustration>
     <Illustration>
-      <Graphic src="http://res.cloudinary.com/depjh17m6/image/upload/v1525500709/Ethlantis/smart_contract.svg" />
+      <Graphic src={USERS_TRANSACT_SVG} />
       <Text> Users transact via the Smart Contract</Text>
     </Illustration>
     <Illustration>
-      <Graphic src="http://res.cloudinary.com/depjh17m6/image/upload/v1525500710/Ethlantis/oracle.svg" />
+      <Graphic src={CONTRACT_VERIFIES_SVG} />
       <Text> Contract verifies winner via Oracle</Text>
     </Illustration>
     <Illustration>
-      <Graphic src="http://res.cloudinary.com/depjh17m6/image/upload/v1525500709/Ethlantis/witdthraw.svg" />
+      <Graphic src={WINNERS_WITHDRAW_SVG} />
       <Text> Winners withdraw their money from the Contract</Text>
     </Illustration>
   </StyledDiv>

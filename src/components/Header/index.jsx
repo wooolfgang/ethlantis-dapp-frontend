@@ -7,7 +7,7 @@ const StyledHeader = styled.nav`
   display: grid;
   grid-template-areas: '. flex .';
   grid-template-columns: 50px 1fr 50px;
-  height: 65px;
+  height: 64px;
   background: ${props => props.theme.colorPrimary};
 `;
 
