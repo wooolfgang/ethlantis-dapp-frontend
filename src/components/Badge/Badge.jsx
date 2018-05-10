@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`
-  width: 350px;
-  height: 80px;
+  width: 390px;
+  height: 60px;
   display: grid;
   grid-template-areas: 
   '. avatar'
@@ -24,7 +24,7 @@ const Id = styled.span`
 
 const Avatar = styled.div`
   grid-area: avatar;
-  width: 80px;
+  width: 60px;
   height: 100%;
   border: 1px solid ${props => props.theme.colorSecondary};
   border-radius: 50%;

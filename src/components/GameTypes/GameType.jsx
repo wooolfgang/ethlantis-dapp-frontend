@@ -6,8 +6,9 @@ const StyledDiv = styled.div`
   justify-content: space-around;
   align-items: center;
   border: 1px solid lightgray;
-  width: 150px;
-  height: 45px;
+  margin: 0px 5px;
+  width: 100px;
+  height: 40px;
   transition: box-shadow .3s ease,opacity .3s ease,-webkit-transform .3s ease;
   cursor: pointer;
 

@@ -5,11 +5,11 @@ import GamesListPicker from './GamesListPicker';
 import MatchesSection from './MatchesSection';
 
 const StyledDiv = styled.div`
-  height: calc(100vh - 65px);
+  height: calc(100vh - 64px);
 `;
 
 const Top = styled.div`
-  height: 40px;
+  height: 130px;
   background: #f4f7f6;
   display: grid;
   grid-template-areas: 

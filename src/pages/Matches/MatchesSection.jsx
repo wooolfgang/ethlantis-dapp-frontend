@@ -5,7 +5,7 @@ import MatchListContainer from '../../components/MatchList';
 
 const StyledDiv = styled.div`
   background: #fafafa;
-  min-height: calc(100vh - 250px);
+  min-height: calc(100vh - 194px);
   display: grid;
   grid-template-areas: 
   '. . .'

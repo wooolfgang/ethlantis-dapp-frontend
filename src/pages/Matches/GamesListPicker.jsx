@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
   '.'
   'games'
   '.';
-  grid-template-rows: 20px auto 10px auto 20px;
+  grid-template-rows: 15px 35px 10px 40px 10px ;
   grid-template-columns: 500px;
 `;
 
@@ -22,6 +22,7 @@ const Header = styled.h2`
   cursor: pointer;
   border-bottom: 1px solid lightgray;
   transition-duration: 200ms;
+  margin: 0px;
 
   :hover {
     opacity: 0.8;

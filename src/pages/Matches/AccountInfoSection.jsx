@@ -14,7 +14,7 @@ const StyledDiv = styled.div`
   '. .'
   ;  
   grid-template-columns: 1fr 400px;
-  grid-template-rows: 20px auto 10px auto 20px;
+  grid-template-rows: 15px auto 5px auto 15px;
 `;
 
 const NetworkStatusWrapper = styled.div`
