@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/Header';
-import LandingPage from './pages/LandingPage';
-import AdminPageContainer from './pages/AdminPage';
-import GamesPage from './pages/GamesPage';
+import LandingPage from './pages/Landing';
+import AdminPage from './pages/Admin';
+import MatchesPage from './pages/Matches';
 import FetchNetworkStatus from './components/FetchNetworkStatus/';
 import { getUserData } from './actions/userActions';
 
@@ -22,8 +22,8 @@ let App = ({ web3, matchBetting, getUserDataFunc }) => (
       <Header />
       <main>
         <Route exact path="/" component={LandingPage} />
-        <Route path="/admin" component={AdminPageContainer} />
-        <Route path="/games" component={GamesPage} />
+        <Route path="/admin" component={AdminPage} />
+        <Route path="/games" component={MatchesPage} />
       </main>
     </Fragment>
   </Router >

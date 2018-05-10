@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AdminPage from './AdminPage';
+import AdminPage from './Admin';
 import loginUser from '../../actions/userActions';
 
 let AdminPageContainer = props => (
