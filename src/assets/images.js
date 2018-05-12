@@ -9,4 +9,5 @@ export const CONTRACT_DEPLOYED_SVG = 'http://res.cloudinary.com/depjh17m6/image/
 export const USERS_TRANSACT_SVG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1525500709/Ethlantis/smart_contract.svg';
 export const CONTRACT_VERIFIES_SVG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1525584669/Ethlantis/oracle_2.svg';
 export const WINNERS_WITHDRAW_SVG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1525500709/Ethlantis/witdthraw.svg';
+export const LOGO = 'http://res.cloudinary.com/depjh17m6/image/upload/v1526116182/Ethlantis_banner_pnz2an.svg';
 
