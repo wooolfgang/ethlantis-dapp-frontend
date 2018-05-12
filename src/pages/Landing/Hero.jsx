@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '../../components/Button';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -30,25 +31,16 @@ const SubHeader = styled.p`
   color: white;
 `;
 
-const CallToAction = styled.button`
-  background: none;
-  display: inline-block;
-  border: none;
-  color: white;
-  outline: none;
-  cursor: pointer;
-  font-size: 1em;
-  border: 1px solid white;
-  border-radius: 30px;
-  padding: 12px 25px;
-`;
-
 const Hero = () => (
   <StyledDiv>
     <Box>
       <Header> A trustless esports betting platform </Header>
       <SubHeader> Instant withdrawals. Minimal 3% rake. No sign-up required. </SubHeader>
-      <a href="/games"><CallToAction > Get Started </CallToAction></a>
+      <a href="/games">
+        <Button type="inverted">
+          Get Started
+        </Button>
+      </a>
     </Box>
   </StyledDiv>
 );

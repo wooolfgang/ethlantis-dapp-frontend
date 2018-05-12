@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import matchHash from '../../utils/utils';
+import Button from '../../components/Button';
 
 const StyledDiv = styled.div`
   display: grid;
@@ -115,7 +116,12 @@ class AdminPage extends React.Component {
                   id="gameType"
                 />
                 <br />
-                <button onClick={this.addMatch}> Create Match </button>
+                <Button
+                  onClick={this.addMatch}
+                  type="primary"
+                >
+                  Create Match
+                </Button>
               </Fragment> :
               <Message> Not authorized </Message>
           }
