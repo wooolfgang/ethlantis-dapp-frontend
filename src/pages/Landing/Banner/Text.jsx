@@ -14,7 +14,6 @@ const H2 = styled.h2`
   color: #456990;
 `;
 
-
 const Text = () => (
   <Fragment>
     <H1> Bet on the games you love. </H1>

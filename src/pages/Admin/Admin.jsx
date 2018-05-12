@@ -11,12 +11,34 @@ const StyledDiv = styled.div`
   ;
   grid-template-columns: 75px 1fr 75px;
   grid-template-rows: 70px 400px;
+  height: calc(100vh - 64px);
+  background: white;
 `;
 
 const Center = styled.div`
   grid-area: center;
-  border: 1px solid lightgray;
   padding: 20px;
+  box-shadow: 0 10px 30px rgba(51, 51, 51, .1);
+`;
+
+const Columns = styled.div`
+  display: flex;
+`;
+
+const Fields = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: 12px;
+`;
+
+const Inputs = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ButtonContainer = styled.div`
+  font-size: 1em;
+  margin-top: 10px;
 `;
 
 const Message = styled.p`
@@ -76,52 +98,55 @@ class AdminPage extends React.Component {
                 <h1> Admin Page </h1>
                 <h4> Welcome, {user.id}  </h4>
                 <h4> Game Details: </h4>
-                <span> Timestamp: </span>
-                <input
-                  type="text"
-                  onChange={this.handleInput}
-                  value={this.state.timestamp}
-                  id="timestamp"
-                />
-                <br />
-                <span> Match Id: </span>
-                <input
-                  type="text"
-                  onChange={this.handleInput}
-                  value={this.state.matchId}
-                  id="matchId"
-                />
-                <br />
-                <span> Team A: </span>
-                <input
-                  type="text"
-                  onChange={this.handleInput}
-                  value={this.state.teamA}
-                  id="teamA"
-                />
-                <br />
-                <span> Team B: </span>
-                <input
-                  type="text"
-                  onChange={this.handleInput}
-                  value={this.state.teamB}
-                  id="teamB"
-                />
-                <br />
-                <span> Game Type: </span>
-                <input
-                  type="text"
-                  onChange={this.handleInput}
-                  value={this.state.gameType}
-                  id="gameType"
-                />
-                <br />
-                <Button
-                  onClick={this.addMatch}
-                  type="primary"
-                >
-                  Create Match
-                </Button>
+                <Columns>
+                  <Fields>
+                    <span> Timestamp: </span>
+                    <span> Match Id: </span>
+                    <span> Team A: </span>
+                    <span> Team B: </span>
+                    <span> Game Type: </span>
+                  </Fields>
+                  <Inputs>
+                    <input
+                      type="text"
+                      onChange={this.handleInput}
+                      value={this.state.timestamp}
+                      id="timestamp"
+                    />
+                    <input
+                      type="text"
+                      onChange={this.handleInput}
+                      value={this.state.matchId}
+                      id="matchId"
+                    />
+                    <input
+                      type="text"
+                      onChange={this.handleInput}
+                      value={this.state.teamA}
+                      id="teamA"
+                    />
+                    <input
+                      type="text"
+                      onChange={this.handleInput}
+                      value={this.state.teamB}
+                      id="teamB"
+                    />
+                    <input
+                      type="text"
+                      onChange={this.handleInput}
+                      value={this.state.gameType}
+                      id="gameType"
+                    />
+                  </Inputs>
+                </Columns>
+                <ButtonContainer>
+                  <Button
+                    onClick={this.addMatch}
+                    type="primary"
+                  >
+                    Create Match
+                  </Button>
+                </ButtonContainer>
               </Fragment> :
               <Message> Not authorized </Message>
           }

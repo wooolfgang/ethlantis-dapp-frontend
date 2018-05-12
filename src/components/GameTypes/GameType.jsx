@@ -18,8 +18,8 @@ const StyledDiv = styled.div`
 `;
 
 const GameImage = styled.div`
-  height: 35px;
-  width: 35px;
+  height: 32px;
+  width: 32px;
   border-radius: 50%;
   background: url(${props => props.image}) center no-repeat;
   background-size: cover;
@@ -27,14 +27,14 @@ const GameImage = styled.div`
 `;
 
 const Type = styled.span`
-  font-size: .85em;
+  font-size: .80em;
   color: ${props => props.theme.colorSecondary};
 `;
 
-const GameType = ({ type, image }) => (
+const GameType = ({ type }) => (
   <StyledDiv>
-    <GameImage image={image} />
-    <Type>{type} </Type>
+    <GameImage />
+    <Type>{type.toUpperCase()} </Type>
   </StyledDiv>
 );
 

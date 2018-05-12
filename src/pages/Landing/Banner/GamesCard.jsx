@@ -33,7 +33,7 @@ const Team = styled.div`
 `;
 
 const GamesCard = () => (
-  <Card style={{ padding: '20px', height: '100%', width: '100%' }}>
+  <Card padding="20px" height="100%" width="100%">
     <Games>
       <Game image={LOL_LOGO} width="160px" height="160px" />
       <Game image={DOTA_LOGO} width="90px" height="90px" />
