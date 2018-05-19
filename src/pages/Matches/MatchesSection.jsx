@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import MatchListContainer from '../../components/MatchList';
 
 const StyledDiv = styled.div`
-  background: #fafafa;
+  background: ${props => props.theme.colorLight};
   min-height: calc(100vh - 194px);
   display: grid;
   grid-template-areas: 
@@ -13,13 +13,14 @@ const StyledDiv = styled.div`
   '. . .'
   ;
   grid-template-rows: 30px 1fr 30px;
-  grid-template-columns: 120px 1fr 120px;
+  grid-template-columns: 1fr 85vw 1fr;
 `;
 
 const MatchListGrid = styled.div`
   grid-area: matches;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 27.5px 30px;
 `;
 
 let MatchesSection = ({ matchBetting, web3 }) => (

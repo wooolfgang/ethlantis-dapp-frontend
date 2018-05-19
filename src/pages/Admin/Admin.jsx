@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import matchHash from '../../utils/utils';
+import { getHash as matchHash } from '../../utils/';
 import Button from '../../components/Button';
 
 const StyledDiv = styled.div`

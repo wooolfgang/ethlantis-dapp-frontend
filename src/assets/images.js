@@ -10,4 +10,6 @@ export const USERS_TRANSACT_SVG = 'http://res.cloudinary.com/depjh17m6/image/upl
 export const CONTRACT_VERIFIES_SVG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1525584669/Ethlantis/oracle_2.svg';
 export const WINNERS_WITHDRAW_SVG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1525500709/Ethlantis/witdthraw.svg';
 export const LOGO = 'http://res.cloudinary.com/depjh17m6/image/upload/v1526116182/Ethlantis_banner_pnz2an.svg';
-
+export const DOTA_BG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1526699101/Ethlantis/Dota.png';
+export const LOL_BG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1526699105/Ethlantis/lol.png';
+export const CSGO_BG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1526699110/Ethlantis/Cs_GO.png';

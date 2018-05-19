@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import MatchBox from '../MatchBox';
+import MatchCard from '../MatchCard';
 
 const MatchList = ({ matches }) => (
   <Fragment>
     {
-      matches.map(match => <MatchBox key={match.matchId} match={match} />)
+      matches.map(match => <MatchCard key={match.matchId} match={match} />)
     }
   </Fragment>
 );
