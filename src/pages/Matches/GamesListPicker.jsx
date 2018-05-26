@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GameTypes from '../../components/GameTypes';
+import { LOL_ICON_FILTER, DOTA_ICON_FILTER, CSGO_ICON_FILTER } from '../../assets/images';
 
 const StyledDiv = styled.div`
   grid-area: left;
@@ -36,15 +37,15 @@ const GameTypesWrapper = styled.div`
 const games = [
   {
     type: 'Dota 2',
-    image: 'http://res.cloudinary.com/depjh17m6/image/upload/v1522507627/Ethlantis/dota-2-seeklogo.com-min.png',
+    image: DOTA_ICON_FILTER,
   },
   {
     type: 'LoL',
-    image: 'http://res.cloudinary.com/depjh17m6/image/upload/v1521946480/Ethlantis/LOL_LOGO_RGB_SMALL_copy-min.png',
+    image: LOL_ICON_FILTER,
   },
   {
     type: 'CS:GO',
-    image: 'http://res.cloudinary.com/depjh17m6/image/upload/v1522508979/Ethlantis/counter-strike-global-offensive-seeklogo.com_2.png',
+    image: CSGO_ICON_FILTER,
   },
 ];
 

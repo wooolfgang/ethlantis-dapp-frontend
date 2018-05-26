@@ -94,11 +94,13 @@ const MatchCard = ({ match }) => (
       <BackgroundFilter />
     </Background>
     <Bottom>
-      <Button padding="7px 20px">
-        <span style={{ fontSize: '.95em', margin: 'auto' }}>
-          Place Bet
-        </span>
-      </Button>
+      <a href={`/match/${match.id}`}>
+        <Button padding="7px 20px">
+          <span style={{ fontSize: '.95em', margin: 'auto' }}>
+            Place Bet
+          </span>
+        </Button>
+      </a>
     </Bottom>
   </StyledDiv>
 );

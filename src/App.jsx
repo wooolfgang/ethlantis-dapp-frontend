@@ -5,6 +5,7 @@ import Header from './components/Header';
 import LandingPage from './pages/Landing';
 import AdminPage from './pages/Admin';
 import MatchesPage from './pages/Matches';
+import MatchPage from './pages/Match';
 import FetchNetworkStatus from './components/FetchNetworkStatus/';
 import { getUserData } from './actions/userActions';
 
@@ -23,7 +24,8 @@ let App = ({ web3, matchBetting, getUserDataFunc }) => (
       <main>
         <Route exact path="/" component={LandingPage} />
         <Route path="/admin" component={AdminPage} />
-        <Route path="/games" component={MatchesPage} />
+        <Route path="/matches" component={MatchesPage} />
+        <Route path="/match/:id" component={MatchPage} />
       </main>
     </Fragment>
   </Router >

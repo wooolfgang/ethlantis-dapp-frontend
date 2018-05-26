@@ -5,7 +5,10 @@ import styled from 'styled-components';
 const StyledLink = styled(L)`
   color: blue;
   text-decoration: none;
-  ${props => props.style && props.style};
+  font-family: sans-serif;
+  font-size: .95em;
+  font-weight: 100;
+  letter-spacing: .1em;
 `;
 
 const Link = props => (

@@ -13,3 +13,7 @@ export const LOGO = 'http://res.cloudinary.com/depjh17m6/image/upload/v152611618
 export const DOTA_BG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1526699101/Ethlantis/Dota.png';
 export const LOL_BG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1526699105/Ethlantis/lol.png';
 export const CSGO_BG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1526699110/Ethlantis/Cs_GO.png';
+export const ETHLANTIS_LOGO = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527317364/Ethlantis/logo.svg';
+export const LOL_ICON_FILTER = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527318557/LOL_jywkzk.svg';
+export const DOTA_ICON_FILTER = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527318557/DOTA_ldl6n1.svg';
+export const CSGO_ICON_FILTER = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527318557/CS_GO_m78nui.svg';

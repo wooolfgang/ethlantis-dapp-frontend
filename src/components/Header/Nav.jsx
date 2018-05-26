@@ -12,7 +12,7 @@ const StyledNav = styled.div`
 
 const Nav = () => (
   <StyledNav >
-    <Link to="/games" href="/" > Games </Link>
+    <Link to="/matches" href="/" > Matches </Link>
     <Link to="/faq" href="/"> Faq </Link>
     <Link to="/login" href="/"> Login </Link>
   </StyledNav >

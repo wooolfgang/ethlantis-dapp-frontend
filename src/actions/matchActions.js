@@ -73,3 +73,27 @@ export const getMatches = (web3, matchBetting, matchCountFromLatest) => async (d
   }
   dispatch(addMatches(newMatches));
 };
+
+export const getMatch = matchId => async (dispatch, getState) => {
+  const { matchBetting, web3Instance: web3 } = getState().web3;
+
+  if (matchBetting && web3) {
+    const res = await matchBetting.matches.call(matchId);
+    const match = {
+      teamATotalBets: res[0].toNumber(),
+      teamBTotalBets: res[1].toNumber(),
+      startTime: res[2].toNumber(),
+      matchID: res[3].toNumber(),
+      id: res[4].toNumber(),
+      teamA: web3.utils.toAscii(res[5]).replace(/\u0000/g, ''),
+      teamB: web3.utils.toAscii(res[6]).replace(/\u0000/g, ''),
+      gameType: web3.utils.toAscii(res[7]).replace(/\u0000/g, ''),
+      winner: web3.utils.toAscii(res[8]).replace(/\u0000/g, ''),
+      withdrawable: res[9],
+      canceled: res[10],
+      bettable: res[11],
+    };
+    return match;
+  }
+  throw new Error('No instance of web3 or contract');
+};

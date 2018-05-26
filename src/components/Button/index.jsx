@@ -10,12 +10,17 @@ const Primary = styled.button`
   border-radius: 30px;
   background: none;
   padding: ${props => (props.padding ? props.padding : '12px 25px')};
-  color: ${props => props.theme.colorPrimary};
-  border: 1px solid ${props => props.theme.colorPrimary}; 
+  color: ${props => props.theme.colorSecondary};
+  border: 1px solid ${props => props.theme.colorSecondary}; 
+
+  :disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
 `;
 
 const Secondary = Primary.extend`
-  background: ${props => props.theme.colorPrimary};
+  background: ${props => props.theme.colorSecondary};
   color: white;
 `;
 
@@ -26,10 +31,18 @@ const Inverted = Primary.extend`
 `;
 
 const Button = ({
-  type, children, onClick, padding,
+  type, children, onClick, padding, disabled,
 }) => {
   function render(Component) {
-    return <Component onClick={onClick} padding={padding} > {children} </Component>;
+    return (
+      <Component
+        onClick={onClick}
+        padding={padding}
+        disabled={disabled}
+      >
+        {children}
+      </Component>
+    );
   }
 
   function renderButton() {

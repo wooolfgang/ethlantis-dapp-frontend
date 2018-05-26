@@ -31,9 +31,9 @@ const Type = styled.span`
   color: ${props => props.theme.colorSecondary};
 `;
 
-const GameType = ({ type }) => (
+const GameType = ({ type, image }) => (
   <StyledDiv>
-    <GameImage />
+    <GameImage image={image} />
     <Type>{type.toUpperCase()} </Type>
   </StyledDiv>
 );

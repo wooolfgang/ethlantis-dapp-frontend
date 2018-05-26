@@ -8,7 +8,7 @@ const StyledDiv = styled.div`
   text-align: center;
   z-index: 99999;
   position: relative;
-  background: ${props => props.theme.colorPrimary};
+  background: linear-gradient(#2A388D,#3EA5C2);
 `;
 
 const Box = styled.div`
@@ -36,7 +36,7 @@ const Hero = () => (
     <Box>
       <Header> A trustless esports betting platform </Header>
       <SubHeader> Instant withdrawals. Minimal 3% rake. No sign-up required. </SubHeader>
-      <a href="/games">
+      <a href="/matches">
         <Button type="inverted">
           Get Started
         </Button>
