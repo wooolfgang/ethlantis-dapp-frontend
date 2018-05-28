@@ -1,5 +1,5 @@
 /* eslint-disable no-undef ,no-plusplus, no-unused-vars */
-const matchHash = require('../src/utils/utils');
+const matchHash = (matchId, gameType) => matchId + gameType;
 
 const MatchFactory = artifacts.require('MatchFactory');
 

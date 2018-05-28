@@ -1,5 +1,5 @@
 /* eslint-disable no-undef ,no-plusplus */
-const matchHash = require('../src/utils/utils');
+const matchHash = (matchId, gameType) => matchId + gameType;
 
 const MatchBetting = artifacts.require('MatchBetting');
 

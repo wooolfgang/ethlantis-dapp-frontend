@@ -1,4 +1,5 @@
 import * as types from '../constants/ActionTypes';
+import { getHash } from '../utils';
 
 export const loginUser = (userId, isOwner) => ({
   type: types.USER_LOGGED_IN,
@@ -25,3 +26,20 @@ export const getUserData = () => async (dispatch, getState) => {
   throw new Error('No web3 or contract found');
 };
 
+export const bet = (id, gameType, teamName, betValue) => async (dispatch, getState) => {
+  const { contract, web3 } = getState().web3;
+  const { id: userAddress } = getState().user;
+  try {
+    if (contract && web3) {
+      const res = await contract.bet(
+        getHash(id, gameType),
+        teamName, { from: userAddress, value: web3.utils.toWei(`${betValue}`) },
+      );
+      console.log(res);
+    } else {
+      throw new Error('No contract or web3 found');
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};

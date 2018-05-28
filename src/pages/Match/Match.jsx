@@ -48,6 +48,7 @@ const Match = ({ match }) => (
   <StyledDiv>
     <Slanted />
     <MatchDetails match={match} />
+    {console.log(match)}
     <TwitchContainer />
     <LiveFeed />
   </StyledDiv>

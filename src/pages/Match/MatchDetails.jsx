@@ -56,7 +56,13 @@ class MatchDetails extends React.Component {
           }
         </TeamContainer>
         <BottomContainer>
-          <Bet chosenTeam={chosenTeam} />
+          {
+            match &&
+            <Bet
+              chosenTeam={chosenTeam}
+              gameType={match.gameType}
+            />
+          }
         </BottomContainer>
       </StyledDiv>
     );
