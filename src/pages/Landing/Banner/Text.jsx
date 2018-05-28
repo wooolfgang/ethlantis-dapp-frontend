@@ -4,13 +4,14 @@ import styled from 'styled-components';
 const H1 = styled.h1`
   margin: 0;
   font-size: 2em;
+  font-weight: 400;
   color: #212121;
   font-family: ${props => props.theme.fontHeading};
 `;
 
 const H2 = styled.h2`
   font-size: 1.4em;
-  font-weight: 100;
+  font-weight: 300;
   color: #456990;
 `;
 

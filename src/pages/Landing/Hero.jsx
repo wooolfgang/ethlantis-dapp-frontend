@@ -28,6 +28,7 @@ const SubHeader = styled.p`
   margin: 0;
   margin-bottom: 20px;  
   font-size: 1.25em;
+  font-weight: 300;
   color: white;
 `;
 

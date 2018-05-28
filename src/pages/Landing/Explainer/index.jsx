@@ -17,7 +17,7 @@ const Container = styled.div`
 
 const Header = styled.h2`
   font-size: 1.4em;
-  font-weight: 100;
+  font-weight: 400;
   font-family: ${props => props.theme.fontHeading};
 `;
 

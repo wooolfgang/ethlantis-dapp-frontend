@@ -18,9 +18,9 @@ const StyledDiv = styled.div`
 
 const Header = styled.h2`
   font-family: ${props => props.theme.fontHeading};
-  font-weight: normal;
   grid-area: header;
   cursor: pointer;
+  font-weight: 300;
   border-bottom: 1px solid lightgray;
   transition-duration: 200ms;
   margin: 0px;

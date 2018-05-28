@@ -28,7 +28,8 @@ const GameImage = styled.div`
 
 const Type = styled.span`
   font-size: .80em;
-  color: ${props => props.theme.colorSecondary};
+  font-family: ${props => props.theme.fontBody};
+  font-weight: 300;
 `;
 
 const GameType = ({ type, image }) => (

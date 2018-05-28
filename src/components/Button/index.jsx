@@ -6,6 +6,7 @@ const Primary = styled.button`
   outline: none;
   cursor: pointer;
   font-size: 1em;
+  font-weight: 300;
   border: none;
   border-radius: 30px;
   background: none;

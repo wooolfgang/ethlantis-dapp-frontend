@@ -1,7 +1,7 @@
 import { injectGlobal } from 'styled-components';
 
 const inject = () => injectGlobal`
-  @import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab');
+  @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,350,400|Roboto+Slab:100,300,350,400');
 
   body {
     margin: 0;

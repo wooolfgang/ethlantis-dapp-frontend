@@ -19,14 +19,14 @@ const Id = styled.span`
   display: inline-block;
   height: 100%;
   font-size: .85em;
-  border-bottom: 1px solid ${props => props.theme.colorSecondary};
+  border-bottom: 1px solid lightgray;
 `;
 
 const Avatar = styled.div`
   grid-area: avatar;
   width: 60px;
   height: 100%;
-  border: 1px solid ${props => props.theme.colorSecondary};
+  border: 1px solid lightgray;
   border-radius: 50%;
 `;
 

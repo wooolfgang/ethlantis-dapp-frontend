@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StyledLink = styled(L)`
   color: blue;
   text-decoration: none;
-  font-family: sans-serif;
+  font-family: ${props => props.theme.fontBody};
   font-size: .95em;
   font-weight: 100;
   letter-spacing: .1em;

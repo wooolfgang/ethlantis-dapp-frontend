@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { getMatchBackground } from '../../utils';
+import { getMatchBackgroundImage, getMatchBackground } from '../../utils';
 import { TEAM_A, TEAM_B } from '../../assets/images';
 import Button from '../Button';
 
@@ -15,6 +15,7 @@ const StyledDiv = styled.div`
 const Background = styled.div`
   width: 100%;
   height: 80%;
+  background: ${props => props.background};
   background: url(${props => props.backgroundImage}) no-repeat center;
   background-size: cover;
   position: relative;
@@ -80,7 +81,10 @@ const Bottom = styled.div`
 
 const MatchCard = ({ match }) => (
   <StyledDiv>
-    <Background backgroundImage={getMatchBackground(match.gameType)}>
+    <Background
+      backgroundImage={getMatchBackgroundImage(match.gameType)}
+      background={getMatchBackground(match.gameType)}
+    >
       <Left>
         <TeamIcon teamA={match.teamA} icon={TEAM_A} />
         <span style={{ color: 'white', fontSize: '1.15em' }}> {match.teamA} </span>
