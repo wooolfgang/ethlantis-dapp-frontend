@@ -18,7 +18,6 @@ contract MatchBetting is MatchFactory {
     Match storage m = matches[hashToMatchId[_matchHash]];
     uint amount = msg.value * 1 wei;
     
-    require(now < m.startTime);
     require(m.bettable);
     require(m.teamA == _teamChoice || m.teamB == _teamChoice);
 
