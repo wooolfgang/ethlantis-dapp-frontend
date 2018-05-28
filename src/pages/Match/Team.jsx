@@ -10,12 +10,12 @@ const StyledDiv = styled.div`
   cursor: pointer;
  
   ${props => props.chosen && `
-    box-shadow: .5px .5px 1px 1px ${props.theme.colorPrimary};   
+    box-shadow: .5px .5px 1px 1px ${props.theme.colorSecondary};   
     transform: translateY(-2px);
   `}
 
   :hover {
-    box-shadow: .5px .5px 1px 1px ${props => props.theme.colorPrimary};   
+    box-shadow: .5px .5px 1px 1px ${props => props.theme.colorSecondary};   
     transform: translateY(-2px);
   }
 `;

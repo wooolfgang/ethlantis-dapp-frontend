@@ -9,14 +9,14 @@ import MatchPage from './pages/Match';
 import FetchNetworkStatus from './components/FetchNetworkStatus/';
 import { getUserData } from './actions/userActions';
 
-let App = ({ web3, matchBetting, getUserDataFunc }) => (
+let App = ({ web3, contract, getUserDataFunc }) => (
   <Router>
     <Fragment>
       {
-        (web3 && matchBetting) &&
+        (web3 && contract) &&
         <FetchNetworkStatus
           web3={web3}
-          matchBetting={matchBetting}
+          matchBetting={contract}
           getUserData={getUserDataFunc}
         />
       }
@@ -32,12 +32,12 @@ let App = ({ web3, matchBetting, getUserDataFunc }) => (
 );
 
 const mapStateToProps = state => ({
-  web3: state.web3.web3Instance,
-  matchBetting: state.web3.matchBetting,
+  web3: state.web3.web3,
+  contract: state.web3.contract,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getUserDataFunc: (web3, matchBetting) => dispatch(getUserData(web3, matchBetting)),
+  getUserDataFunc: () => dispatch(getUserData()),
 });
 
 App = connect(mapStateToProps, mapDispatchToProps)(App);

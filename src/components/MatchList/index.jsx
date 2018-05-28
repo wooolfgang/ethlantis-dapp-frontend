@@ -5,8 +5,8 @@ import { getMatches } from '../../actions/matchActions';
 
 class MatchListContainer extends React.Component {
   componentDidMount() {
-    const { web3, matchBetting, getMatchesData } = this.props;
-    getMatchesData(web3, matchBetting, 10);
+    const { getMatchesData } = this.props;
+    getMatchesData(10);
   }
 
   render() {
@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getMatchesData: (web3, matchBetting, count) => dispatch(getMatches(web3, matchBetting, count)),
+  getMatchesData: count => dispatch(getMatches(count)),
 });
 
 MatchListContainer = connect(mapStateToProps, mapDispatchToProps)(MatchListContainer);

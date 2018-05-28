@@ -30,9 +30,7 @@ let NetworkStatusContainer = (props) => {
 };
 
 const mapStateToProps = state => ({
-  web3: state.web3.web3Instance,
   web3Error: state.web3.web3Error,
-  matchBetting: state.web3.matchBetting,
   user: state.user,
 });
 

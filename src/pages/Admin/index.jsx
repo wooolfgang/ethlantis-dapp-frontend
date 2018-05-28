@@ -6,10 +6,10 @@ import loginUser from '../../actions/userActions';
 let AdminPageContainer = props => (
   <div>
     {
-      (props.web3 && props.matchBetting) &&
+      (props.web3 && props.contract) &&
       <AdminPage
         web3={props.web3}
-        matchBetting={props.matchBetting}
+        contract={props.contract}
         loginUser={props.loginUserFunc}
         user={props.user}
       />
@@ -18,8 +18,8 @@ let AdminPageContainer = props => (
 );
 
 const mapStateToProps = state => ({
-  web3: state.web3.web3Instance,
-  matchBetting: state.web3.matchBetting,
+  web3: state.web3.web3,
+  contract: state.web3.contract,
   user: state.user,
 });
 

@@ -11,11 +11,17 @@ export const setUserBalance = balance => ({
   balance,
 });
 
-export const getUserData = (web3, matchBetting) => async (dispatch) => {
-  const userId = await web3.eth.getCoinbase();
-  const owner = await matchBetting.owner.call();
-  let balance = await web3.eth.getBalance(userId);
-  balance = web3.utils.fromWei(balance, 'ether');
-  dispatch(loginUser(userId, owner === userId));
-  return dispatch(setUserBalance(balance));
+export const getUserData = () => async (dispatch, getState) => {
+  const { web3, contract } = getState().web3;
+
+  if (web3 && contract) {
+    const userId = await web3.eth.getCoinbase();
+    const owner = await contract.owner.call();
+    let balance = await web3.eth.getBalance(userId);
+    balance = web3.utils.fromWei(balance, 'ether');
+    dispatch(loginUser(userId, owner === userId));
+    return dispatch(setUserBalance(balance));
+  }
+  throw new Error('No web3 or contract found');
 };
+

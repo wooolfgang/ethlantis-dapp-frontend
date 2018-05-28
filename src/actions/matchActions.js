@@ -5,8 +5,12 @@ export const addMatches = matches => ({
   matches,
 });
 
-export const getMatches = (web3, matchBetting, matchCountFromLatest) => async (dispatch) => {
-  let matchesCount = await matchBetting.getMatchesCount();
+export const getMatches = matchCountFromLatest => async (dispatch, getState) => {
+  const { contract, web3 } = getState().web3;
+
+  if (!contract || !web3) throw new Error('No contract or web3 found');
+
+  let matchesCount = await contract.getMatchesCount();
   matchesCount = matchesCount.toNumber();
 
   if (matchCountFromLatest > matchesCount) {
@@ -19,9 +23,9 @@ export const getMatches = (web3, matchBetting, matchCountFromLatest) => async (d
     matchIndexes.push(i);
   }
 
-  const matchesInfo = await matchBetting.getMatchesInfo(matchIndexes);
-  const matchesStatus = await matchBetting.getMatchesStatus(matchIndexes);
-  const matchesResult = await matchBetting.getMatchesResult(matchIndexes);
+  const matchesInfo = await contract.getMatchesInfo(matchIndexes);
+  const matchesStatus = await contract.getMatchesStatus(matchIndexes);
+  const matchesResult = await contract.getMatchesResult(matchIndexes);
   const matches = matchesInfo.concat(matchesStatus).concat(matchesResult);
   const newMatches = [];
 
@@ -75,10 +79,10 @@ export const getMatches = (web3, matchBetting, matchCountFromLatest) => async (d
 };
 
 export const getMatch = matchId => async (dispatch, getState) => {
-  const { matchBetting, web3Instance: web3 } = getState().web3;
+  const { contract, web3 } = getState().web3;
 
-  if (matchBetting && web3) {
-    const res = await matchBetting.matches.call(matchId);
+  if (contract && web3) {
+    const res = await contract.matches.call(matchId);
     const match = {
       teamATotalBets: res[0].toNumber(),
       teamBTotalBets: res[1].toNumber(),

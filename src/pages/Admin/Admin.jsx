@@ -64,11 +64,11 @@ class AdminPage extends React.Component {
   }
 
   async addMatch() {
-    const { matchBetting, user } = this.props;
+    const { contract, user } = this.props;
     const {
       timestamp, matchId, teamA, teamB, gameType,
     } = this.state;
-    await matchBetting.addMatch(
+    await contract.addMatch(
       timestamp,
       matchId,
       teamA,

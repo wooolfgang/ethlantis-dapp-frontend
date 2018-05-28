@@ -1,8 +1,8 @@
 import * as types from '../constants/ActionTypes';
 
 const initialState = {
-  web3Instance: null,
-  matchBetting: null,
+  web3: null,
+  contract: null,
 };
 
 const web3Reducer = (state = initialState, action) => {
@@ -10,7 +10,7 @@ const web3Reducer = (state = initialState, action) => {
     case types.WEB3_INITIALIZED:
       return {
         ...state,
-        web3Instance: action.payload.web3Instance,
+        web3: action.payload.web3Instance,
       };
 
     case types.WEB3_INITIALIZED_ERROR:
@@ -22,7 +22,7 @@ const web3Reducer = (state = initialState, action) => {
     case types.CONTRACT_INITIALIZED:
       return {
         ...state,
-        matchBetting: action.payload,
+        contract: action.payload,
       };
 
     default:

@@ -20,7 +20,7 @@ export const initializeContract = payload => ({
 });
 
 export const connectToContract = () => async (dispatch) => {
-  const web3 = store.getState().web3.web3Instance;
+  const { web3 } = store.getState().web3;
 
   if (typeof web3 !== 'undefined') {
     try {

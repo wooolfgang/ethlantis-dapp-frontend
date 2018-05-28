@@ -41,8 +41,8 @@ class MatchContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  web3: state.web3.web3Instance,
-  contract: state.web3.matchBetting,
+  web3: state.web3.web3,
+  contract: state.web3.contract,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -23,19 +23,19 @@ const MatchListGrid = styled.div`
   grid-gap: 27.5px 30px;
 `;
 
-let MatchesSection = ({ matchBetting, web3 }) => (
+let MatchesSection = ({ contract, web3 }) => (
   <StyledDiv>
     <MatchListGrid>
       {
-        (matchBetting && web3) && <MatchListContainer matchBetting={matchBetting} web3={web3} />
+        (contract && web3) && <MatchListContainer />
       }
     </MatchListGrid>
   </StyledDiv>
 );
 
 const mapStateToProps = state => ({
-  matchBetting: state.web3.matchBetting,
-  web3: state.web3.web3Instance,
+  contract: state.web3.contract,
+  web3: state.web3.web3,
 });
 
 MatchesSection = connect(mapStateToProps)(MatchesSection);
