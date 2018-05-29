@@ -29,6 +29,7 @@ export const getUserData = () => async (dispatch, getState) => {
 export const bet = (id, gameType, teamName, betValue) => async (dispatch, getState) => {
   const { contract, web3 } = getState().web3;
   const { id: userAddress } = getState().user;
+
   try {
     if (contract && web3) {
       const res = await contract.bet(
@@ -43,3 +44,24 @@ export const bet = (id, gameType, teamName, betValue) => async (dispatch, getSta
     console.log(e);
   }
 };
+
+export const getPlacedBetAmount = (matchId, gameType, teamA, teamB) =>
+  async (dispatch, getState) => {
+    const { contract, web3 } = getState().web3;
+
+    try {
+      if (contract && web3) {
+        let teamABet = await contract.getUserBet(getHash(matchId, gameType), teamA);
+        let teamBBet = await contract.getUserBet(getHash(matchId, gameType), teamB);
+        teamABet = Number(web3.utils.fromWei(`${teamABet.toNumber()}`));
+        teamBBet = Number(web3.utils.fromWei(`${teamBBet.toNumber()}`));
+        if (teamABet !== 0) return { teamName: teamA, betAmount: teamABet };
+        if (teamABet !== 0) return { teamName: teamB, betAmount: teamBBet };
+      } else {
+        throw new Error('No contract found');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    return null;
+  };

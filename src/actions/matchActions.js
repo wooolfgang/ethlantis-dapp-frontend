@@ -83,9 +83,13 @@ export const getMatch = matchId => async (dispatch, getState) => {
 
   if (contract && web3) {
     const res = await contract.matches.call(matchId);
+
+    const teamABets = web3.utils.fromWei(`${res[0].toNumber()}`);
+    const teamBBets = web3.utils.fromWei(`${res[1].toNumber()}`);
+
     const match = {
-      teamATotalBets: res[0].toNumber(),
-      teamBTotalBets: res[1].toNumber(),
+      teamATotalBets: Number(teamABets),
+      teamBTotalBets: Number(teamBBets),
       startTime: res[2].toNumber(),
       matchID: res[3].toNumber(),
       id: res[4].toNumber(),

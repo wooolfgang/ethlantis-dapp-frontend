@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button';
-import { bet } from '../../actions/userActions';
+import Slider from '../../components/Slider';
+import { bet, getPlacedBetAmount } from '../../actions/userActions';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -14,56 +15,80 @@ const StyledDiv = styled.div`
   box-sizing: border-box;
 `;
 
-const Input = styled.input`
-  background: none;
-  border: none;
-  border: 1px solid lightgray;
-  width: 150px;
-  height: 25px;
-  font-size: 1.2em;
-  outline: none;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Value = styled.span`
   font-weight: 300;
+  color: ${props => props.theme.colorPrimary};
+`;
 
-  :hover {
-    border: 1px solid ${props => props.theme.colorSecondary};
-  }
-
-  :focus {
-    border: 1px solid ${props => props.theme.colorSecondary};
-  }
+const PlacedBet = styled.span`
+  font-weight: 300;
+  font-size: .80em;
+  color: ${props => props.theme.colorTertiary};
 `;
 
 class Bet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      betValue: '',
+      value: null,
+      placedBet: null,
+      placedTeam: null,
+      max: 100,
+      min: 0,
     };
 
-    this.handleBetInput = this.handleBetInput.bind(this);
+    this.handleSliderChange = this.handleSliderChange.bind(this);
     this.placeBet = this.placeBet.bind(this);
   }
 
-  handleBetInput(e) {
-    this.setState({ betValue: e.target.value });
+  async componentDidMount() {
+    const {
+      getPlacedBet, gameType, teamA, teamB, match: { params: { id } },
+    } = this.props;
+    const res = await getPlacedBet(id, gameType, teamA, teamB);
+    this.setState({ placedBet: res.betAmount, placedTeam: res.teamName });
+  }
+
+  handleSliderChange(e) {
+    this.setState({ value: e.target.value });
   }
 
   placeBet() {
     const {
       placeBet, gameType, chosenTeam, match: { params: { id } },
     } = this.props;
-    placeBet(id, gameType, chosenTeam, this.state.betValue);
+    placeBet(id, gameType, chosenTeam, this.state.value);
   }
 
   render() {
-    const { betValue } = this.state;
+    const {
+      value, max, min, placedBet, placedTeam,
+    } = this.state;
     const { chosenTeam } = this.props;
     return (
       <StyledDiv>
-        <span><Input onChange={this.handleBetInput} value={betValue} /> Finney </span>
+        <Slider
+          max={max}
+          min={min}
+          handleChange={this.handleSliderChange}
+          defaultValue={0}
+        />
+        <Container>
+          <Value> {value || '---'}  ETH </Value>
+          {(placedBet && placedTeam) &&
+            <PlacedBet> You placed {placedBet} ETH on Team {placedTeam} </PlacedBet>
+          }
+        </Container>
         <Button
           type="secondary"
-          disabled={(!betValue || betValue.length === 0) ||
+          disabled={(!value || value.length === 0) ||
             (!chosenTeam || chosenTeam.length === 0)}
           onClick={this.placeBet}
         >
@@ -76,6 +101,8 @@ class Bet extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   placeBet: (id, gameType, teamName, betValue) => dispatch(bet(id, gameType, teamName, betValue)),
+  getPlacedBet: (id, gameType, teamA, teamB) =>
+    dispatch(getPlacedBetAmount(id, gameType, teamA, teamB)),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(Bet));

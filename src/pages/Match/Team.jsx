@@ -29,13 +29,21 @@ const Image = styled.div`
 `;
 
 const Name = styled.span`
-  font-size: 1.4em;
+  font-size: 1.35em;
+  font-weight: 300;
   color: gray;
 `;
 
 const Percent = styled.span`
-  font-size: 1.2em;
+  font-size: 1.1em;
+  font-weight: 300;
   color: darkgray;
+`;
+
+const Bets = styled.span`
+  font-size: .65em;
+  font-weight: 300;
+  color: ${props => props.theme.colorTertiary};
 `;
 
 class Team extends React.Component {
@@ -53,11 +61,13 @@ class Team extends React.Component {
     const {
       chosen, name, totalBets, bets,
     } = this.props;
+    const percentage = ((bets / totalBets) * 100).toFixed(2);
     return (
       <StyledDiv chosen={chosen} onClick={this.chooseTeam}>
         <Image />
         <Name> {name} </Name>
-        <Percent> {totalBets === 0 ? 0 : bets / totalBets}% </Percent>
+        <Percent> {totalBets === 0 ? 0 : percentage}% </Percent>
+        <Bets> {bets} ETH placed.</Bets>
       </StyledDiv>
     );
   }

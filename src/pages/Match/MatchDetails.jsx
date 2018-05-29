@@ -61,6 +61,8 @@ class MatchDetails extends React.Component {
             <Bet
               chosenTeam={chosenTeam}
               gameType={match.gameType}
+              teamA={match.teamA}
+              teamB={match.teamB}
             />
           }
         </BottomContainer>
