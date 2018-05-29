@@ -9,6 +9,7 @@
         "react/prop-types": "off",
         "no-class-assign": "off",
         "import/no-mutable-exports": "off",
-        "react/no-did-update-set-state": "off"
+        "react/no-did-update-set-state": "off",
+        "react/no-did-mount-set-state": "off"
     }
 }
