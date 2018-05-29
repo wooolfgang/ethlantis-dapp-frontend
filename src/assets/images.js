@@ -17,3 +17,4 @@ export const ETHLANTIS_LOGO = 'http://res.cloudinary.com/depjh17m6/image/upload/
 export const LOL_ICON_FILTER = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527318557/LOL_jywkzk.svg';
 export const DOTA_ICON_FILTER = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527318557/DOTA_ldl6n1.svg';
 export const CSGO_ICON_FILTER = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527318557/CS_GO_m78nui.svg';
+export const WAVES_SVG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527599821/Waves_khoguq.svg';

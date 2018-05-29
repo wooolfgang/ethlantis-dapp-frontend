@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button';
+import { WAVES_SVG } from '../../assets/images';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -9,6 +10,7 @@ const StyledDiv = styled.div`
   z-index: 99999;
   position: relative;
   background: linear-gradient(#2A388D,#3EA5C2);
+  position: relative;
 `;
 
 const Box = styled.div`
@@ -32,6 +34,13 @@ const SubHeader = styled.p`
   color: white;
 `;
 
+const Waves = styled.img`
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+  width: 100vw;
+`;
+
 const Hero = () => (
   <StyledDiv>
     <Box>
@@ -43,6 +52,7 @@ const Hero = () => (
         </Button>
       </a>
     </Box>
+    <Waves src={WAVES_SVG} alt="waves" />
   </StyledDiv>
 );
 
