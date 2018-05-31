@@ -35,6 +35,13 @@ contract('MatchFactory', async (accounts) => {
       assert.equal(matchInfo[FIELD_ID].toNumber(), 0, 'The id of the first created match should be 0');
     });
 
+    it('Should return the correct id of the match', async () => {
+      const time = Date.now();
+      await matchFactory.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
+      const id = await matchFactory.hashToMatchId(matchHash(1, 'Dota2'));
+      assert.equal(0, id, 'Id should equal to zero');
+    });
+
     it('Should return error on addMatch when not called by contract owner', async () => {
       const time = Date.now() + 360000;
       let res;
@@ -46,6 +53,7 @@ contract('MatchFactory', async (accounts) => {
       assert(res instanceof Error);
     });
   });
+
 
   describe('cancelMatch', () => {
     it('Should cancel the match', async () => {

@@ -14,7 +14,7 @@ contract('MatchBetting', async (accounts) => {
     matchBetting = await MatchBetting.new(owner);
   });
 
-  describe.only('bet', () => {
+  describe('bet', () => {
     it('Should add ether to the contract address', async () => {
       const time = Date.now() + 120000;
       await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });

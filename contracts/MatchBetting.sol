@@ -1,4 +1,4 @@
-pragma solidity ^0.4.2;
+pragma solidity ^0.4.24;
 
 import "./MatchFactory.sol";
 
@@ -35,7 +35,7 @@ contract MatchBetting is MatchFactory {
       revert();
     }
 
-    NewBet(msg.sender, amount, _teamChoice, m.teamATotalBets, m.teamBTotalBets);
+    emit NewBet(msg.sender, amount, _teamChoice, m.teamATotalBets, m.teamBTotalBets);
   }
 
   function changeTeam(bytes32 _matchHash, bytes32 _teamChoice) external {
@@ -61,14 +61,14 @@ contract MatchBetting is MatchFactory {
       revert();
     }
 
-    TeamChange(msg.sender, amount, _teamChoice, m.teamATotalBets, m.teamBTotalBets);
+    emit TeamChange(msg.sender, amount, _teamChoice, m.teamATotalBets, m.teamBTotalBets);
   }
 
   function setFee(uint256 _newFeePercentage) external onlyOwner {
     require(_newFeePercentage == uint8(_newFeePercentage));
     require(_newFeePercentage <= MAX_FEE_PERCENTAGE);
     feePercentage = uint8(_newFeePercentage);
-    NewFee(uint8(_newFeePercentage));
+    emit NewFee(uint8(_newFeePercentage));
   }
 
   function getUserBet(bytes32 _matchHash, bytes32 _teamChoice)

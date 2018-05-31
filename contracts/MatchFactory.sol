@@ -1,4 +1,4 @@
-pragma solidity ^0.4.2;
+pragma solidity ^0.4.24;
 
 import "./Ownable.sol";
 
@@ -50,7 +50,7 @@ contract MatchFactory is Ownable {
     uint id = matches.push(Match({
       startTime: uint64(_startTime),
       matchId: uint32(_matchId),
-      id: uint32(matches.length - 1),
+      id: uint32(matches.length),
       teamATotalBets: 0,
       teamBTotalBets: 0,
       teamA: _teamA,
@@ -62,7 +62,7 @@ contract MatchFactory is Ownable {
       bettable: true
     })) - 1;
     hashToMatchId[_matchHash] = uint32(id);
-    NewMatch(uint64(_startTime), uint32(id), _teamA, _teamB);
+    emit NewMatch(uint64(_startTime), uint32(id), _teamA, _teamB);
   }
 
   function cancelMatch(bytes32 _matchHash) external onlyOwner {
@@ -70,7 +70,7 @@ contract MatchFactory is Ownable {
     m.canceled = true;
     m.withdrawable = true;
     m.bettable = false;
-    CancelMatch(m.matchId, m.withdrawable, m.canceled, m.bettable);
+    emit CancelMatch(m.matchId, m.withdrawable, m.canceled, m.bettable);
   }
 
   function getMatchesCount() public view returns (uint) {
