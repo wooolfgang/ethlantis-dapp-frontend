@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button';
+import Link from '../../components/Link';
 import { WAVES_SVG } from '../../assets/images';
 
 const StyledDiv = styled.div`
@@ -46,14 +47,14 @@ const Hero = () => (
     <Box>
       <Header> A trustless esports betting platform </Header>
       <SubHeader> Instant withdrawals. Minimal 3% rake. No sign-up required. </SubHeader>
-      <a href="/matches">
+      <Link to="/matches" href="/" >
         <Button type="inverted">
           Get Started
         </Button>
-      </a>
+      </Link>
     </Box>
     <Waves src={WAVES_SVG} alt="waves" />
-  </StyledDiv>
+  </StyledDiv >
 );
 
 export default Hero;
