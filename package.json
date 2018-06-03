@@ -64,9 +64,10 @@
     "web3": "^1.0.0-beta.29"
   },
   "scripts": {
-    "start": "truffle migrate node scripts/start.js",
-    "build": "truffle migrate node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js --env=jsdom",
+    "build:netlify": "truffle migrate node scripts/build.js"
   },
   "jest": {
     "collectCoverageFrom": [
