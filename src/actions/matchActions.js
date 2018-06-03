@@ -1,4 +1,5 @@
 import * as types from '../constants/ActionTypes';
+import { getBetPercentage } from '../utils';
 
 export const addMatches = matches => ({
   type: types.MATCHES_ADD,
@@ -73,6 +74,13 @@ export const getMatches = matchCountFromLatest => async (dispatch, getState) => 
           return;
       }
     }
+
+    const teamABets = matches[10][i].toNumber();
+    const teamBBets = matches[11][i].toNumber();
+    const total = teamABets + teamBBets;
+
+    newMatch.teamAPercentage = getBetPercentage(teamABets, total);
+    newMatch.teamBPercentage = getBetPercentage(teamBBets, total);
     newMatches.push(newMatch);
   }
   dispatch(addMatches(newMatches));
@@ -84,12 +92,15 @@ export const getMatch = matchId => async (dispatch, getState) => {
   if (contract && web3) {
     const res = await contract.matches.call(matchId);
 
-    const teamABets = web3.utils.fromWei(`${res[0].toNumber()}`);
-    const teamBBets = web3.utils.fromWei(`${res[1].toNumber()}`);
+    const teamABets = Number(web3.utils.fromWei(`${res[0].toNumber()}`));
+    const teamBBets = Number(web3.utils.fromWei(`${res[1].toNumber()}`));
+    const total = teamABets + teamBBets;
 
     const match = {
       teamATotalBets: Number(teamABets),
       teamBTotalBets: Number(teamBBets),
+      teamAPercentage: getBetPercentage(teamABets, total),
+      teamBPercentage: getBetPercentage(teamBBets, total),
       startTime: res[2].toNumber(),
       matchID: res[3].toNumber(),
       id: res[4].toNumber(),

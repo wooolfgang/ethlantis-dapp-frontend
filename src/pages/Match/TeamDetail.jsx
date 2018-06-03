@@ -7,7 +7,6 @@ const StyledDiv = styled.div`
   align-items: center;
   padding: 5px 8px;
   transition: all 200ms;
-  cursor: pointer;
  
   ${props => props.chosen && `
     box-shadow: .5px .5px 1px 1px ${props.theme.colorSecondary};   
@@ -15,8 +14,11 @@ const StyledDiv = styled.div`
   `}
 
   :hover {
-    box-shadow: .5px .5px 1px 1px ${props => props.theme.colorSecondary};   
+    ${props => !props.hasPlaced && `
+    box-shadow: .5px .5px 1px 1px ${props.theme.colorSecondary}};   
     transform: translateY(-2px);
+    cursor: pointer; 
+    `}
   }
 `;
 
@@ -46,7 +48,7 @@ const Bets = styled.span`
   color: ${props => props.theme.colorTertiary};
 `;
 
-class Team extends React.Component {
+class TeamDetail extends React.Component {
   constructor(props) {
     super(props);
     this.chooseTeam = this.chooseTeam.bind(this);
@@ -59,19 +61,18 @@ class Team extends React.Component {
 
   render() {
     const {
-      chosen, name, totalBets, bets,
+      chosen, name, percentage, bets, hasPlaced,
     } = this.props;
-    const percentage = ((bets / totalBets) * 100).toFixed(2);
     return (
-      <StyledDiv chosen={chosen} onClick={this.chooseTeam}>
+      <StyledDiv chosen={chosen} onClick={this.chooseTeam} hasPlaced={hasPlaced}>
         <Image />
         <Name> {name} </Name>
-        <Percent> {totalBets === 0 ? 0 : percentage}% </Percent>
+        <Percent> {percentage}% </Percent>
         <Bets> {bets} ETH placed.</Bets>
       </StyledDiv>
     );
   }
 }
 
-export default Team;
+export default TeamDetail;
 

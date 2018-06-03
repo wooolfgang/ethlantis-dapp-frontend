@@ -44,10 +44,10 @@ const LiveFeed = styled.div`
   grid-area: live-feed;
 `;
 
-const Match = ({ match }) => (
+const Match = ({ match, id }) => (
   <StyledDiv>
     <Slanted />
-    <MatchDetails match={match} />
+    {match && <MatchDetails match={match} id={id} />}
     <TwitchContainer />
     <LiveFeed />
   </StyledDiv>

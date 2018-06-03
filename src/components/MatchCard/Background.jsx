@@ -40,7 +40,7 @@ const Right = styled.div`
 `;
 
 const Background = ({
-  background, backgroundImage, teamA, teamB, teamAIcon, teamBIcon,
+  background, backgroundImage, teamA, teamB, teamAIcon, teamBIcon, teamAPercentage, teamBPercentage,
 }) =>
   (
     <StyledDiv background={background} backgroundImage={backgroundImage}>
@@ -48,12 +48,12 @@ const Background = ({
       <Left>
         <TeamIcon teamA={teamA} icon={teamAIcon} />
         <span style={{ color: 'white', fontSize: '1.15em' }}> {teamA} </span>
-        <span style={{ color: 'white', fontSize: '1.05em' }}> 70% </span>
+        <span style={{ color: 'white', fontSize: '1.05em' }}> {teamAPercentage}% </span>
       </Left>
       <Right>
         <TeamIcon teamB={teamB} icon={teamBIcon} />
         <span style={{ color: 'white', fontSize: '1.15em' }}> {teamB} </span>
-        <span style={{ color: 'white', fontSize: '1.05em' }}> 30% </span>
+        <span style={{ color: 'white', fontSize: '1.05em' }}> {teamBPercentage}% </span>
       </Right>
     </StyledDiv>
   );

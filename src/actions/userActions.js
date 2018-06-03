@@ -50,8 +50,8 @@ export const getPlacedBetAmount = (id, teamA, teamB) =>
         let teamBBet = await contract.getUserBet(id, teamB);
         teamABet = Number(web3.utils.fromWei(`${teamABet.toNumber()}`));
         teamBBet = Number(web3.utils.fromWei(`${teamBBet.toNumber()}`));
-        if (teamABet !== 0) return { teamName: teamA, betAmount: teamABet };
-        if (teamABet !== 0) return { teamName: teamB, betAmount: teamBBet };
+        if (teamABet !== 0) return { chosenTeam: teamA, betAmount: teamABet };
+        if (teamABet !== 0) return { chosenTeam: teamB, betAmount: teamBBet };
       } else {
         throw new Error('No contract found');
       }

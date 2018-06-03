@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Teams from './Teams';
+import TeamDetails from './TeamDetails';
 import Bet from './Bet';
+import { getPlacedBetAmount } from '../../actions/userActions';
 
 const StyledDiv = styled.div`
   grid-area: match-details; 
@@ -33,43 +35,56 @@ class MatchDetails extends React.Component {
     super(props);
     this.state = {
       chosenTeam: null,
+      placedValue: null,
+      hasPlaced: false,
     };
     this.chooseTeam = this.chooseTeam.bind(this);
   }
 
+  async componentDidMount() {
+    const { getPlacedBet, id } = this.props;
+    const { match: { teamA, teamB } } = this.props;
+    const res = await getPlacedBet(id, teamA, teamB);
+    this.setState({ chosenTeam: res.chosenTeam, placedValue: res.betAmount, hasPlaced: !!res });
+  }
+
   chooseTeam(team) {
-    this.setState({ chosenTeam: team });
+    if (!this.state.hasPlaced) {
+      this.setState({ chosenTeam: team });
+    }
   }
 
   render() {
     const { match } = this.props;
-    const { chosenTeam } = this.state;
+    const { chosenTeam, placedValue, hasPlaced } = this.state;
+
     return (
       <StyledDiv>
         <TeamContainer>
-          {match &&
-            <Teams
-              match={match}
-              chosenTeam={chosenTeam}
-              chooseTeam={this.chooseTeam}
-            />
-          }
+          <TeamDetails
+            match={match}
+            chosenTeam={chosenTeam}
+            chooseTeam={this.chooseTeam}
+            hasPlaced={hasPlaced}
+          />
         </TeamContainer>
         <BottomContainer>
-          {
-            match &&
-            <Bet
-              chosenTeam={chosenTeam}
-              gameType={match.gameType}
-              teamA={match.teamA}
-              teamB={match.teamB}
-            />
-          }
+          <Bet
+            chosenTeam={chosenTeam}
+            placedValue={placedValue}
+            gameType={match.gameType}
+            teamA={match.teamA}
+            teamB={match.teamB}
+          />
         </BottomContainer>
       </StyledDiv>
     );
   }
 }
 
-export default MatchDetails;
+const mapDispatchToProps = dispatch => ({
+  getPlacedBet: (id, teamA, teamB) => dispatch(getPlacedBetAmount(id, teamA, teamB)),
+});
+
+export default connect(null, mapDispatchToProps)(MatchDetails);
 

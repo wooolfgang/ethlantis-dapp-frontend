@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button';
 import Slider from '../../components/Slider';
-import { bet, getPlacedBetAmount } from '../../actions/userActions';
+import { bet } from '../../actions/userActions';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -38,22 +38,12 @@ class Bet extends React.Component {
     super(props);
     this.state = {
       value: null,
-      placedBet: null,
-      placedTeam: null,
       max: 100,
       min: 0,
     };
 
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.placeBet = this.placeBet.bind(this);
-  }
-
-  async componentDidMount() {
-    const {
-      getPlacedBet, teamA, teamB, match: { params: { id } },
-    } = this.props;
-    const res = await getPlacedBet(id, teamA, teamB);
-    this.setState({ placedBet: res.betAmount, placedTeam: res.teamName });
   }
 
   handleSliderChange(e) {
@@ -69,9 +59,9 @@ class Bet extends React.Component {
 
   render() {
     const {
-      value, max, min, placedBet, placedTeam,
+      value, max, min,
     } = this.state;
-    const { chosenTeam } = this.props;
+    const { chosenTeam, placedValue } = this.props;
     return (
       <StyledDiv>
         <Slider
@@ -82,18 +72,24 @@ class Bet extends React.Component {
         />
         <Container>
           <Value> {value || '---'}  ETH </Value>
-          {(placedBet && placedTeam) &&
-            <PlacedBet> You placed {placedBet} ETH on Team {placedTeam} </PlacedBet>
+          {(placedValue && chosenTeam) &&
+            <PlacedBet> You placed {placedValue} ETH on Team {chosenTeam} </PlacedBet>
           }
         </Container>
-        <Button
-          type="secondary"
-          disabled={(!value || value.length === 0) ||
-            (!chosenTeam || chosenTeam.length === 0)}
-          onClick={this.placeBet}
-        >
-          Place Bet
-        </Button>
+        {(placedValue && chosenTeam) ?
+          <Button type="secondary">
+            Swap Team
+          </Button> :
+          <Button
+            type="secondary"
+            disabled={(!value || value.length === 0) ||
+              (!chosenTeam || chosenTeam.length === 0)}
+            onClick={this.placeBet}
+          >
+            Place Bet
+          </Button>
+        }
+
       </StyledDiv>
     );
   }
@@ -101,7 +97,6 @@ class Bet extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   placeBet: (id, teamName, betValue) => dispatch(bet(id, teamName, betValue)),
-  getPlacedBet: (id, teamA, teamB) => dispatch(getPlacedBetAmount(id, teamA, teamB)),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(Bet));

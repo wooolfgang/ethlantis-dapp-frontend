@@ -38,6 +38,8 @@ class MatchCard extends React.Component {
           teamB={match.teamB}
           teamAIcon={TEAM_A}
           teamBIcon={TEAM_B}
+          teamAPercentage={match.teamAPercentage}
+          teamBPercentage={match.teamBPercentage}
         />
         <Bottom>
           <a href={`/match/${match.id}`}>

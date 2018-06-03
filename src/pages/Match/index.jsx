@@ -30,12 +30,13 @@ class MatchContainer extends React.Component {
 
   render() {
     const { match } = this.state;
+    const { match: { params: { id } } } = this.props;
     return (
       <StyledDiv>
         <Card width="80vw" height="85vh">
-          <Match match={match} />
+          <Match match={match} id={id} />
         </Card>
-      </StyledDiv>
+      </StyledDiv >
     );
   }
 }
