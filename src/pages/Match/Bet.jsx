@@ -50,9 +50,9 @@ class Bet extends React.Component {
 
   async componentDidMount() {
     const {
-      getPlacedBet, gameType, teamA, teamB, match: { params: { id } },
+      getPlacedBet, teamA, teamB, match: { params: { id } },
     } = this.props;
-    const res = await getPlacedBet(id, gameType, teamA, teamB);
+    const res = await getPlacedBet(id, teamA, teamB);
     this.setState({ placedBet: res.betAmount, placedTeam: res.teamName });
   }
 
@@ -62,9 +62,9 @@ class Bet extends React.Component {
 
   placeBet() {
     const {
-      placeBet, gameType, chosenTeam, match: { params: { id } },
+      placeBet, chosenTeam, match: { params: { id } },
     } = this.props;
-    placeBet(id, gameType, chosenTeam, this.state.value);
+    placeBet(id, chosenTeam, this.state.value);
   }
 
   render() {
@@ -100,9 +100,8 @@ class Bet extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  placeBet: (id, gameType, teamName, betValue) => dispatch(bet(id, gameType, teamName, betValue)),
-  getPlacedBet: (id, gameType, teamA, teamB) =>
-    dispatch(getPlacedBetAmount(id, gameType, teamA, teamB)),
+  placeBet: (id, teamName, betValue) => dispatch(bet(id, teamName, betValue)),
+  getPlacedBet: (id, teamA, teamB) => dispatch(getPlacedBetAmount(id, teamA, teamB)),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(Bet));

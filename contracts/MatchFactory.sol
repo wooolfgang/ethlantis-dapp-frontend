@@ -46,6 +46,7 @@ contract MatchFactory is Ownable {
   {
     require(_startTime == uint256(uint64(_startTime)));
     require(_matchId == uint256(uint32(_matchId)));
+    require(hashToMatchId[_matchHash] == 0);    
 
     uint id = matches.push(Match({
       startTime: uint64(_startTime),
@@ -61,6 +62,7 @@ contract MatchFactory is Ownable {
       canceled: false,
       bettable: true
     })) - 1;
+    
     hashToMatchId[_matchHash] = uint32(id);
     emit NewMatch(uint64(_startTime), uint32(id), _teamA, _teamB);
   }

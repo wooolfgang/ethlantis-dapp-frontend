@@ -1,6 +1,6 @@
 import * as images from '../assets/images';
 
-export const getHash = (matchId, gameType) => matchId + gameType;
+export const getHash = (matchId, gameType) => matchId.toString() + gameType.toString();
 
 export const getMatchBackgroundImage = (gameType) => {
   const type = gameType.toUpperCase();

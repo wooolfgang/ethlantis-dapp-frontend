@@ -36,7 +36,7 @@ contract('MatchFactory', async (accounts) => {
     });
 
     it('Should return the correct id of the match', async () => {
-      const time = Date.now();
+      const time = Date.now() + 36000;
       await matchFactory.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
       const id = await matchFactory.hashToMatchId(matchHash(1, 'Dota2'));
       assert.equal(0, id, 'Id should equal to zero');
@@ -47,6 +47,19 @@ contract('MatchFactory', async (accounts) => {
       let res;
       try {
         res = await matchFactory.addMatch(time, 2, 'Dignitas', 'Potato', 'Dota2', matchHash(2, 'Dota2'), { from: accounts[1] });
+      } catch (e) {
+        res = e;
+      }
+      assert(res instanceof Error);
+    });
+
+    it('Should throw error when matchHash has already been set to a certain match', async () => {
+      const time = Date.now() + 360000;
+      let res;
+      try {
+        res = await matchFactory.addMatch(time, 3, 'Dignitas', 'Potato', 'Dota2', matchHash(3, 'Dota2'), { from: owner });
+        res = await matchFactory.addMatch(time, 3, 'Dignitas', 'Potato', 'Dota2', matchHash(3, 'Dota2'), { from: owner });
+        res = await matchFactory.addMatch(time, 3, 'Dignitas', 'Potato', 'Dota2', matchHash(3, 'Dota2'), { from: owner });
       } catch (e) {
         res = e;
       }

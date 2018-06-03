@@ -18,7 +18,7 @@ contract('MatchBetting', async (accounts) => {
     it('Should add ether to the contract address', async () => {
       const time = Date.now() + 120000;
       await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
-      await matchBetting.bet(matchHash(1, 'Dota2'), 'Dignitas', { from: owner, value: web3.toWei('0.05') });
+      await matchBetting.bet(0, 'Dignitas', { from: owner, value: web3.toWei('0.05') });
       const res = await web3.eth.getBalance(matchBetting.address);
       assert.equal(res.toNumber(), 0.05 * (10 ** 18), 'Balance should equal the amount deposited by user');
     });
@@ -28,7 +28,7 @@ contract('MatchBetting', async (accounts) => {
       await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
       const id = await matchBetting.hashToMatchId(matchHash(1, 'Dota2'));
       const prev = await matchBetting.matches.call(id);
-      await matchBetting.bet(matchHash(1, 'Dota2'), 'Dignitas', { from: owner, value: web3.toWei('1.33') });
+      await matchBetting.bet(0, 'Dignitas', { from: owner, value: web3.toWei('1.33') });
       const after = await matchBetting.matches.call(id);
       const teamAPrev = prev[FIELD_TEAMA_BETS].toNumber();
       const teamBPrev = prev[FIELD_TEAMB_BETS].toNumber();
@@ -42,9 +42,9 @@ contract('MatchBetting', async (accounts) => {
     it('Should update the balance of the user in the match', async () => {
       const time = Date.now() + 120000;
       await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
-      const prev = await matchBetting.getUserBet(matchHash(1, 'Dota2'), 'Dignitas');
-      await matchBetting.bet(matchHash(1, 'Dota2'), 'Dignitas', { from: owner, value: web3.toWei('0.005') });
-      const after = await matchBetting.getUserBet(matchHash(1, 'Dota2'), 'Dignitas');
+      const prev = await matchBetting.getUserBet(0, 'Dignitas');
+      await matchBetting.bet(0, 'Dignitas', { from: owner, value: web3.toWei('0.005') });
+      const after = await matchBetting.getUserBet(0, 'Dignitas');
       const expected = prev.toNumber() + (0.005 * weiFactor);
       assert.equal(expected, after.toNumber(), 'Should add bet balance of user');
     });
@@ -54,7 +54,7 @@ contract('MatchBetting', async (accounts) => {
       await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
       let res;
       try {
-        res = await matchBetting.bet(matchHash(1, 'Dota2'), 'Potato', { from: accounts[1], value: web3.toWei('0.003') });
+        res = await matchBetting.bet(0, 'Potato', { from: accounts[1], value: web3.toWei('0.003') });
       } catch (e) {
         res = e;
       }
@@ -66,7 +66,33 @@ contract('MatchBetting', async (accounts) => {
       await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
       let res;
       try {
-        res = await matchBetting.bet(matchHash(1, 'Dota2'), 'Potato', { from: accounts[1], value: web3.toWei('31') });
+        res = await matchBetting.bet(0, 'Potato', { from: accounts[1], value: web3.toWei('31') });
+      } catch (e) {
+        res = e;
+      }
+      assert(res instanceof Error);
+    });
+
+    it('Should be able to bet to multiple games', async () => {
+      const time = Date.now() + 3600000;
+      await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
+      await matchBetting.addMatch(time, 2, 'What', 'The', 'LOL', matchHash(2, 'Dota2'), { from: owner });
+      await matchBetting.addMatch(time, 3, 'What', 'The', 'CSGO', matchHash(3, 'CSGO'), { from: owner });
+      await matchBetting.bet(0, 'Potato', { from: accounts[1], value: web3.toWei('1') });
+      await matchBetting.bet(1, 'What', { from: accounts[1], value: web3.toWei('1') });
+      await matchBetting.bet(2, 'The', { from: accounts[1], value: web3.toWei('1') });
+      const match1 = await matchBetting.matches.call(0);
+      const match2 = await matchBetting.matches.call(1);
+      const match3 = await matchBetting.matches.call(2);
+      assert.equal(match1[FIELD_TEAMB_BETS].toNumber(), 1 * weiFactor, 'hello');
+      assert.equal(match2[FIELD_TEAMA_BETS].toNumber(), 1 * weiFactor, 'goodbye');
+      assert.equal(match3[FIELD_TEAMB_BETS].toNumber(), 1 * weiFactor, 'what the fuck');
+    });
+
+    it('Should throw an error if the match index does not exist', async () => {
+      let res;
+      try {
+        res = await matchBetting.bet(40, 'Potato', { from: accounts[1], value: web3.toWei('23') });
       } catch (e) {
         res = e;
       }
@@ -78,10 +104,10 @@ contract('MatchBetting', async (accounts) => {
     it('Should change the teamTotalBet value based on the team changed', async () => {
       const time = Date.now() + 120000;
       await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
-      await matchBetting.bet(matchHash(1, 'Dota2'), 'Dignitas', { from: owner, value: web3.toWei('.12') });
+      await matchBetting.bet(0, 'Dignitas', { from: owner, value: web3.toWei('.12') });
       const id = await matchBetting.hashToMatchId.call(matchHash(1, 'Dota2'));
       const beforeSwap = await matchBetting.matches.call(id);
-      await matchBetting.changeTeam(matchHash(1, 'Dota2'), 'Potato');
+      await matchBetting.changeTeam(0, 'Potato');
       const afterSwap = await matchBetting.matches.call(id);
 
       beforeSwapTeamA = beforeSwap[FIELD_TEAMA_BETS].toNumber();
@@ -98,12 +124,12 @@ contract('MatchBetting', async (accounts) => {
     it('Should change the user bet value based on the team changed', async () => {
       const time = Date.now() + 120000;
       await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
-      await matchBetting.bet(matchHash(1, 'Dota2'), 'Potato', { from: owner, value: web3.toWei('.12') });
-      const beforeSwapTeamA = await matchBetting.getUserBet(matchHash(1, 'Dota2'), 'Dignitas');
-      const beforeSwapTeamB = await matchBetting.getUserBet(matchHash(1, 'Dota2'), 'Potato');
-      await matchBetting.changeTeam(matchHash(1, 'Dota2'), 'Dignitas');
-      const afterSwapTeamA = await matchBetting.getUserBet(matchHash(1, 'Dota2'), 'Dignitas');
-      const afterSwapTeamB = await matchBetting.getUserBet(matchHash(1, 'Dota2'), 'Potato');
+      await matchBetting.bet(0, 'Potato', { from: owner, value: web3.toWei('.12') });
+      const beforeSwapTeamA = await matchBetting.getUserBet(0, 'Dignitas');
+      const beforeSwapTeamB = await matchBetting.getUserBet(0, 'Potato');
+      await matchBetting.changeTeam(0, 'Dignitas');
+      const afterSwapTeamA = await matchBetting.getUserBet(0, 'Dignitas');
+      const afterSwapTeamB = await matchBetting.getUserBet(0, 'Potato');
 
       assert.equal(beforeSwapTeamA.toNumber(), 0);
       assert.equal(beforeSwapTeamB.toNumber(), 0.12 * weiFactor);
@@ -114,10 +140,10 @@ contract('MatchBetting', async (accounts) => {
     it('Should not transact when team "changed" is the same as previous', async () => {
       const time = Date.now() + 120000;
       await matchBetting.addMatch(time, 1, 'Dignitas', 'Potato', 'Dota2', matchHash(1, 'Dota2'), { from: owner });
-      await matchBetting.bet(matchHash(1, 'Dota2'), 'Potato', { from: owner, value: web3.toWei('.12') });
+      await matchBetting.bet(0, 'Potato', { from: owner, value: web3.toWei('.12') });
       let res;
       try {
-        res = await matchBetting.changeTeam(matchHash(1, 'Dota2'), 'Potato');
+        res = await matchBetting.changeTeam(0, 'Potato');
       } catch (e) {
         res = e;
       }
