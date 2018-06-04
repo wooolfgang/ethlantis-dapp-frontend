@@ -6,10 +6,17 @@ export const addMatches = matches => ({
   matches,
 });
 
+export const addMatchesFetching = payload => ({
+  type: types.MATCHES_ADD_FETCHING,
+  payload,
+});
+
 export const getMatches = matchCountFromLatest => async (dispatch, getState) => {
   const { contract, web3 } = getState().web3;
 
   if (!contract || !web3) throw new Error('No contract or web3 found');
+
+  dispatch(addMatchesFetching(true));
 
   let matchesCount = await contract.getMatchesCount();
   matchesCount = matchesCount.toNumber();
@@ -83,7 +90,9 @@ export const getMatches = matchCountFromLatest => async (dispatch, getState) => 
     newMatch.teamBPercentage = getBetPercentage(teamBBets, total);
     newMatches.push(newMatch);
   }
+
   dispatch(addMatches(newMatches));
+  dispatch(addMatchesFetching(false));
 };
 
 export const getMatch = matchId => async (dispatch, getState) => {

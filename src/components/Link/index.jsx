@@ -12,7 +12,9 @@ const StyledLink = styled(L)`
 `;
 
 const Link = props => (
-  <StyledLink {...props} style={props.style} />
+  <StyledLink {...props} style={props.style}>
+    {props.children}
+  </StyledLink>
 );
 
 export default Link;

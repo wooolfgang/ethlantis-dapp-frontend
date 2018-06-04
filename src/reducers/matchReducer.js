@@ -2,6 +2,7 @@ import * as types from '../constants/ActionTypes';
 
 const initialState = {
   matches: [],
+  isFetching: false,
 };
 
 const matchReducer = (state = initialState, action) => {
@@ -10,6 +11,12 @@ const matchReducer = (state = initialState, action) => {
       return {
         ...state,
         matches: action.matches,
+      };
+
+    case types.MATCHES_ADD_FETCHING:
+      return {
+        ...state,
+        isFetching: action.payload,
       };
 
     default:

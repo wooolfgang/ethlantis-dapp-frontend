@@ -17,15 +17,24 @@ class MatchContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { match: null };
+    this.setMatchData = this.setMatchData.bind(this);
+  }
+
+  async componentDidMount() {
+    this.setMatchData();
   }
 
   async componentDidUpdate(prevProps) {
     if ((prevProps.web3 !== this.props.web3 || prevProps.contract !== this.props.contract)
       && this.props.contract && this.props.web3) {
-      const { fetchMatch, match: { params: { id: matchId } } } = this.props;
-      const matchData = await fetchMatch(matchId);
-      this.setState({ match: matchData });
+      this.setMatchData();
     }
+  }
+
+  async setMatchData() {
+    const { fetchMatch, match: { params: { id: matchId } } } = this.props;
+    const matchData = await fetchMatch(matchId);
+    this.setState({ match: matchData });
   }
 
   render() {

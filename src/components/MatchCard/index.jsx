@@ -4,6 +4,7 @@ import { getMatchBackgroundImage, getMatchBackground } from '../../utils';
 import { TEAM_A, TEAM_B } from '../../assets/images';
 import Button from '../Button';
 import Background from './Background';
+import Link from '../Link';
 
 const StyledDiv = styled.div` 
   width: 100%;
@@ -42,13 +43,13 @@ class MatchCard extends React.Component {
           teamBPercentage={match.teamBPercentage}
         />
         <Bottom>
-          <a href={`/match/${match.id}`}>
+          <Link to={`/match/${match.id}`} href="/">
             <Button padding="7px 20px">
               <span style={{ fontSize: '.95em', margin: 'auto' }}>
                 Place Bet
               </span>
             </Button>
-          </a>
+          </Link>
         </Bottom>
       </StyledDiv>
     );

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import MatchList from './MatchList';
 import { getMatches } from '../../actions/matchActions';
+import { LOADER } from '../../assets/images';
 
 class MatchListContainer extends React.Component {
   componentDidMount() {
@@ -10,15 +11,24 @@ class MatchListContainer extends React.Component {
   }
 
   render() {
-    const { matches } = this.props;
+    const { matches, isFetching } = this.props;
     return (
-      <MatchList matches={matches} />
+      <Fragment>
+        {
+          isFetching ?
+            <div>
+              <img src={LOADER} alt="loading..." style={{ margin: 'auto' }} />
+            </div> :
+            <MatchList matches={matches} />
+        }
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
   matches: state.match.matches,
+  isFetching: state.match.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
