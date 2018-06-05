@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loginUserFunc: (userId, isOwner) => dispatch(loginUser(userId, isOwner)),
+  loginUserFunc: (address, isOwner) => dispatch(loginUser(address, isOwner)),
 });
 
 AdminPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminPageContainer);

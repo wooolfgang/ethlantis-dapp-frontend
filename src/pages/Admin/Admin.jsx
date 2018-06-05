@@ -74,7 +74,7 @@ class AdminPage extends React.Component {
       teamA,
       teamB,
       gameType,
-      matchHash(matchId, gameType), { from: user.id },
+      matchHash(matchId, gameType), { from: user.address },
     );
   }
 
@@ -85,7 +85,7 @@ class AdminPage extends React.Component {
   render() {
     const { user } = this.props;
 
-    if (!user.id) {
+    if (!user.address) {
       return null;
     }
 
