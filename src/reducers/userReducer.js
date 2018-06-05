@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionTypes';
 
 const initialState = {
-  id: null,
+  address: null,
   isOwner: false,
   balance: null,
 };
@@ -11,7 +11,7 @@ const userReducer = (state = initialState, action) => {
     case types.USER_LOGGED_IN:
       return {
         ...state,
-        id: action.userId,
+        address: action.address,
         isOwner: action.isOwner,
       };
 

@@ -50,11 +50,15 @@ class Bet extends React.Component {
     this.setState({ value: e.target.value });
   }
 
-  placeBet() {
+  async placeBet() {
     const {
-      placeBet, chosenTeam, match: { params: { id } },
+      placeBet, chosenTeam, match: { params: { id } }, setBetState,
     } = this.props;
-    placeBet(id, chosenTeam, this.state.value);
+    const res = await placeBet(id, chosenTeam, this.state.value);
+
+    if (res && res.receipt.status === '0x01') {
+      setBetState(chosenTeam, this.state.value, true);
+    }
   }
 
   render() {

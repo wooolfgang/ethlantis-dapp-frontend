@@ -32,4 +32,9 @@ export const getMatchBackground = (gameType) => {
 
 export const getTeamIcon = teamName => teamName;
 
-export const getBetPercentage = (teamBet, totalBet) => ((teamBet / totalBet) * 100).toFixed(0);
+export const getBetPercentage = (teamBet, totalBet) => {
+  if (totalBet === 0) {
+    return 0;
+  }
+  return ((teamBet / totalBet) * 100).toFixed(0);
+};

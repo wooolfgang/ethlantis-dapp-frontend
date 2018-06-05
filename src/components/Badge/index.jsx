@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Badge from './Badge';
 
 const mapStateToProps = state => ({
-  userId: state.user.id,
+  address: state.user.address,
 });
 
 const BadgeContainer = connect(mapStateToProps)(Badge);

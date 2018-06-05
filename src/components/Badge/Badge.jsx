@@ -30,9 +30,9 @@ const Avatar = styled.div`
   border-radius: 50%;
 `;
 
-const Badge = ({ userId }) => (
+const Badge = ({ address }) => (
   <StyledDiv>
-    <Id> {userId} </Id>
+    <Id> {address} </Id>
     <Avatar />
   </StyledDiv>
 );

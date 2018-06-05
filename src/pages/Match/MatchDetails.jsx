@@ -39,13 +39,20 @@ class MatchDetails extends React.Component {
       hasPlaced: false,
     };
     this.chooseTeam = this.chooseTeam.bind(this);
+    this.setBetState = this.setBetState.bind(this);
   }
 
   async componentDidMount() {
-    const { getPlacedBet, id } = this.props;
+    const { getPlacedBet, id, address } = this.props;
     const { match: { teamA, teamB } } = this.props;
-    const res = await getPlacedBet(id, teamA, teamB);
-    this.setState({ chosenTeam: res.chosenTeam, placedValue: res.betAmount, hasPlaced: !!res });
+    const res = await getPlacedBet(id, teamA, teamB, address);
+    if (res) {
+      this.setState({ chosenTeam: res.chosenTeam, placedValue: res.betAmount, hasPlaced: !!res });
+    }
+  }
+
+  setBetState(chosenTeam, placedValue, hasPlaced) {
+    this.setState({ chosenTeam, placedValue, hasPlaced });
   }
 
   chooseTeam(team) {
@@ -72,6 +79,7 @@ class MatchDetails extends React.Component {
           <Bet
             chosenTeam={chosenTeam}
             placedValue={placedValue}
+            setBetState={this.setBetState}
             gameType={match.gameType}
             teamA={match.teamA}
             teamB={match.teamB}
@@ -82,9 +90,14 @@ class MatchDetails extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  getPlacedBet: (id, teamA, teamB) => dispatch(getPlacedBetAmount(id, teamA, teamB)),
+const mapStateToProps = state => ({
+  address: state.user.address,
 });
 
-export default connect(null, mapDispatchToProps)(MatchDetails);
+const mapDispatchToProps = dispatch => ({
+  getPlacedBet: (id, teamA, teamB, userAddress) =>
+    dispatch(getPlacedBetAmount(id, teamA, teamB, userAddress)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MatchDetails);
 

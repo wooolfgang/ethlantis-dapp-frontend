@@ -21,7 +21,9 @@ class MatchContainer extends React.Component {
   }
 
   async componentDidMount() {
-    this.setMatchData();
+    if (this.props.web3 && this.props.contract) {
+      this.setMatchData();
+    }
   }
 
   async componentDidUpdate(prevProps) {
@@ -39,11 +41,11 @@ class MatchContainer extends React.Component {
 
   render() {
     const { match } = this.state;
-    const { match: { params: { id } } } = this.props;
+    const { match: { params: { id } }, hasUser } = this.props;
     return (
       <StyledDiv>
         <Card width="80vw" height="85vh">
-          <Match match={match} id={id} />
+          <Match match={match} id={id} hasUser={hasUser} />
         </Card>
       </StyledDiv >
     );
@@ -53,6 +55,7 @@ class MatchContainer extends React.Component {
 const mapStateToProps = state => ({
   web3: state.web3.web3,
   contract: state.web3.contract,
+  hasUser: !!state.user.address,
 });
 
 const mapDispatchToProps = dispatch => ({

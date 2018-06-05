@@ -8,7 +8,7 @@ let NetworkStatusContainer = (props) => {
 
   let component;
 
-  if (user.id && user.balance) {
+  if (user.address && user.balance) {
     component = (
       <Fragment>
         <Status message="Status: Connected" />
