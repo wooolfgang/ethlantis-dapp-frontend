@@ -21,6 +21,7 @@ const MatchListGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 27.5px 30px;
+  position: relative;
 `;
 
 let MatchesSection = ({ contract, web3 }) => (

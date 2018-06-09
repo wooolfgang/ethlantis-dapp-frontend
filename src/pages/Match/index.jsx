@@ -3,14 +3,25 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Match from './Match';
 import Card from '../../components/Card';
+import Link from '../../components/Link';
 import { getMatch } from '../../actions/matchActions';
+import { BACK_ARROW } from '../../assets/images';
 
 const StyledDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 100vw;
+  position: relative;
   background: ${props => props.theme.colorLight};
+`;
+
+const Container = styled.div`
+  position: absolute;
+  top: 0;
+  left: 50px;
+  z-index: 3;
 `;
 
 class MatchContainer extends React.Component {
@@ -55,6 +66,11 @@ class MatchContainer extends React.Component {
     const { match: { params: { id } }, hasUser } = this.props;
     return (
       <StyledDiv>
+        <Container>
+          <Link to="/matches" href="/">
+            <img src={BACK_ARROW} alt="back-arrow" />
+          </Link>
+        </Container>
         <Card width="80vw" height="85vh">
           <Match match={match} id={id} hasUser={hasUser} setPlacedBets={this.setPlacedBets} />
         </Card>

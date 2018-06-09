@@ -19,4 +19,5 @@ export const DOTA_ICON_FILTER = 'http://res.cloudinary.com/depjh17m6/image/uploa
 export const CSGO_ICON_FILTER = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527318557/CS_GO_m78nui.svg';
 export const WAVES_SVG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527599821/Waves_khoguq.svg';
 export const LOADER = 'http://res.cloudinary.com/depjh17m6/image/upload/v1528123314/Circle-Ethlantis-loader_1_padw1x.gif';
+export const BACK_ARROW = 'http://res.cloudinary.com/depjh17m6/image/upload/v1528553029/Ethlantis/Arrow_Icons-03.svg';
 

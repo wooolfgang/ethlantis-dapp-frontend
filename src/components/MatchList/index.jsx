@@ -1,8 +1,19 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import MatchList from './MatchList';
 import { getMatches } from '../../actions/matchActions';
 import { LOADER } from '../../assets/images';
+
+const LoaderContainer = styled.div`
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30vh;
+  position: fixed;
+  left: 0;
+`;
 
 class MatchListContainer extends React.Component {
   componentDidMount() {
@@ -16,9 +27,9 @@ class MatchListContainer extends React.Component {
       <Fragment>
         {
           isFetching ?
-            <div>
+            <LoaderContainer>
               <img src={LOADER} alt="loading..." style={{ margin: 'auto' }} />
-            </div> :
+            </LoaderContainer> :
             <MatchList matches={matches} />
         }
       </Fragment>
