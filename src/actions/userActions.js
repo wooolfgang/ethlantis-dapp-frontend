@@ -22,7 +22,7 @@ export const getUserData = () => async (dispatch, getState) => {
     dispatch(loginUser(userId, owner === userId));
     return dispatch(setUserBalance(balance));
   }
-  throw new Error('No web3 or contract found');
+  throw new Error(`No web3 or contract found on ${getUserData.name}`);
 };
 
 export const bet = (id, teamName, betValue) => async (dispatch, getState) => {
@@ -30,31 +30,46 @@ export const bet = (id, teamName, betValue) => async (dispatch, getState) => {
   const { address } = getState().user;
 
   try {
-    if (contract && web3) {
+    if (contract && web3 && address) {
       return contract.bet(id, teamName, { from: address, value: web3.utils.toWei(`${betValue}`) });
     }
-    throw new Error('No contract or web3 found');
+    throw new Error(`No contract or web3 found on ${bet.name}`);
   } catch (e) {
     console.log(e);
   }
   return null;
 };
 
-export const getPlacedBetAmount = (id, teamA, teamB, userAddress) =>
+export const swapTeam = id => async (dispatch, getState) => {
+  const { contract, web3 } = getState().web3;
+  const { address } = getState().user;
+  const estimatedGas = 85000;
+
+  try {
+    if (contract && web3 && address) {
+      return contract.swapTeam(id, { from: address, gas: estimatedGas });
+    }
+    throw new Error(`No contract or web3 found on ${swapTeam.name}`);
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export const getPlacedBetAmount = (id, teamA, teamB) =>
   async (dispatch, getState) => {
     const { contract, web3 } = getState().web3;
+    const { address } = getState().user;
 
     try {
-      if (contract && web3) {
-        console.log(userAddress);
-        let teamABet = await contract.getUserBet(id, teamA, { from: userAddress });
-        let teamBBet = await contract.getUserBet(id, teamB, { from: userAddress });
+      if (contract && web3 && address) {
+        let teamABet = await contract.getUserBet(id, teamA, { from: address });
+        let teamBBet = await contract.getUserBet(id, teamB, { from: address });
         teamABet = Number(web3.utils.fromWei(`${teamABet.toNumber()}`));
         teamBBet = Number(web3.utils.fromWei(`${teamBBet.toNumber()}`));
         if (teamABet !== 0) return { chosenTeam: teamA, betAmount: teamABet };
         else if (teamBBet !== 0) return { chosenTeam: teamB, betAmount: teamBBet };
       } else {
-        throw new Error('No contract found');
+        throw new Error(`No contract or user found on ${getPlacedBetAmount.name}`);
       }
     } catch (e) {
       console.log(e);

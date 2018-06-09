@@ -18,6 +18,7 @@ class MatchContainer extends React.Component {
     super(props);
     this.state = { match: null };
     this.setMatchData = this.setMatchData.bind(this);
+    this.setPlacedBets = this.setPlacedBets.bind(this);
   }
 
   async componentDidMount() {
@@ -39,13 +40,23 @@ class MatchContainer extends React.Component {
     this.setState({ match: matchData });
   }
 
+  setPlacedBets({ teamAIncrement = 0, teamBIncrement = 0 }) {
+    const { match } = this.state;
+    const updatedMatch = {
+      ...match,
+      teamATotalBets: match.teamATotalBets + teamAIncrement,
+      teamBTotalBets: match.teamBTotalBets + teamBIncrement,
+    };
+    this.setState({ match: updatedMatch });
+  }
+
   render() {
     const { match } = this.state;
     const { match: { params: { id } }, hasUser } = this.props;
     return (
       <StyledDiv>
         <Card width="80vw" height="85vh">
-          <Match match={match} id={id} hasUser={hasUser} />
+          <Match match={match} id={id} hasUser={hasUser} setPlacedBets={this.setPlacedBets} />
         </Card>
       </StyledDiv >
     );

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button';
 import Slider from '../../components/Slider';
-import { bet } from '../../actions/userActions';
+import { bet, swapTeam } from '../../actions/userActions';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -40,10 +40,12 @@ class Bet extends React.Component {
       value: null,
       max: 100,
       min: 0,
+      swapStatus: undefined,
     };
 
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.placeBet = this.placeBet.bind(this);
+    this.swapTeam = this.swapTeam.bind(this);
   }
 
   handleSliderChange(e) {
@@ -53,17 +55,45 @@ class Bet extends React.Component {
   async placeBet() {
     const {
       placeBet, chosenTeam, match: { params: { id } }, setBetState,
+      teamA, teamB, setPlacedBets,
     } = this.props;
+
     const res = await placeBet(id, chosenTeam, this.state.value);
+    const placedValue = Number(this.state.value);
 
     if (res && res.receipt.status === '0x01') {
-      setBetState(chosenTeam, this.state.value, true);
+      setBetState(chosenTeam, placedValue, true);
+      if (chosenTeam === teamA) {
+        setPlacedBets({ teamAIncrement: placedValue });
+      } else if (chosenTeam === teamB) {
+        setPlacedBets({ teamBIncrement: placedValue });
+      }
+    }
+  }
+
+  async swapTeam() {
+    const {
+      swapPlacedTeam, swapChosenTeam, match: { params: { id } },
+    } = this.props;
+
+    try {
+      this.setState({ swapStatus: 'loading' });
+      const res = await swapPlacedTeam(id);
+
+      if (res && res.receipt.status === '0x01') {
+        this.setState({ swapStatus: 'success' });
+        swapChosenTeam();
+      } else {
+        this.setState({ swapStatus: 'failed' });
+      }
+    } catch (e) {
+      this.setState({ swapStatus: undefined });
     }
   }
 
   render() {
     const {
-      value, max, min,
+      value, max, min, swapStatus,
     } = this.state;
     const { chosenTeam, placedValue } = this.props;
     return (
@@ -76,13 +106,15 @@ class Bet extends React.Component {
         />
         <Container>
           <Value> {value || '---'}  ETH </Value>
-          {(placedValue && chosenTeam) &&
-            <PlacedBet> You placed {placedValue} ETH on Team {chosenTeam} </PlacedBet>
+          {
+            (placedValue && chosenTeam) &&
+            <PlacedBet> You placed {placedValue} ETH on Team {chosenTeam}
+            </PlacedBet>
           }
         </Container>
         {(placedValue && chosenTeam) ?
-          <Button type="secondary">
-            Swap Team
+          <Button type="secondary" onClick={this.swapTeam}>
+            {swapStatus === 'loading' ? 'Loading...' : 'Swap Team'}
           </Button> :
           <Button
             type="secondary"
@@ -93,7 +125,6 @@ class Bet extends React.Component {
             Place Bet
           </Button>
         }
-
       </StyledDiv>
     );
   }
@@ -101,6 +132,7 @@ class Bet extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   placeBet: (id, teamName, betValue) => dispatch(bet(id, teamName, betValue)),
+  swapPlacedTeam: id => dispatch(swapTeam(id)),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(Bet));

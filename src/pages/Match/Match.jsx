@@ -44,13 +44,16 @@ const LiveFeed = styled.div`
   grid-area: live-feed;
 `;
 
-const Match = ({ match, id, hasUser }) => (
-  <StyledDiv>
-    <Slanted />
-    {(match && hasUser) && <MatchDetails match={match} id={id} />}
-    <TwitchContainer />
-    <LiveFeed />
-  </StyledDiv>
-);
+const Match = ({
+  match, id, hasUser, setPlacedBets,
+}) =>
+  (
+    <StyledDiv>
+      <Slanted />
+      {(match && hasUser) && <MatchDetails match={match} id={id} setPlacedBets={setPlacedBets} />}
+      <TwitchContainer />
+      <LiveFeed />
+    </StyledDiv>
+  );
 
 export default Match;

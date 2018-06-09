@@ -40,6 +40,7 @@ class MatchDetails extends React.Component {
     };
     this.chooseTeam = this.chooseTeam.bind(this);
     this.setBetState = this.setBetState.bind(this);
+    this.swapChosenTeam = this.swapChosenTeam.bind(this);
   }
 
   async componentDidMount() {
@@ -61,8 +62,31 @@ class MatchDetails extends React.Component {
     }
   }
 
+  swapChosenTeam() {
+    const {
+      match: {
+        teamA, teamB,
+      }, setPlacedBets,
+    } = this.props;
+    const { chosenTeam, placedValue } = this.state;
+
+    if (chosenTeam === teamA) {
+      this.setState({ chosenTeam: teamB });
+      setPlacedBets({
+        teamAIncrement: -placedValue,
+        teamBIncrement: placedValue,
+      });
+    } else if (chosenTeam === teamB) {
+      this.setState({ chosenTeam: teamA });
+      setPlacedBets({
+        teamAIncrement: placedValue,
+        teamBIncrement: -placedValue,
+      });
+    }
+  }
+
   render() {
-    const { match } = this.props;
+    const { match, setPlacedBets } = this.props;
     const { chosenTeam, placedValue, hasPlaced } = this.state;
 
     return (
@@ -78,11 +102,12 @@ class MatchDetails extends React.Component {
         <BottomContainer>
           <Bet
             chosenTeam={chosenTeam}
-            placedValue={placedValue}
-            setBetState={this.setBetState}
-            gameType={match.gameType}
             teamA={match.teamA}
             teamB={match.teamB}
+            placedValue={placedValue}
+            setBetState={this.setBetState}
+            swapChosenTeam={this.swapChosenTeam}
+            setPlacedBets={setPlacedBets}
           />
         </BottomContainer>
       </StyledDiv>

@@ -38,29 +38,32 @@ contract MatchBetting is MatchFactory {
     emit NewBet(msg.sender, amount, _teamChoice, m.teamATotalBets, m.teamBTotalBets);
   }
 
-  function changeTeam(uint _id, bytes32 _teamChoice) external {
+  function swapTeam(uint _id) external {
     Match storage m = matches[_id];
-    uint amount;
+    uint betPlaced;
+    bytes32 teamChoice;
 
     require(m.bettable);
 
-    if (_teamChoice == m.teamA && m.teamABets[msg.sender] == 0 && m.teamBBets[msg.sender] != 0) {
+    if (m.teamABets[msg.sender] == 0 && m.teamBBets[msg.sender] != 0) {
       m.teamABets[msg.sender] = m.teamBBets[msg.sender];
-      amount = m.teamBBets[msg.sender];
-      m.teamBTotalBets -= m.teamBBets[msg.sender];
-      m.teamATotalBets += m.teamBBets[msg.sender];      
+      teamChoice = m.teamA;
+      betPlaced = m.teamBBets[msg.sender];
+      m.teamBTotalBets -= betPlaced;
+      m.teamATotalBets += betPlaced;      
       m.teamBBets[msg.sender] = 0;
-    } else if (_teamChoice == m.teamB && m.teamBBets[msg.sender] == 0 && m.teamABets[msg.sender] != 0) {
+    } else if (m.teamBBets[msg.sender] == 0 && m.teamABets[msg.sender] != 0) {
       m.teamBBets[msg.sender] = m.teamABets[msg.sender];
-      amount = m.teamABets[msg.sender];
-      m.teamATotalBets -= m.teamABets[msg.sender];
-      m.teamBTotalBets += m.teamABets[msg.sender];
+      teamChoice = m.teamB;
+      betPlaced = m.teamABets[msg.sender];
+      m.teamATotalBets -= betPlaced;
+      m.teamBTotalBets += betPlaced;
       m.teamABets[msg.sender] = 0;
     } else {
       revert();
     }
 
-    emit TeamChange(msg.sender, amount, _teamChoice, m.teamATotalBets, m.teamBTotalBets);
+    emit TeamChange(msg.sender, betPlaced, teamChoice, m.teamATotalBets, m.teamBTotalBets);
   }
 
   function setFee(uint256 _newFeePercentage) external onlyOwner {
