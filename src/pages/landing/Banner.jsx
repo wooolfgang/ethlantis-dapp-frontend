@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Text from './Text';
-import GamesCard from './GamesCard';
+import Text from './banner/Text';
+import GamesCard from './banner/GamesCard';
 
 const StyledDiv = styled.div`
   display: grid;

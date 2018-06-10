@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import MatchCard from '../MatchCard';
-import { getHash } from '../../utils/';
+import MatchCard from './matchlist/MatchCard';
+import { getHash } from '../../../utils/';
 
 const MatchList = ({ matches }) => (
   <Fragment>

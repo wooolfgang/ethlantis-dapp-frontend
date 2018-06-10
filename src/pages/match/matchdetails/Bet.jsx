@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '../../components/Button';
-import Slider from '../../components/Slider';
-import { bet, swapTeam } from '../../actions/userActions';
+import Button from '../../../components/Button';
+import Slider from '../../../components/Slider';
+import { bet, swapTeam } from '../../../actions/userActions';
 
 const StyledDiv = styled.div`
   display: flex;

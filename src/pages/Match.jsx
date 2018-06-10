@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Match from './Match';
-import Card from '../../components/Card';
-import Link from '../../components/Link';
-import { getMatch } from '../../actions/matchActions';
-import { BACK_ARROW } from '../../assets/images';
+import Match from './match/Match';
+import Card from '../components/Card';
+import Link from '../components/Link';
+import { getMatch } from '../actions/matchActions';
+import { BACK_ARROW } from '../assets/images';
 
 const StyledDiv = styled.div`
   display: flex;

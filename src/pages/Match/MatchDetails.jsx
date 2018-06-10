@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import TeamDetails from './TeamDetails';
-import Bet from './Bet';
+import TeamDetails from './matchdetails/TeamDetails';
+import Bet from './matchdetails/Bet';
 import { getPlacedBetAmount } from '../../actions/userActions';
 
 const StyledDiv = styled.div`

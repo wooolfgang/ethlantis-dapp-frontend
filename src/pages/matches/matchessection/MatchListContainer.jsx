@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import MatchList from './MatchList';
-import { getMatches } from '../../actions/matchActions';
-import { LOADER } from '../../assets/images';
+import { getMatches } from '../../../actions/matchActions';
+import { LOADER } from '../../../assets/images';
 
 const LoaderContainer = styled.div`
   width: 100vw;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import MatchListContainer from '../../components/MatchList';
+import MatchListContainer from './matchessection/MatchListContainer';
 
 const StyledDiv = styled.div`
   background: ${props => props.theme.colorLight};

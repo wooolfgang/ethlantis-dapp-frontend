@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { getMatchBackgroundImage, getMatchBackground } from '../../utils';
-import { TEAM_A, TEAM_B } from '../../assets/images';
-import Button from '../Button';
+import { getMatchBackgroundImage, getMatchBackground } from '../../../../utils';
+import { TEAM_A, TEAM_B } from '../../../../assets/images';
+import Button from '../../../../components/Button';
 import Background from './Background';
-import Link from '../Link';
+import Link from '../../../../components/Link';
 
 const StyledDiv = styled.div` 
   width: 100%;

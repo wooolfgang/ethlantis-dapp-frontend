@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import GameTypes from '../../components/GameTypes';
+import GameTypes from './gameslistpicker/GameTypes';
 import { LOL_ICON_FILTER, DOTA_ICON_FILTER, CSGO_ICON_FILTER } from '../../assets/images';
 
 const StyledDiv = styled.div`

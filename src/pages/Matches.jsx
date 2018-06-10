@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import AccountInfoSection from './AccountInfoSection';
-import GamesListPicker from './GamesListPicker';
-import MatchesSection from './MatchesSection';
+import AccountInfoSection from './matches/AccountInfoSection';
+import GamesListPicker from './matches/GamesListPicker';
+import MatchesSection from './matches/MatchesSection';
 
 const StyledDiv = styled.div`
   height: calc(100vh - 64px);

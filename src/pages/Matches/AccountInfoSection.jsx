@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import NetworkStatusContainer from '../../components/NetworkStatus';
-import BadgeContainer from '../../components/Badge';
+import Badge from '../../components/Badge';
 
 const StyledDiv = styled.div`
   grid-area: right;
@@ -31,7 +31,7 @@ const AccountInfoSection = () => (
       <NetworkStatusContainer />
     </NetworkStatusWrapper>
     <BadgeWrapper>
-      <BadgeContainer />
+      <Badge />
     </BadgeWrapper>
   </StyledDiv>
 );

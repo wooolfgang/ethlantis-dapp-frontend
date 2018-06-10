@@ -6,7 +6,7 @@ import LandingPage from './pages/Landing';
 import AdminPage from './pages/Admin';
 import MatchesPage from './pages/Matches';
 import MatchPage from './pages/Match';
-import FetchNetworkStatus from './components/FetchNetworkStatus/';
+import FetchNetworkStatus from './components/FetchNetworkStatus';
 import { getUserData } from './actions/userActions';
 
 let App = ({ web3, contract, getUserDataFunc }) => (

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Badge from './Badge';
+import Badge from './badge/Badge';
 
 const mapStateToProps = state => ({
   address: state.user.address,

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import NetworkStatus from './NetworkStatus';
-import Status from './Status';
+import NetworkStatus from './networkstatus/NetworkStatus';
+import Status from './networkstatus/Status';
 
 let NetworkStatusContainer = (props) => {
   const { web3Error, user } = props;

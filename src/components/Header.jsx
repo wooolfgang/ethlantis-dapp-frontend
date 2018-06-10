@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Logo from './Logo';
-import Nav from './Nav';
+import Logo from './header//Logo';
+import Nav from './header//Nav';
 
 const StyledHeader = styled.nav`
   display: grid;

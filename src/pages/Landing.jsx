@@ -1,8 +1,8 @@
 import React from 'react';
-import Hero from './Hero';
-import Banner from './Banner';
-import Explainer from './Explainer';
-import Footer from '../../components/Footer';
+import Hero from './landing/Hero';
+import Banner from './landing/Banner';
+import Explainer from './landing/Explainer';
+import Footer from '../components/Footer';
 
 const LandingPage = () => (
   <div>
