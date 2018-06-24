@@ -7,7 +7,7 @@ Trustless Esports Betting Platform
   * npm
   * Metamask
    
-## Steps to get it up and running:
+## Get it up and running:
   - Clone the repository
   - npm install
   - Open ganache. On settings, change port number to 7545
@@ -19,4 +19,4 @@ Trustless Esports Betting Platform
   
 ## Scripts:
   - npm run start // start the local development
-  - npm run test  // run tests with mochajs
+  - truffle test  // run tests with mochajs
