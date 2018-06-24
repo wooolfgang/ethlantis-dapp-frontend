@@ -17,6 +17,10 @@ Trustless Esports Betting Platform
   - Sign in to metamask with pnemonic given from ganache.
   - To populate the contract with matches, go to localhost:3000/admin
   
+## Folder Structure
+ This project uses the Fractal Pattern for ReactJS. Read more about the pattern here 
+ https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af
+  
 ## Scripts:
   - npm run start // start the local development
   - truffle test  // run tests with mochajs
