@@ -1,5 +1,5 @@
-const MatchBetting = artifacts.require('./MatchBetting.sol');
+const DataLayer = artifacts.require('./DataLayer.sol');
 
 module.exports = function (deployer) {
-  deployer.deploy(MatchBetting);
+  deployer.deploy(DataLayer);
 };

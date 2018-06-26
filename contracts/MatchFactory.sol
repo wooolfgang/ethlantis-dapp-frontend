@@ -1,36 +1,17 @@
 pragma solidity ^0.4.24;
 
 import "./Ownable.sol";
+import "./DataSource.sol";
 
-contract MatchFactory is Ownable {
+contract MatchFactory is DataSource {
 
-  event NewMatch(uint64 startTime, uint32 id, bytes32 teamA, bytes32 teamB);
+  event NewMatch(uint256 startTime, uint32 id, bytes32 teamA, bytes32 teamB);
   event CancelMatch(uint32 matchId, bool withdrawable, bool canceled, bool bettable);
-
-  struct Match {
-    uint teamATotalBets;
-    uint teamBTotalBets;
-    uint64 startTime;
-    uint32 matchId;
-    uint32 id;
-    bytes32 teamA;
-    bytes32 teamB;
-    bytes32 gameType;
-    bytes32 winner;
-    bool withdrawable;
-    bool canceled;
-    bool bettable;
-    mapping (address => uint) teamABets;
-    mapping (address => uint) teamBBets;
-  }
 
   modifier beforeStart(uint256 _timestamp) {
     require(now < _timestamp);
     _;
   }
-
-  Match[] public matches;
-  mapping(bytes32 => uint32) public hashToMatchId;
 
   function addMatch(
     uint256 _startTime, 
@@ -44,12 +25,11 @@ contract MatchFactory is Ownable {
     onlyOwner 
     beforeStart(_startTime) 
   {
-    require(_startTime == uint256(uint64(_startTime)));
     require(_matchId == uint256(uint32(_matchId)));
     require(hashToMatchId[_matchHash] == 0);    
 
     uint id = matches.push(Match({
-      startTime: uint64(_startTime),
+      startTime: _startTime,
       matchId: uint32(_matchId),
       id: uint32(matches.length),
       teamATotalBets: 0,
@@ -64,7 +44,7 @@ contract MatchFactory is Ownable {
     })) - 1;
     
     hashToMatchId[_matchHash] = uint32(id);
-    emit NewMatch(uint64(_startTime), uint32(id), _teamA, _teamB);
+    emit NewMatch(_startTime, uint32(id), _teamA, _teamB);
   }
 
   function cancelMatch(bytes32 _matchHash) external onlyOwner {
@@ -86,7 +66,7 @@ contract MatchFactory is Ownable {
     view 
     returns (
       uint32[],
-      uint64[],
+      uint256[],
       uint32[],
       bytes32[],
       bytes32[],
@@ -94,7 +74,7 @@ contract MatchFactory is Ownable {
     ) {
 
       uint32[] memory ids = new uint32[](indexes.length);
-      uint64[] memory startTimes = new uint64[](indexes.length);
+      uint256[] memory startTimes = new uint256[](indexes.length);
       uint32[] memory matchIds = new uint32[](indexes.length);
       bytes32[] memory teamAs = new bytes32[](indexes.length);
       bytes32[] memory teamBs = new bytes32[](indexes.length);

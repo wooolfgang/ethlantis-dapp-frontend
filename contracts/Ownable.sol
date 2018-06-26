@@ -1,6 +1,7 @@
 pragma solidity ^0.4.24;
+import "./DataLayer.sol";
 
-contract Ownable {
+contract Ownable is DataLayer {
   address public owner;
 
   event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
