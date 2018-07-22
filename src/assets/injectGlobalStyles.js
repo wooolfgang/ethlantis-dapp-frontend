@@ -9,7 +9,7 @@ const inject = () => injectGlobal`
     color: #333;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    width: 100vw;
+    max-width: 100vw;
   }
 `;
 

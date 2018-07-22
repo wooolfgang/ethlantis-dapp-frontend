@@ -3,14 +3,23 @@ import styled from 'styled-components';
 import Illustrations from './explainer/Illustrations';
 
 const StyledDiv = styled.div`
-  height: 55vh;
+  height: auto;
   background: #fff;
   display: flex;
+  width: 90%;
+  margin: 0 auto;
 `;
 
 const Container = styled.div`
-  height: 85%;
-  width: 800px;
+  @media screen and (min-width: 700px) {
+    width: 800px;
+    height: 85%;
+  }
+  
+  @media screen and (max-width: 80%) {
+    width: 90%;
+    height: auto;
+  }
   margin: auto;
   text-align: center;
 `;

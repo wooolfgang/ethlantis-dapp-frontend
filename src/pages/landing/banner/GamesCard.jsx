@@ -3,6 +3,16 @@ import styled from 'styled-components';
 import { DOTA_LOGO, CSGO_LOGO, LOL_LOGO, TEAM_A, TEAM_B, TEAM_C, TEAM_D } from '../../../assets/images';
 import Card from '../../../components/Card';
 
+const StyledCard = styled(Card)`
+  @media screen and (min-width: 700px) {
+    width: 100%;
+    
+  }
+  @media screen and (max-width: 700px) {
+    width: 100vw;
+  }
+`;
+
 const Games = styled.div`
   display: flex;
   justify-content: space-between;
@@ -24,20 +34,45 @@ const Teams = styled.div`
 `;
 
 const Team = styled.div`
-  width: 75px;
-  height: 75px;
+  @media screen and (min-width: 700px) {
+    width: 75px;
+    height: 75px;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 60px;
+    height: 60px;
+  }
   background: gray;
   border-radius: 50%;
   background: url(${props => props.image}) center no-repeat;
   background-size: cover;
 `;
 
+const mobileSizes = {
+  lolWidthHeight: '100px',
+  dotaWidthHeight: '70px',
+  csgoWidthHeight: '100px',
+};
+
 const GamesCard = () => (
-  <Card padding="20px" height="100%" width="100%">
+  <StyledCard padding="20px 20px 40px 20px" height="auto" verticallyCentered>
     <Games>
-      <Game image={LOL_LOGO} width="160px" height="160px" />
-      <Game image={DOTA_LOGO} width="90px" height="90px" />
-      <Game image={CSGO_LOGO} width="160px" height="160px" />
+      <Game
+        image={LOL_LOGO}
+        width={mobileSizes.lolWidthHeight}
+        height={mobileSizes.lolWidthHeight}
+      />
+      <Game
+        image={DOTA_LOGO}
+        width={mobileSizes.dotaWidthHeight}
+        height={mobileSizes.dotaWidthHeight}
+      />
+      <Game
+        image={CSGO_LOGO}
+        width={mobileSizes.csgoWidthHeight}
+        height={mobileSizes.csgoWidthHeight}
+      />
     </Games>
     <Teams>
       <Team image={TEAM_A} />
@@ -45,7 +80,7 @@ const GamesCard = () => (
       <Team image={TEAM_C} />
       <Team image={TEAM_D} />
     </Teams>
-  </Card>
+  </StyledCard>
 );
 
 export default GamesCard;

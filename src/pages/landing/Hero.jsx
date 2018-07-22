@@ -28,18 +28,17 @@ const Header = styled.p`
 `;
 
 const SubHeader = styled.p`
-  margin: 0;
-  margin-bottom: 20px;  
   font-size: 1.25em;
   font-weight: 300;
   color: white;
+  margin: 0 20px 20px 20px;
 `;
 
 const Waves = styled.img`
   position: absolute;
   bottom: 0;
   z-index: -1;
-  width: 100vw;
+  width: 100%;
 `;
 
 const Hero = () => (
