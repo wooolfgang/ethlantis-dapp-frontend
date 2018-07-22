@@ -111,7 +111,7 @@ export const getMatch = matchId => async (dispatch, getState) => {
       teamAPercentage: getBetPercentage(teamABets, total),
       teamBPercentage: getBetPercentage(teamBBets, total),
       startTime: res[2].toNumber(),
-      matchID: res[3].toNumber(),
+      matchId: res[3].toNumber(),
       id: res[4].toNumber(),
       teamA: web3.utils.toAscii(res[5]).replace(/\u0000/g, ''),
       teamB: web3.utils.toAscii(res[6]).replace(/\u0000/g, ''),

@@ -6,7 +6,7 @@ import "./DataSource.sol";
 contract MatchFactory is DataSource {
 
   event NewMatch(uint256 startTime, uint32 id, bytes32 teamA, bytes32 teamB);
-  event CancelMatch(uint32 matchId, bool withdrawable, bool canceled, bool bettable);
+  event CancelMatch(uint256 matchId, bool withdrawable, bool canceled, bool bettable);
 
   modifier beforeStart(uint256 _timestamp) {
     require(now < _timestamp);
@@ -18,19 +18,18 @@ contract MatchFactory is DataSource {
     uint256 _matchId, 
     bytes32 _teamA, 
     bytes32 _teamB, 
-    bytes32 _gameType,
-    bytes32 _matchHash
+    bytes32 _gameType
   ) 
     external 
     onlyOwner 
     beforeStart(_startTime) 
   {
     require(_matchId == uint256(uint32(_matchId)));
-    require(hashToMatchId[_matchHash] == 0);    
+    require(matchIdToId[_matchId] == 0);    
 
     uint id = matches.push(Match({
       startTime: _startTime,
-      matchId: uint32(_matchId),
+      matchId: _matchId,
       id: uint32(matches.length),
       teamATotalBets: 0,
       teamBTotalBets: 0,
@@ -43,12 +42,12 @@ contract MatchFactory is DataSource {
       bettable: true
     })) - 1;
     
-    hashToMatchId[_matchHash] = uint32(id);
+    matchIdToId[_matchId] = uint32(id);
     emit NewMatch(_startTime, uint32(id), _teamA, _teamB);
   }
 
-  function cancelMatch(bytes32 _matchHash) external onlyOwner {
-    Match storage m = matches[hashToMatchId[_matchHash]];
+  function cancelMatch(uint256 _matchId) external onlyOwner {
+    Match storage m = matches[matchIdToId[_matchId]];
     m.canceled = true;
     m.withdrawable = true;
     m.bettable = false;
@@ -67,7 +66,7 @@ contract MatchFactory is DataSource {
     returns (
       uint32[],
       uint256[],
-      uint32[],
+      uint256[],
       bytes32[],
       bytes32[],
       bytes32[]
@@ -75,7 +74,7 @@ contract MatchFactory is DataSource {
 
       uint32[] memory ids = new uint32[](indexes.length);
       uint256[] memory startTimes = new uint256[](indexes.length);
-      uint32[] memory matchIds = new uint32[](indexes.length);
+      uint256[] memory matchIds = new uint256[](indexes.length);
       bytes32[] memory teamAs = new bytes32[](indexes.length);
       bytes32[] memory teamBs = new bytes32[](indexes.length);
       bytes32[] memory gameTypesArray = new bytes32[](indexes.length);

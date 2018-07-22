@@ -108,6 +108,8 @@ class MatchDetails extends React.Component {
             setBetState={this.setBetState}
             swapChosenTeam={this.swapChosenTeam}
             setPlacedBets={setPlacedBets}
+            gameType={match.gameType}
+            matchId={match.matchId}
           />
         </BottomContainer>
       </StyledDiv>

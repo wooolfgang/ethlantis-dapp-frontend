@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../../components/Button';
 import Slider from '../../../components/Slider';
-import { bet, swapTeam } from '../../../actions/userActions';
+import { bet, swapTeam, getWinnerFromOracle } from '../../../actions/userActions';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -46,10 +46,12 @@ class Bet extends React.Component {
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.placeBet = this.placeBet.bind(this);
     this.swapTeam = this.swapTeam.bind(this);
+    this.getWinner = this.getWinner.bind(this);
   }
 
-  handleSliderChange(e) {
-    this.setState({ value: e.target.value });
+  async getWinner() {
+    const { getWinner, gameType, matchId } = this.props;
+    getWinner(`${matchId}`, gameType);
   }
 
   async placeBet() {
@@ -91,6 +93,10 @@ class Bet extends React.Component {
     }
   }
 
+  handleSliderChange(e) {
+    this.setState({ value: e.target.value });
+  }
+
   render() {
     const {
       value, max, min, swapStatus,
@@ -125,6 +131,12 @@ class Bet extends React.Component {
             Place Bet
           </Button>
         }
+        <Button
+          type="primary"
+          onClick={this.getWinner}
+        >
+          Get Winner
+        </Button>
       </StyledDiv>
     );
   }
@@ -133,6 +145,7 @@ class Bet extends React.Component {
 const mapDispatchToProps = dispatch => ({
   placeBet: (id, teamName, betValue) => dispatch(bet(id, teamName, betValue)),
   swapPlacedTeam: id => dispatch(swapTeam(id)),
+  getWinner: (matchId, gameType) => dispatch(getWinnerFromOracle(matchId, gameType)),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(Bet));

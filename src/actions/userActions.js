@@ -76,3 +76,21 @@ export const getPlacedBetAmount = (id, teamA, teamB) =>
     }
     return null;
   };
+
+
+export const getWinnerFromOracle = (matchId, gameType) => async (dispatch, getState) => {
+  const { contract, web3 } = getState().web3;
+  const { address } = getState().user;
+
+  try {
+    if (contract && web3 && address) {
+      const res = await contract.getMatchWinner(matchId, gameType, { from: address, value: web3.utils.toWei('0.5', 'ether') });
+      console.log(res);
+    } else {
+      throw new Error(`No contract or user found on ${getWinnerFromOracle.name}`);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
