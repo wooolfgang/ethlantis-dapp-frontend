@@ -3,10 +3,16 @@ import styled from 'styled-components';
 import { CONTRACT_DEPLOYED_SVG, USERS_TRANSACT_SVG, CONTRACT_VERIFIES_SVG, WINNERS_WITHDRAW_SVG } from '../../../assets/images';
 
 const StyledDiv = styled.div`
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  @media screen and (min-width: 700px) {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  @media screen and (max-width: 700px) {
+    display: inline-block;
+  }
 `;
 
 const Illustration = styled.div`

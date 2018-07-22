@@ -4,12 +4,26 @@ import Text from './banner/Text';
 import GamesCard from './banner/GamesCard';
 
 const StyledDiv = styled.div`
-  display: grid;
-  grid-template-areas: ". . . ." ". header banner ." ". . . .";
-  grid-template-columns: 180px 1fr 1fr 180px;
-  grid-template-rows: 20px 1fr 20px;
-  height: 55vh;
   background: ${props => props.theme.colorLight};
+`;
+
+const Container = styled.div`
+  display: grid;
+    @media screen and (min-width: 700px) {
+      grid-template-areas: 'header banner';
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr;
+      width: 80%;
+      height: 55vh;
+    }
+
+    @media screen and (max-width: 700px) {
+      grid-template-areas: 'header' 'banner';
+      grid-template-auto-columns: 1fr 1fr;
+      text-align: center;
+      width: 100%;
+    }
+  margin: auto;
 `;
 
 const TextArea = styled.div`
@@ -17,26 +31,35 @@ const TextArea = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media screen and (max-width: 700px) {
+    padding: 10px;
+    font-size: 0.8em;
+  }
 `;
 
 const GamesArea = styled.div`
   grid-area: banner;
-  display: flex;
-  flex-direction: column;  
-  width: 90%;
   height: 80%;
-  padding: 10px;
-  margin: auto;
+  
+  @media screen and (min-width: 700px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px;
+  }
 `;
 
 const GamesBanner = () => (
   <StyledDiv>
-    <TextArea >
-      <Text />
-    </TextArea>
-    <GamesArea>
-      <GamesCard />
-    </GamesArea>
+    <Container>
+      <TextArea >
+        <Text />
+      </TextArea>
+      <GamesArea>
+        <GamesCard />
+      </GamesArea>
+    </Container>
   </StyledDiv>
 );
 
