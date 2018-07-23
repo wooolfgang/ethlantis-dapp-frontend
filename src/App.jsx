@@ -8,6 +8,7 @@ import MatchesPage from './pages/Matches';
 import MatchPage from './pages/Match';
 import FetchNetworkStatus from './components/FetchNetworkStatus';
 import { getUserData } from './actions/userActions';
+import SigninForm from './components/SigninForm';
 
 let App = ({ web3, contract, getUserDataFunc }) => (
   <Router>
@@ -23,6 +24,7 @@ let App = ({ web3, contract, getUserDataFunc }) => (
       <Header />
       <main>
         <Route exact path="/" component={LandingPage} />
+        <Route path="/login" component={SigninForm} />
         <Route path="/admin" component={AdminPage} />
         <Route path="/matches" component={MatchesPage} />
         <Route path="/match/:id" component={MatchPage} />
