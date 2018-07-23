@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { DOTA_LOGO, CSGO_LOGO, LOL_LOGO, TSM, NAVI, LIQUID, FAZE } from '../../../assets/images';
-// import { DOTA_LOGO, CSGO_LOGO, LOL_LOGO, TEAM_A, TEAM_B, TEAM_C, TEAM_D }
-// from '../../../assets/images';
 import Card from '../../../components/Card';
 
 const StyledCard = styled(Card)`
