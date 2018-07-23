@@ -20,4 +20,9 @@ export const CSGO_ICON_FILTER = 'http://res.cloudinary.com/depjh17m6/image/uploa
 export const WAVES_SVG = 'http://res.cloudinary.com/depjh17m6/image/upload/v1527599821/Waves_khoguq.svg';
 export const LOADER = 'http://res.cloudinary.com/depjh17m6/image/upload/v1528123314/Circle-Ethlantis-loader_1_padw1x.gif';
 export const BACK_ARROW = 'http://res.cloudinary.com/depjh17m6/image/upload/v1528553029/Ethlantis/Arrow_Icons-03.svg';
+export const METAMASK = 'https://metamask.io/img/metamask.png';
 
+export const LIQUID = 'https://liquipedia.net/commons/images/thumb/0/07/Team_liquid_logo_2017.png/600px-Team_liquid_logo_2017.png';
+export const TSM = 'https://liquipedia.net/commons/images/thumb/2/20/TeamSoloMid.png/600px-TeamSoloMid.png';
+export const NAVI = 'https://liquipedia.net/commons/images/thumb/d/d6/Natus_Vincere.png/600px-Natus_Vincere.png';
+export const FAZE = 'https://liquipedia.net/commons/images/thumb/a/a4/FaZe_Clan.png/600px-FaZe_Clan.png';
