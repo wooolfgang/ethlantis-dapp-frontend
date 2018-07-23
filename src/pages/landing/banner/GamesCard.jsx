@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DOTA_LOGO, CSGO_LOGO, LOL_LOGO, TEAM_A, TEAM_B, TEAM_C, TEAM_D } from '../../../assets/images';
+import { DOTA_LOGO, CSGO_LOGO, LOL_LOGO, TSM, NAVI, LIQUID, FAZE } from '../../../assets/images';
+// import { DOTA_LOGO, CSGO_LOGO, LOL_LOGO, TEAM_A, TEAM_B, TEAM_C, TEAM_D }
+// from '../../../assets/images';
 import Card from '../../../components/Card';
 
 const StyledCard = styled(Card)`
@@ -75,10 +77,10 @@ const GamesCard = () => (
       />
     </Games>
     <Teams>
-      <Team image={TEAM_A} />
-      <Team image={TEAM_B} />
-      <Team image={TEAM_C} />
-      <Team image={TEAM_D} />
+      <Team image={TSM} />
+      <Team image={NAVI} />
+      <Team image={LIQUID} />
+      <Team image={FAZE} />
     </Teams>
   </StyledCard>
 );
