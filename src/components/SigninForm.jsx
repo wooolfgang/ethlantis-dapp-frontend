@@ -9,15 +9,15 @@ const StyledDiv = styled.div`
 
 const SigninFormContainer = styled.div`
   position: relative;
-  top: 50%;
+  top: 47.5%;
   transform: translateY(-50%);
   margin: 0 auto;
 
   @media screen and (min-width: 700px) {
-    width: 400px;
+    width: 450px;
     height: 500px;
     box-shadow: 0 10px 30px rgba(51, 51, 51, 0.1);
-    border-top: 5px solid #00a8ff;
+    border-top: 5px solid #3EA5C2;
     padding: 20px;
   }
 
@@ -59,14 +59,21 @@ const MetamaskLogo = styled.div`
 
 const TitleTextContainer = styled.div`
   grid-area: titleText;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 `;
 
-const Title = styled.p`
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0;
+const MainHeader = styled.p`
   font-size: 1.5em;
+  margin: 0;
+  margin-bottom: 5px;
+`;
+
+const SubHeader = styled.p`
+  margin: 0;
+  color: #7f7f7f;
 `;
 
 const FormContainer = styled.div`
@@ -76,12 +83,32 @@ const FormContainer = styled.div`
   flex-direction: column;
 `;
 
+const Label = styled.p`
+  font-size: 1em;
+  font-weight: 300;
+`;
+
 const StyledInput = styled.input`
   width: 100%;
   height: 20px;
   padding: 10px 5px;
   font-size: 0.9em;
   border: none;
+  background: #F7F7F7;
+  font-weight: 300;
+
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #b2b2b2;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: #b2b2b2;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: #b2b2b2;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: #b2b2b2;
+  }
 `;
 
 const TermsAndButtonContainer = styled.div`
@@ -98,22 +125,22 @@ const SigninForm = () => (
       <TitleContainer>
         <MetamaskLogo />
         <TitleTextContainer>
-          <Title>Signin with Metamask</Title>
+          <MainHeader>Let's get started.</MainHeader>
+          <SubHeader>Continue by signing in with metamask</SubHeader>
         </TitleTextContainer>
       </TitleContainer>
-      <hr />
       <FormContainer>
         <div>
-          <p>Address</p>
-          <StyledInput type="text" name="address" />
+          <Label>Address</Label>
+          <StyledInput type="text" name="address" placeholder="0x7031f0BAD732AA9984Fa2638..." />
         </div>
         <div>
-          <p>Email</p>
-          <StyledInput type="email" name="email" />
+          <Label>Email</Label>
+          <StyledInput type="email" name="email" placeholder="alice@gmail.com" />
         </div>
         <div>
-          <p>Username</p>
-          <StyledInput type="text" name="username" />
+          <Label>Username</Label>
+          <StyledInput type="text" name="username" placeholder="AliceX" />
         </div>
         <br />
         <TermsAndButtonContainer>
