@@ -6,13 +6,16 @@ const StyledDiv = styled.div`
   height: ${props => (props.height ? props.height : 'inherit')};
   padding: ${props => (props.padding ? props.padding : '0px')};
   box-shadow: 0 10px 30px rgba(51, 51, 51, .1);
-  ${props => (props.verticallyCentered ?
-    'position: relative; top: 50%; transform: translateY(-50%);' : '')};
+  display: ${props => props.display && props.display};
+  flex-direction: ${props => props.flexDirection && props.flexDirection};
+  justify-content: ${props => props.justifyContent && props.justifyContent};
+  align-items: ${props => props.alignItems && props.alignItems};
 `;
 
 const Card = (props) => {
   const {
-    width, height, padding, verticallyCentered, children,
+    width, height, padding, children, flexDirection,
+    display, justifyContent, alignItems,
   } = props;
 
   return (
@@ -20,7 +23,10 @@ const Card = (props) => {
       width={width}
       height={height}
       padding={padding}
-      verticallyCentered={verticallyCentered}
+      flexDirection={flexDirection}
+      display={display}
+      justifyContent={justifyContent}
+      alignItems={alignItems}
     >
       {children}
     </StyledDiv>

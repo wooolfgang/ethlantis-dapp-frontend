@@ -19,19 +19,19 @@ const StyledNav = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  transition-duration: 0.2s;
-  font-weight: 500;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,  box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  padding: 8px 6px;
+  border-radius: 3px;
 
   &:hover {
-    transform: scale(1.1);
-    transiton-duration: 0.2s;
+    background: rgba(0, 0, 0, .1);
   }
 `;
 
 const Nav = () => (
   <StyledNav >
-    <StyledLink to="/matches" href="/" > Matches </StyledLink> |
-    <StyledLink to="/faq" href="/"> Faq </StyledLink> |
+    <StyledLink to="/matches" href="/" > Matches </StyledLink>
+    <StyledLink to="/faq" href="/"> Faq </StyledLink>
     <StyledLink to="/login" href="/"> Login </StyledLink>
   </StyledNav >
 );

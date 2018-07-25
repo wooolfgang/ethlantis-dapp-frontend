@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DOTA_LOGO, CSGO_LOGO, LOL_LOGO, TSM, NAVI, LIQUID, FAZE } from '../../../assets/images';
+import { DOTA_LOGO, CSGO_LOGO, LOL_LOGO, NAVI, LIQUID, FAZE, TSM } from '../../../assets/images';
 import Card from '../../../components/Card';
 
 const StyledCard = styled(Card)`
+
   @media screen and (min-width: 700px) {
     width: 100%;
     
@@ -56,7 +57,14 @@ const mobileSizes = {
 };
 
 const GamesCard = () => (
-  <StyledCard padding="20px 20px 40px 20px" height="auto" verticallyCentered>
+  <StyledCard
+    padding="20px 20px 40px 20px"
+    height="225px"
+    display="flex"
+    flexDirection="column"
+    justifyContent="center"
+    alignItems="space-around"
+  >
     <Games>
       <Game
         image={LOL_LOGO}
@@ -80,7 +88,7 @@ const GamesCard = () => (
       <Team image={LIQUID} />
       <Team image={FAZE} />
     </Teams>
-  </StyledCard>
+  </StyledCard >
 );
 
 export default GamesCard;

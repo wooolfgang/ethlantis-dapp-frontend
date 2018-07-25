@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
 
 const Top = styled.div`
   height: 130px;
-  background: #f4f7f6;
+  background: #f1f9fa;
   display: grid;
   grid-template-areas: 
   '. left right .';

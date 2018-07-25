@@ -105,15 +105,15 @@ const SigninForm = () => (
       <FormContainer>
         <div>
           <p>Address</p>
-          <StyledInput type="text" disabled name="address" />
+          <StyledInput type="text" name="address" />
         </div>
         <div>
           <p>Email</p>
-          <StyledInput type="email" disabled name="email" />
+          <StyledInput type="email" name="email" />
         </div>
         <div>
           <p>Username</p>
-          <StyledInput type="text" disabled name="username" />
+          <StyledInput type="text" name="username" />
         </div>
         <br />
         <TermsAndButtonContainer>

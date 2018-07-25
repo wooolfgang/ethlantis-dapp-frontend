@@ -5,15 +5,16 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid lightgray;
+  border-radius: 2px;
   margin: 0px 5px;
   width: 100px;
   height: 40px;
-  transition: box-shadow .3s ease,opacity .3s ease,-webkit-transform .3s ease;
   cursor: pointer;
+  transition: 100ms cubic-bezier(0.1, 0.7, 1.0, 0.1);
+  background-color: #d7eff2;
 
   :hover {
-    box-shadow: .5px .5px 1px 1px ${props => props.theme.colorSecondary};
+    background-color: #bee6e9;
   }
 `;
 

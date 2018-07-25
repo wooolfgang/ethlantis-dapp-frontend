@@ -9,6 +9,8 @@ const StyledDiv = styled.div`
 
 const Container = styled.div`
   display: grid;
+  margin: auto;
+
     @media screen and (min-width: 700px) {
       grid-template-areas: 'header banner';
       grid-template-columns: 1fr 1fr;
@@ -23,7 +25,6 @@ const Container = styled.div`
       text-align: center;
       width: 100%;
     }
-  margin: auto;
 `;
 
 const TextArea = styled.div`
@@ -43,6 +44,7 @@ const GamesArea = styled.div`
   height: 80%;
   
   @media screen and (min-width: 700px) {
+    margin: auto;
     display: flex;
     flex-direction: column;
     width: 100%;
