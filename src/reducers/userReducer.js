@@ -4,6 +4,8 @@ const initialState = {
   address: null,
   isOwner: false,
   balance: null,
+  user: null,
+  authenticated: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -19,6 +21,13 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         balance: action.balance,
+      };
+
+    case types.SET_AUTHENTICATED_USER:
+      return {
+        ...state,
+        user: action.payload,
+        authenticated: true,
       };
 
     default:

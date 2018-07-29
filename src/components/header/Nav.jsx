@@ -28,11 +28,11 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Nav = () => (
+const Nav = ({ authenticated }) => (
   <StyledNav >
     <StyledLink to="/matches" href="/" > Matches </StyledLink>
     <StyledLink to="/faq" href="/"> Faq </StyledLink>
-    <StyledLink to="/login" href="/"> Login </StyledLink>
+    <StyledLink to="/login" href="/"> {authenticated ? 'Profile' : 'Login'} </StyledLink>
   </StyledNav >
 );
 

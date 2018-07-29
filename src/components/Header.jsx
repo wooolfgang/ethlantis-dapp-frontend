@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Logo from './header//Logo';
-import Nav from './header//Nav';
+import Logo from './header/Logo';
+import Nav from './header/Nav';
 
 const StyledHeader = styled.nav`
   display: grid;
@@ -22,13 +23,17 @@ const Flex = styled.div`
   justify-content: space-between;
 `;
 
-const Header = () => (
+const Header = ({ authenticated }) => (
   <StyledHeader>
     <Flex>
       <Logo />
-      <Nav />
+      <Nav authenticated={authenticated} />
     </Flex>
   </StyledHeader>
 );
 
-export default Header;
+const mapStateToProps = state => ({
+  authenticated: state.user.authenticated,
+});
+
+export default connect(mapStateToProps, null)(Header);
