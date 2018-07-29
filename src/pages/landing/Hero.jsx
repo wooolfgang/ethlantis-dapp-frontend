@@ -36,9 +36,17 @@ const SubHeader = styled.p`
 
 const Waves = styled.img`
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
   z-index: -1;
   width: 100%;
+`;
+
+const Background = styled.div`
+  height: 10px;
+  width: 100%;
+  background: #f6f9fc;
+  position: absolute;
+  bottom: -5px;
 `;
 
 const Hero = () => (
@@ -47,12 +55,13 @@ const Hero = () => (
       <Header> A trustless esports betting platform </Header>
       <SubHeader> Instant withdrawals. Minimal 3% rake. No sign-up required. </SubHeader>
       <Link to="/matches" href="/" >
-        <Button type="inverted">
+        <Button type="glow" padding="15px 25px">
           Get Started
         </Button>
       </Link>
     </Box>
     <Waves src={WAVES_SVG} alt="waves" />
+    <Background />
   </StyledDiv >
 );
 
