@@ -9,12 +9,19 @@ const StyledDiv = styled.div`
 `;
 
 const Top = styled.div`
-  height: 130px;
   background: #f1f9fa;
   display: grid;
-  grid-template-areas: 
-  '. left right .';
-  grid-template-columns: 125px 1fr 1fr 125px;
+  grid-area: top;
+  
+  @media screen and (min-width: 700px) {
+    grid-template-areas: '. left right';
+    grid-template-columns: 125px 1fr 1fr 125px;
+  }
+
+  @media screen and (max-width: 700px) {
+    grid-template-areas: 'left' 'right';
+  }
+  
   border-bottom: 1px solid hsl(0, 0%, 93.3%);
 `;
 

@@ -9,6 +9,7 @@ const StyledDiv = styled.div`
   box-sizing: border-box;
   align-items: center;
   justify-content: space-around;
+  margin: 0 auto;
 `;
 
 const NetworkStatus = ({ children }) => (

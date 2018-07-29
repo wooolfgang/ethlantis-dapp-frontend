@@ -6,23 +6,21 @@ import Badge from '../../components/Badge';
 const StyledDiv = styled.div`
   grid-area: right;
   display: grid;
-  grid-template-areas: 
-  '. .'
-  '. login'
-  '. .'
-  '. badge'
-  '. .'
-  ;  
-  grid-template-columns: 1fr 400px;
-  grid-template-rows: 15px auto 5px auto 15px;
+  margin: 20px 0;
+  grid-gap: 10px;
+  grid-template-areas: 'login' 'badge';
 `;
 
 const NetworkStatusWrapper = styled.div`
   grid-area: login;
+  margin: 0 auto;
+  width: 100%;
 `;
 
 const BadgeWrapper = styled.div`
   grid-area: badge;
+  display: block;
+  margin: auto;
 `;
 
 const AccountInfoSection = () => (

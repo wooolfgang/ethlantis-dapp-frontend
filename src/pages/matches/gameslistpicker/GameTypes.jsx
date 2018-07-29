@@ -4,7 +4,7 @@ import GameType from './GameType';
 
 const StyledDiv = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
 `;
 
