@@ -7,12 +7,18 @@ import Background from './Background';
 import Link from '../../../../components/Link';
 
 const StyledDiv = styled.div` 
-  width: 100%;
+  width: 300px;
   height: 275px;
   border-radius: 2px;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
   box-sizing: border-box;
   transition: 200ms;
+  display: inline-block;
+  margin: 25px;
+
+  @media screen and (max-width: 700px) {
+    width: 250px;
+  }
 
   :hover {
     transform: translateY(-2px);

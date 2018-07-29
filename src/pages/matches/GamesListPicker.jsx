@@ -5,15 +5,8 @@ import { LOL_ICON_FILTER, DOTA_ICON_FILTER, CSGO_ICON_FILTER } from '../../asset
 
 const StyledDiv = styled.div`
   grid-area: left;
-  display: grid;
-  grid-template-areas: 
-  '.'
-  'header'
-  '.'
-  'games'
-  '.';
-  grid-template-rows: 15px 35px 10px 40px 10px ;
-  grid-template-columns: 500px;
+  height: 130px;
+  margin-top: 10px;
 `;
 
 const Header = styled.h2`
@@ -23,7 +16,9 @@ const Header = styled.h2`
   font-weight: 300;
   border-bottom: 1px solid lightgray;
   transition-duration: 200ms;
-  margin: 0px;
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
 
   :hover {
     opacity: 0.8;
@@ -31,7 +26,8 @@ const Header = styled.h2`
 `;
 
 const GameTypesWrapper = styled.div`
-  grid-area: games;
+  margin: 20px auto 0 auto;
+  width: 90%;
 `;
 
 const games = [

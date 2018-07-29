@@ -4,24 +4,15 @@ import styled from 'styled-components';
 import MatchListContainer from './matchessection/MatchListContainer';
 
 const StyledDiv = styled.div`
+  grid-area: matches;
   background: ${props => props.theme.colorLight};
-  min-height: calc(100vh - 194px);
-  display: grid;
-  grid-template-areas: 
-  '. . .'
-  '. matches .'
-  '. . .'
-  ;
-  grid-template-rows: 30px 1fr 30px;
-  grid-template-columns: 1fr 85vw 1fr;
 `;
 
 const MatchListGrid = styled.div`
   grid-area: matches;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 27.5px 30px;
-  position: relative;
+  width: 100%;
+  margin: auto;
+  text-align: center;
 `;
 
 let MatchesSection = ({ contract, web3 }) => (
