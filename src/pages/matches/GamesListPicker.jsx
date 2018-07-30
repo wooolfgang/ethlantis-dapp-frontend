@@ -17,17 +17,18 @@ const Header = styled.h2`
   border-bottom: 1px solid lightgray;
   transition-duration: 200ms;
   margin: 0 auto;
-  width: 80%;
-  text-align: center;
 
   :hover {
     opacity: 0.8;
+  }
+
+  @media screen and (max-width: 700px) {
+    text-align: center;
   }
 `;
 
 const GameTypesWrapper = styled.div`
   margin: 20px auto 0 auto;
-  width: 90%;
 `;
 
 const games = [

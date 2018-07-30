@@ -14,8 +14,9 @@ const Top = styled.div`
   grid-area: top;
   
   @media screen and (min-width: 700px) {
-    grid-template-areas: '. left right';
-    grid-template-columns: 125px 1fr 1fr 125px;
+    grid-template-areas: 'left . right';
+    grid-template-columns: 2fr 3fr 2fr;
+    padding: 0 50px;
   }
 
   @media screen and (max-width: 700px) {
