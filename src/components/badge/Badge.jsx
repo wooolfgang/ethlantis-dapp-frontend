@@ -33,18 +33,17 @@ const Id = styled.span`
 
 const Avatar = styled.div`
   grid-area: avatar;
-  width: 60px;
-  height: 100%;
-  border: 1px solid lightgray;
-  border-radius: 50%;
   margin: 0 auto;
+  width: 52px;
+  height: 52px;
+  border: 1px solid lightgray;
 `;
 
 const Badge = ({ address }) => (
   <StyledDiv>
     <Id> {address} </Id>
     <Avatar>
-      <Blockies seed={address} size={15} />
+      {address && <Blockies seed={address} size={13} />}
     </Avatar>
   </StyledDiv>
 );

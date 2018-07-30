@@ -5,7 +5,6 @@ import MatchListContainer from './matchessection/MatchListContainer';
 
 const StyledDiv = styled.div`
   grid-area: matches;
-  background: ${props => props.theme.colorLight};
 `;
 
 const MatchListGrid = styled.div`
