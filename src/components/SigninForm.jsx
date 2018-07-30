@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { METAMASK } from '../assets/images';
 import Button from './Button';
+import { signup } from '../actions/authActions';
 
 const StyledDiv = styled.div`
   height: calc(100vh - 64px);
@@ -63,6 +65,10 @@ const TitleTextContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+
+   @media screen and (max-width: 700px) {
+     align-items: center;
+  }
 `;
 
 const MainHeader = styled.p`
@@ -119,38 +125,97 @@ const TermsAndButtonContainer = styled.div`
   margin-bottom: 10px;
 `;
 
-const SigninForm = () => (
-  <StyledDiv>
-    <SigninFormContainer>
-      <TitleContainer>
-        <MetamaskLogo />
-        <TitleTextContainer>
-          <MainHeader>Let's get started.</MainHeader>
-          <SubHeader>Continue by signing in with metamask</SubHeader>
-        </TitleTextContainer>
-      </TitleContainer>
-      <FormContainer>
-        <div>
-          <Label>Address</Label>
-          <StyledInput type="text" name="address" placeholder="0x7031f0BAD732AA9984Fa2638..." />
-        </div>
-        <div>
-          <Label>Email</Label>
-          <StyledInput type="email" name="email" placeholder="alice@gmail.com" />
-        </div>
-        <div>
-          <Label>Username</Label>
-          <StyledInput type="text" name="username" placeholder="AliceX" />
-        </div>
-        <br />
-        <TermsAndButtonContainer>
-          <input type="checkbox" name="agree" />
-          <span>Agree to the terms & agreements</span>
-        </TermsAndButtonContainer>
-        <Button type="secondary">Signin</Button>
-      </FormContainer>
-    </SigninFormContainer>
-  </StyledDiv>
-);
 
-export default SigninForm;
+class SigninForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: null,
+      username: null,
+    };
+
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
+  }
+
+  handleEmailChange(e) {
+    this.setState({ email: e.target.value });
+  }
+
+  handleUsernameChange(e) {
+    this.setState({ username: e.target.value });
+  }
+
+  handleSignup() {
+    const { handleSignup } = this.props;
+    const { email, username } = this.state;
+    handleSignup(email, username);
+  }
+
+  render() {
+    const { email, username } = this.state;
+    const { publicAddress } = this.props;
+
+    return (
+      <StyledDiv>
+        <SigninFormContainer>
+          <TitleContainer>
+            <MetamaskLogo />
+            <TitleTextContainer>
+              <MainHeader>Let's get started.</MainHeader>
+              <SubHeader>Continue by signing in with metamask</SubHeader>
+            </TitleTextContainer>
+          </TitleContainer>
+          <FormContainer>
+            <div>
+              <Label>Address</Label>
+              <StyledInput
+                type="text"
+                name="address"
+                value={publicAddress || undefined}
+                disabled
+              />
+            </div>
+            <div>
+              <Label>Email</Label>
+              <StyledInput
+                type="email"
+                name="email"
+                placeholder="alice@gmail.com"
+                onChange={this.handleEmailChange}
+                value={email}
+              />
+            </div>
+            <div>
+              <Label>Username</Label>
+              <StyledInput
+                type="text"
+                name="username"
+                placeholder="AliceX"
+                onChange={this.handleUsernameChange}
+                value={username}
+              />
+            </div>
+            <br />
+            <TermsAndButtonContainer>
+              <input type="checkbox" name="agree" />
+              <span>Agree to the terms & agreements</span>
+            </TermsAndButtonContainer>
+            <Button type="secondary" onClick={this.handleSignup}>Signin</Button>
+          </FormContainer>
+        </SigninFormContainer>
+      </StyledDiv>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  publicAddress: state.user.address,
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleSignup: (email, username) => dispatch(signup(email, username)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SigninForm);

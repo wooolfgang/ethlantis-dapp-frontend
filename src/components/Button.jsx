@@ -31,6 +31,14 @@ const Inverted = Primary.extend`
   border: 1px solid white;
 `;
 
+const Glow = Primary.extend`
+  color: white;
+  border: none;
+  box-shadow:  0px 0px 40px ${props => props.theme.colorTertiary};
+  background-color: ${props => props.theme.colorTertiary}; 
+  -webkit-box-shadow: 0 0 40px ${props => props.theme.colorTertiary}; 
+`;
+
 const Button = ({
   type, children, onClick, padding, disabled,
 }) => {
@@ -54,6 +62,8 @@ const Button = ({
         return render(Secondary);
       case 'inverted':
         return render(Inverted);
+      case 'glow':
+        return render(Glow);
       default:
         return render(Primary);
     }
