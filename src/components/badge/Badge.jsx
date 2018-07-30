@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Blockies from 'react-blockies';
 
 const StyledDiv = styled.div`
   display: grid;
@@ -42,7 +43,9 @@ const Avatar = styled.div`
 const Badge = ({ address }) => (
   <StyledDiv>
     <Id> {address} </Id>
-    <Avatar />
+    <Avatar>
+      <Blockies seed={address} size={15} />
+    </Avatar>
   </StyledDiv>
 );
 
